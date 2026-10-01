@@ -1,0 +1,45 @@
+newman
+
+Open BreweryDB - Rendimiento
+
+□ TC-REN-002
+└ TC-REN-002 - Latencia de búsqueda
+  GET https://api.openbrewerydb.org/v1/breweries/search?query=san [200 OK, 23.1kB, 615ms]
+  √  TC-REN-002 | HTTP 200 OK
+  √  TC-REN-002 | Response Time menor a 1500 ms
+  √  TC-REN-002 | Response Time válido
+  √  TC-REN-002 | Content-Type JSON
+  √  TC-REN-002 | La respuesta contiene JSON válido
+  √  TC-REN-002 | La búsqueda retorna un arreglo JSON
+  ┌
+  │ 'TC-REN-002 | Query:', 'san'
+  │ 'TC-REN-002 | Response Time:', 615, 'ms'
+  │ 'TC-REN-002 | Umbral:', '< 1500 ms'
+  │ 'TC-REN-002 | Cumple:', true
+  │ 'TC-REN-002 | HTTP:', 200
+  │ 'TC-REN-002 | Response Size:', 21738, 'bytes'
+  │ 'TC-REN-002 | Cantidad de resultados:', 50
+  │ 'TC-REN-002 | URL:', 'https://api.openbrewerydb.org/v1
+  │ /breweries/search?query=san'
+  │ 'TC-REN-002 | Fecha/hora:', '2026-10-01T07:13:33.246Z'
+  └
+
+┌─────────────────────────┬────────────────────┬───────────────────┐
+│                         │           executed │            failed │
+├─────────────────────────┼────────────────────┼───────────────────┤
+│              iterations │                  1 │                 0 │
+├─────────────────────────┼────────────────────┼───────────────────┤
+│                requests │                  1 │                 0 │
+├─────────────────────────┼────────────────────┼───────────────────┤
+│            test-scripts │                  1 │                 0 │
+├─────────────────────────┼────────────────────┼───────────────────┤
+│      prerequest-scripts │                  0 │                 0 │
+├─────────────────────────┼────────────────────┼───────────────────┤
+│              assertions │                  6 │                 0 │
+├─────────────────────────┴────────────────────┴───────────────────┤
+│ total run duration: 726ms                                        │
+├──────────────────────────────────────────────────────────────────┤
+│ total data received: 21.74kB (approx)                            │
+├──────────────────────────────────────────────────────────────────┤
+│ average response time: 615ms [min: 615ms, max: 615ms, s.d.: 0µs] │
+└──────────────────────────────────────────────────────────────────┘

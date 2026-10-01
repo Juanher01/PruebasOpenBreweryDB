@@ -1,0 +1,34 @@
+{
+  "Total" : {
+    "transaction" : "Total",
+    "sampleCount" : 6610,
+    "errorCount" : 0,
+    "errorPct" : 0.0,
+    "meanResTime" : 90.56596066565814,
+    "medianResTime" : 90.0,
+    "minResTime" : 80.0,
+    "maxResTime" : 630.0,
+    "pct1ResTime" : 94.0,
+    "pct2ResTime" : 95.0,
+    "pct3ResTime" : 98.0,
+    "throughput" : 110.19788940199723,
+    "receivedKBytesPerSec" : 2387.1225590740296,
+    "sentKBytesPerSec" : 14.097581554357069
+  },
+  "TC-REN-005 - GET breweries" : {
+    "transaction" : "TC-REN-005 - GET breweries",
+    "sampleCount" : 6610,
+    "errorCount" : 0,
+    "errorPct" : 0.0,
+    "meanResTime" : 90.56596066565814,
+    "medianResTime" : 90.0,
+    "minResTime" : 80.0,
+    "maxResTime" : 630.0,
+    "pct1ResTime" : 94.0,
+    "pct2ResTime" : 95.0,
+    "pct3ResTime" : 98.0,
+    "throughput" : 110.19788940199723,
+    "receivedKBytesPerSec" : 2387.1225590740296,
+    "sentKBytesPerSec" : 14.097581554357069
+  }
+}

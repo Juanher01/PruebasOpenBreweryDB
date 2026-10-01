@@ -1,0 +1,883 @@
+{
+  "collection": {
+    "_": {
+      "postman_id": "b1e8f4a7-2c9d-4a6b-9e65-tcren003col"
+    },
+    "item": [
+      {
+        "id": "c00ce8e1-cc69-467a-a772-8a3a958da8fa",
+        "name": "TC-REN-003",
+        "item": [
+          {
+            "id": "cb51dd5f-0ce4-4a89-a356-f1362cc7848e",
+            "name": "TC-REN-003 - Estabilidad bajo repetición",
+            "request": {
+              "url": {
+                "path": [
+                  "breweries",
+                  "random"
+                ],
+                "host": [
+                  "{{base_url}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "method": "GET"
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "bf6b6504-24f8-4d82-9b33-f1981eed0712",
+                  "type": "text/javascript",
+                  "exec": [
+                    "// TC-REN-003 - Estabilidad bajo repetición (misma request en cada iteración, secuencial)",
+                    "pm.test(\"TC-REN-003 | HTTP 200 OK\", function () {",
+                    "    pm.response.to.have.status(200);",
+                    "});",
+                    "",
+                    "// Sin umbral individual de latencia: el caso no lo define",
+                    "pm.test(\"TC-REN-003 | Response Time válido\", function () {",
+                    "    pm.expect(pm.response.responseTime).to.be.a(\"number\");",
+                    "    pm.expect(pm.response.responseTime).to.be.at.least(0);",
+                    "});",
+                    "",
+                    "// Validaciones auxiliares (no son criterios de rendimiento; no se valida objeto/arreglo)",
+                    "pm.test(\"TC-REN-003 | Content-Type JSON\", function () {",
+                    "    pm.expect(pm.response.headers.get(\"Content-Type\"))",
+                    "        .to.include(\"application/json\");",
+                    "});",
+                    "",
+                    "pm.test(\"TC-REN-003 | Respuesta JSON válida\", function () {",
+                    "    pm.expect(function () {",
+                    "        pm.response.json();",
+                    "    }).to.not.throw();",
+                    "});",
+                    "",
+                    "// Diagnóstico por iteración",
+                    "console.log(",
+                    "    \"TC-REN-003 | Iteración:\",",
+                    "    pm.info.iteration + 1",
+                    ");",
+                    "",
+                    "console.log(",
+                    "    \"TC-REN-003 | HTTP:\",",
+                    "    pm.response.code",
+                    ");",
+                    "",
+                    "console.log(",
+                    "    \"TC-REN-003 | Response Time:\",",
+                    "    pm.response.responseTime,",
+                    "    \"ms\"",
+                    ");",
+                    "",
+                    "console.log(",
+                    "    \"TC-REN-003 | Response Size:\",",
+                    "    pm.response.responseSize,",
+                    "    \"bytes\"",
+                    ");"
+                  ],
+                  "_lastExecutionId": "4a025f7a-c65c-42b9-a272-4f4974616a77"
+                }
+              }
+            ]
+          }
+        ],
+        "event": []
+      }
+    ],
+    "event": [],
+    "variable": [],
+    "info": {
+      "_postman_id": "b1e8f4a7-2c9d-4a6b-9e65-tcren003col",
+      "name": "Open BreweryDB - Rendimiento",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    }
+  },
+  "environment": {
+    "_": {
+      "postman_variable_scope": "environment"
+    },
+    "id": "a0d7e3f6-1b8c-4f5a-8d54-tcren003env",
+    "name": "OpenBreweryDB",
+    "values": [
+      {
+        "type": "any",
+        "value": "https://api.openbrewerydb.org/v1",
+        "key": "base_url"
+      }
+    ]
+  },
+  "globals": {
+    "id": "517b22eb-4618-4160-a905-680c99a19e7d",
+    "values": []
+  },
+  "run": {
+    "stats": {
+      "iterations": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "items": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "scripts": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequests": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "requests": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "tests": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "assertions": {
+        "total": 4,
+        "pending": 0,
+        "failed": 0
+      },
+      "testScripts": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequestScripts": {
+        "total": 0,
+        "pending": 0,
+        "failed": 0
+      }
+    },
+    "timings": {
+      "responseAverage": 784,
+      "responseMin": 784,
+      "responseMax": 784,
+      "responseSd": 0,
+      "dnsAverage": 0,
+      "dnsMin": 0,
+      "dnsMax": 0,
+      "dnsSd": 0,
+      "firstByteAverage": 0,
+      "firstByteMin": 0,
+      "firstByteMax": 0,
+      "firstByteSd": 0,
+      "started": 1790839020049,
+      "completed": 1790839020934
+    },
+    "executions": [
+      {
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 1,
+          "cycles": 1,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "d64d147f-f797-4457-a706-5ddb22cda153",
+          "httpRequestId": "2354efa7-3a11-4d9c-98bf-b19877ad9532"
+        },
+        "item": {
+          "id": "cb51dd5f-0ce4-4a89-a356-f1362cc7848e",
+          "name": "TC-REN-003 - Estabilidad bajo repetición",
+          "request": {
+            "url": {
+              "path": [
+                "breweries",
+                "random"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "bf6b6504-24f8-4d82-9b33-f1981eed0712",
+                "type": "text/javascript",
+                "exec": [
+                  "// TC-REN-003 - Estabilidad bajo repetición (misma request en cada iteración, secuencial)",
+                  "pm.test(\"TC-REN-003 | HTTP 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "// Sin umbral individual de latencia: el caso no lo define",
+                  "pm.test(\"TC-REN-003 | Response Time válido\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.a(\"number\");",
+                  "    pm.expect(pm.response.responseTime).to.be.at.least(0);",
+                  "});",
+                  "",
+                  "// Validaciones auxiliares (no son criterios de rendimiento; no se valida objeto/arreglo)",
+                  "pm.test(\"TC-REN-003 | Content-Type JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\"))",
+                  "        .to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"TC-REN-003 | Respuesta JSON válida\", function () {",
+                  "    pm.expect(function () {",
+                  "        pm.response.json();",
+                  "    }).to.not.throw();",
+                  "});",
+                  "",
+                  "// Diagnóstico por iteración",
+                  "console.log(",
+                  "    \"TC-REN-003 | Iteración:\",",
+                  "    pm.info.iteration + 1",
+                  ");",
+                  "",
+                  "console.log(",
+                  "    \"TC-REN-003 | HTTP:\",",
+                  "    pm.response.code",
+                  ");",
+                  "",
+                  "console.log(",
+                  "    \"TC-REN-003 | Response Time:\",",
+                  "    pm.response.responseTime,",
+                  "    \"ms\"",
+                  ");",
+                  "",
+                  "console.log(",
+                  "    \"TC-REN-003 | Response Size:\",",
+                  "    pm.response.responseSize,",
+                  "    \"bytes\"",
+                  ");"
+                ],
+                "_lastExecutionId": "4a025f7a-c65c-42b9-a272-4f4974616a77"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "https",
+            "path": [
+              "v1",
+              "breweries",
+              "random"
+            ],
+            "host": [
+              "api",
+              "openbrewerydb",
+              "org"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "80487157-0e02-42d6-a91d-826c223f384b",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "api.openbrewerydb.org",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "2c678b94-3a5a-45cd-bf20-000acc3c2fc9",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Date",
+              "value": "Thu, 01 Oct 2026 07:17:01 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Server",
+              "value": "cloudflare"
+            },
+            {
+              "key": "vary",
+              "value": "Accept-Encoding,Origin"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, private"
+            },
+            {
+              "key": "x-ratelimit-limit",
+              "value": "120"
+            },
+            {
+              "key": "x-ratelimit-remaining",
+              "value": "101"
+            },
+            {
+              "key": "x-frame-options",
+              "value": "SAMEORIGIN"
+            },
+            {
+              "key": "x-content-type-options",
+              "value": "nosniff"
+            },
+            {
+              "key": "referrer-policy",
+              "value": "strict-origin-when-cross-origin"
+            },
+            {
+              "key": "strict-transport-security",
+              "value": "max-age=31536000; includeSubDomains"
+            },
+            {
+              "key": "Content-Encoding",
+              "value": "gzip"
+            },
+            {
+              "key": "set-cookie",
+              "value": "__cf_bm=5k3GU3KI319.RhONDQ3Hzf58hsbUD.U4zOBTaGdsr9c-1790839021.2261014-1.0.1.1-WI3ipAeklZIzQnqTXFASr1kUpiILPV4HA1rKcpQlYIAPumq3.03GUJ0KtECQqb.A7ZvP77NkhoWsYH2CRjzx_EQzbOfT23L7Ynjox_RCL3wn7T1JEyFE5_xuNLDS11kC; HttpOnly; SameSite=None; Secure; Path=/; Domain=api.openbrewerydb.org; Expires=Thu, 01 Oct 2026 07:47:01 GMT"
+            },
+            {
+              "key": "x-do-app-origin",
+              "value": "67ba9744-8641-488d-8d6d-ec79fa2d19d8"
+            },
+            {
+              "key": "x-do-orig-status",
+              "value": "200"
+            },
+            {
+              "key": "cf-cache-status",
+              "value": "DYNAMIC"
+            },
+            {
+              "key": "Nel",
+              "value": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+            },
+            {
+              "key": "Report-To",
+              "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=MJYG6xZYjzfAKzQk2wasnclAaZtgPGvvqChzbgxTcYvbojZ83bPV%2FGVb9nltusbLrfnbQsMG33Ov%2Fqr1oetOeZAhr8xTn%2FDOXXjeR0rJMw8hIFFk1tIVGbt4sgKoqzwCFFEnLddqXVI%3D\"}]}"
+            },
+            {
+              "key": "CF-RAY",
+              "value": "a439af6a9840ddd5-MIA"
+            },
+            {
+              "key": "alt-svc",
+              "value": "h3=\":443\"; ma=86400"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              91,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              34,
+              51,
+              53,
+              56,
+              55,
+              101,
+              57,
+              50,
+              97,
+              45,
+              99,
+              51,
+              52,
+              50,
+              45,
+              52,
+              101,
+              97,
+              101,
+              45,
+              56,
+              50,
+              49,
+              50,
+              45,
+              54,
+              98,
+              51,
+              50,
+              52,
+              102,
+              48,
+              50,
+              100,
+              57,
+              48,
+              51,
+              34,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              68,
+              117,
+              110,
+              97,
+              103,
+              97,
+              110,
+              32,
+              73,
+              114,
+              105,
+              115,
+              104,
+              32,
+              80,
+              117,
+              98,
+              32,
+              38,
+              32,
+              66,
+              114,
+              101,
+              119,
+              101,
+              114,
+              121,
+              34,
+              44,
+              34,
+              98,
+              114,
+              101,
+              119,
+              101,
+              114,
+              121,
+              95,
+              116,
+              121,
+              112,
+              101,
+              34,
+              58,
+              34,
+              98,
+              114,
+              101,
+              119,
+              112,
+              117,
+              98,
+              34,
+              44,
+              34,
+              97,
+              100,
+              100,
+              114,
+              101,
+              115,
+              115,
+              95,
+              49,
+              34,
+              58,
+              34,
+              51,
+              50,
+              50,
+              50,
+              32,
+              53,
+              54,
+              116,
+              104,
+              32,
+              83,
+              116,
+              34,
+              44,
+              34,
+              97,
+              100,
+              100,
+              114,
+              101,
+              115,
+              115,
+              95,
+              50,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              44,
+              34,
+              97,
+              100,
+              100,
+              114,
+              101,
+              115,
+              115,
+              95,
+              51,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              44,
+              34,
+              99,
+              105,
+              116,
+              121,
+              34,
+              58,
+              34,
+              71,
+              105,
+              103,
+              32,
+              72,
+              97,
+              114,
+              98,
+              111,
+              114,
+              34,
+              44,
+              34,
+              115,
+              116,
+              97,
+              116,
+              101,
+              95,
+              112,
+              114,
+              111,
+              118,
+              105,
+              110,
+              99,
+              101,
+              34,
+              58,
+              34,
+              87,
+              97,
+              115,
+              104,
+              105,
+              110,
+              103,
+              116,
+              111,
+              110,
+              34,
+              44,
+              34,
+              112,
+              111,
+              115,
+              116,
+              97,
+              108,
+              95,
+              99,
+              111,
+              100,
+              101,
+              34,
+              58,
+              34,
+              57,
+              56,
+              51,
+              51,
+              53,
+              45,
+              49,
+              51,
+              53,
+              57,
+              34,
+              44,
+              34,
+              99,
+              111,
+              117,
+              110,
+              116,
+              114,
+              121,
+              34,
+              58,
+              34,
+              85,
+              110,
+              105,
+              116,
+              101,
+              100,
+              32,
+              83,
+              116,
+              97,
+              116,
+              101,
+              115,
+              34,
+              44,
+              34,
+              108,
+              111,
+              110,
+              103,
+              105,
+              116,
+              117,
+              100,
+              101,
+              34,
+              58,
+              45,
+              49,
+              50,
+              50,
+              46,
+              52,
+              51,
+              57,
+              52,
+              50,
+              52,
+              54,
+              44,
+              34,
+              108,
+              97,
+              116,
+              105,
+              116,
+              117,
+              100,
+              101,
+              34,
+              58,
+              52,
+              55,
+              46,
+              50,
+              53,
+              50,
+              57,
+              50,
+              52,
+              53,
+              52,
+              44,
+              34,
+              112,
+              104,
+              111,
+              110,
+              101,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              44,
+              34,
+              119,
+              101,
+              98,
+              115,
+              105,
+              116,
+              101,
+              95,
+              117,
+              114,
+              108,
+              34,
+              58,
+              34,
+              104,
+              116,
+              116,
+              112,
+              58,
+              92,
+              47,
+              92,
+              47,
+              119,
+              119,
+              119,
+              46,
+              100,
+              117,
+              110,
+              97,
+              103,
+              97,
+              110,
+              98,
+              114,
+              101,
+              119,
+              105,
+              110,
+              103,
+              46,
+              99,
+              111,
+              109,
+              34,
+              44,
+              34,
+              115,
+              116,
+              97,
+              116,
+              101,
+              34,
+              58,
+              34,
+              87,
+              97,
+              115,
+              104,
+              105,
+              110,
+              103,
+              116,
+              111,
+              110,
+              34,
+              44,
+              34,
+              115,
+              116,
+              114,
+              101,
+              101,
+              116,
+              34,
+              58,
+              34,
+              51,
+              50,
+              50,
+              50,
+              32,
+              53,
+              54,
+              116,
+              104,
+              32,
+              83,
+              116,
+              34,
+              125,
+              93
+            ]
+          },
+          "cookie": [],
+          "responseTime": 784,
+          "responseSize": 427
+        },
+        "id": "cb51dd5f-0ce4-4a89-a356-f1362cc7848e",
+        "assertions": [
+          {
+            "assertion": "TC-REN-003 | HTTP 200 OK",
+            "skipped": false
+          },
+          {
+            "assertion": "TC-REN-003 | Response Time válido",
+            "skipped": false
+          },
+          {
+            "assertion": "TC-REN-003 | Content-Type JSON",
+            "skipped": false
+          },
+          {
+            "assertion": "TC-REN-003 | Respuesta JSON válida",
+            "skipped": false
+          }
+        ]
+      }
+    ],
+    "transfers": {
+      "responseTotal": 427
+    },
+    "failures": [],
+    "error": null
+  }
+}

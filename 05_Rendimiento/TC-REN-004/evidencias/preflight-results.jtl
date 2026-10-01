@@ -1,0 +1,2 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+1790839561409,792,TC-REN-004 - GET breweries,200,OK,TC-REN-004 - Thread Group 1-1,text,true,,22191,131,1,1,https://api.openbrewerydb.org/v1/breweries,785,0,682

@@ -1,0 +1,127 @@
+{
+  "info": {
+    "_postman_id": "f9c6d2e5-0a7b-4e4f-9c43-tcren002col",
+    "name": "Open BreweryDB - Rendimiento",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "TC-REN-002",
+      "item": [
+        {
+          "name": "TC-REN-002 - Latencia de búsqueda",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// TC-REN-002 - Latencia de búsqueda (query=san; una sola request, sin concurrencia)",
+                  "pm.test(\"TC-REN-002 | HTTP 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "// Umbral estricto: < 1500 ms (1500 ms es FAIL)",
+                  "pm.test(\"TC-REN-002 | Response Time menor a 1500 ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1500);",
+                  "});",
+                  "",
+                  "pm.test(\"TC-REN-002 | Response Time válido\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.a(\"number\");",
+                  "    pm.expect(pm.response.responseTime).to.be.at.least(0);",
+                  "});",
+                  "",
+                  "// Validaciones auxiliares (no sustituyen la métrica de rendimiento)",
+                  "pm.test(\"TC-REN-002 | Content-Type JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\"))",
+                  "        .to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"TC-REN-002 | La respuesta contiene JSON válido\", function () {",
+                  "    pm.expect(function () {",
+                  "        pm.response.json();",
+                  "    }).to.not.throw();",
+                  "});",
+                  "",
+                  "pm.test(\"TC-REN-002 | La búsqueda retorna un arreglo JSON\", function () {",
+                  "    pm.expect(pm.response.json()).to.be.an(\"array\");",
+                  "});",
+                  "",
+                  "// Diagnóstico",
+                  "console.log(",
+                  "    \"TC-REN-002 | Query:\",",
+                  "    \"san\"",
+                  ");",
+                  "",
+                  "console.log(",
+                  "    \"TC-REN-002 | Response Time:\",",
+                  "    pm.response.responseTime,",
+                  "    \"ms\"",
+                  ");",
+                  "",
+                  "console.log(",
+                  "    \"TC-REN-002 | Umbral:\",",
+                  "    \"< 1500 ms\"",
+                  ");",
+                  "",
+                  "console.log(",
+                  "    \"TC-REN-002 | Cumple:\",",
+                  "    pm.response.responseTime < 1500",
+                  ");",
+                  "",
+                  "console.log(",
+                  "    \"TC-REN-002 | HTTP:\",",
+                  "    pm.response.code",
+                  ");",
+                  "",
+                  "console.log(",
+                  "    \"TC-REN-002 | Response Size:\",",
+                  "    pm.response.responseSize,",
+                  "    \"bytes\"",
+                  ");",
+                  "",
+                  "let searchResponse;",
+                  "try {",
+                  "    searchResponse = pm.response.json();",
+                  "} catch (e) {",
+                  "    searchResponse = undefined;",
+                  "}",
+                  "",
+                  "console.log(",
+                  "    \"TC-REN-002 | Cantidad de resultados:\",",
+                  "    Array.isArray(searchResponse)",
+                  "        ? searchResponse.length",
+                  "        : \"N/A\"",
+                  ");",
+                  "console.log(\"TC-REN-002 | URL:\", pm.request.url.toString());",
+                  "console.log(\"TC-REN-002 | Fecha/hora:\", new Date().toISOString());"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/breweries/search?query=san",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "breweries",
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "query",
+                  "value": "san"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

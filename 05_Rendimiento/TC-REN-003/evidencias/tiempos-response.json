@@ -1,0 +1,302 @@
+[
+  {
+    "iteration": 1,
+    "http": 200,
+    "response_time_ms": 456,
+    "response_size_bytes": 438
+  },
+  {
+    "iteration": 2,
+    "http": 200,
+    "response_time_ms": 224,
+    "response_size_bytes": 430
+  },
+  {
+    "iteration": 3,
+    "http": 200,
+    "response_time_ms": 220,
+    "response_size_bytes": 420
+  },
+  {
+    "iteration": 4,
+    "http": 200,
+    "response_time_ms": 238,
+    "response_size_bytes": 457
+  },
+  {
+    "iteration": 5,
+    "http": 200,
+    "response_time_ms": 237,
+    "response_size_bytes": 408
+  },
+  {
+    "iteration": 6,
+    "http": 200,
+    "response_time_ms": 222,
+    "response_size_bytes": 474
+  },
+  {
+    "iteration": 7,
+    "http": 200,
+    "response_time_ms": 221,
+    "response_size_bytes": 413
+  },
+  {
+    "iteration": 8,
+    "http": 200,
+    "response_time_ms": 220,
+    "response_size_bytes": 423
+  },
+  {
+    "iteration": 9,
+    "http": 200,
+    "response_time_ms": 219,
+    "response_size_bytes": 405
+  },
+  {
+    "iteration": 10,
+    "http": 200,
+    "response_time_ms": 227,
+    "response_size_bytes": 422
+  },
+  {
+    "iteration": 11,
+    "http": 200,
+    "response_time_ms": 224,
+    "response_size_bytes": 541
+  },
+  {
+    "iteration": 12,
+    "http": 200,
+    "response_time_ms": 226,
+    "response_size_bytes": 416
+  },
+  {
+    "iteration": 13,
+    "http": 200,
+    "response_time_ms": 220,
+    "response_size_bytes": 433
+  },
+  {
+    "iteration": 14,
+    "http": 200,
+    "response_time_ms": 231,
+    "response_size_bytes": 478
+  },
+  {
+    "iteration": 15,
+    "http": 200,
+    "response_time_ms": 231,
+    "response_size_bytes": 433
+  },
+  {
+    "iteration": 16,
+    "http": 200,
+    "response_time_ms": 226,
+    "response_size_bytes": 403
+  },
+  {
+    "iteration": 17,
+    "http": 200,
+    "response_time_ms": 222,
+    "response_size_bytes": 398
+  },
+  {
+    "iteration": 18,
+    "http": 200,
+    "response_time_ms": 294,
+    "response_size_bytes": 383
+  },
+  {
+    "iteration": 19,
+    "http": 200,
+    "response_time_ms": 227,
+    "response_size_bytes": 443
+  },
+  {
+    "iteration": 20,
+    "http": 200,
+    "response_time_ms": 229,
+    "response_size_bytes": 449
+  },
+  {
+    "iteration": 21,
+    "http": 200,
+    "response_time_ms": 225,
+    "response_size_bytes": 432
+  },
+  {
+    "iteration": 22,
+    "http": 200,
+    "response_time_ms": 226,
+    "response_size_bytes": 469
+  },
+  {
+    "iteration": 23,
+    "http": 200,
+    "response_time_ms": 246,
+    "response_size_bytes": 435
+  },
+  {
+    "iteration": 24,
+    "http": 200,
+    "response_time_ms": 225,
+    "response_size_bytes": 439
+  },
+  {
+    "iteration": 25,
+    "http": 200,
+    "response_time_ms": 220,
+    "response_size_bytes": 349
+  },
+  {
+    "iteration": 26,
+    "http": 200,
+    "response_time_ms": 226,
+    "response_size_bytes": 409
+  },
+  {
+    "iteration": 27,
+    "http": 200,
+    "response_time_ms": 245,
+    "response_size_bytes": 431
+  },
+  {
+    "iteration": 28,
+    "http": 200,
+    "response_time_ms": 218,
+    "response_size_bytes": 445
+  },
+  {
+    "iteration": 29,
+    "http": 200,
+    "response_time_ms": 219,
+    "response_size_bytes": 452
+  },
+  {
+    "iteration": 30,
+    "http": 200,
+    "response_time_ms": 221,
+    "response_size_bytes": 413
+  },
+  {
+    "iteration": 31,
+    "http": 200,
+    "response_time_ms": 228,
+    "response_size_bytes": 376
+  },
+  {
+    "iteration": 32,
+    "http": 200,
+    "response_time_ms": 229,
+    "response_size_bytes": 379
+  },
+  {
+    "iteration": 33,
+    "http": 200,
+    "response_time_ms": 231,
+    "response_size_bytes": 458
+  },
+  {
+    "iteration": 34,
+    "http": 200,
+    "response_time_ms": 240,
+    "response_size_bytes": 433
+  },
+  {
+    "iteration": 35,
+    "http": 200,
+    "response_time_ms": 223,
+    "response_size_bytes": 427
+  },
+  {
+    "iteration": 36,
+    "http": 200,
+    "response_time_ms": 229,
+    "response_size_bytes": 429
+  },
+  {
+    "iteration": 37,
+    "http": 200,
+    "response_time_ms": 230,
+    "response_size_bytes": 412
+  },
+  {
+    "iteration": 38,
+    "http": 200,
+    "response_time_ms": 231,
+    "response_size_bytes": 427
+  },
+  {
+    "iteration": 39,
+    "http": 200,
+    "response_time_ms": 353,
+    "response_size_bytes": 418
+  },
+  {
+    "iteration": 40,
+    "http": 200,
+    "response_time_ms": 323,
+    "response_size_bytes": 456
+  },
+  {
+    "iteration": 41,
+    "http": 200,
+    "response_time_ms": 311,
+    "response_size_bytes": 429
+  },
+  {
+    "iteration": 42,
+    "http": 200,
+    "response_time_ms": 296,
+    "response_size_bytes": 434
+  },
+  {
+    "iteration": 43,
+    "http": 200,
+    "response_time_ms": 331,
+    "response_size_bytes": 432
+  },
+  {
+    "iteration": 44,
+    "http": 200,
+    "response_time_ms": 318,
+    "response_size_bytes": 416
+  },
+  {
+    "iteration": 45,
+    "http": 200,
+    "response_time_ms": 1032,
+    "response_size_bytes": 444
+  },
+  {
+    "iteration": 46,
+    "http": 200,
+    "response_time_ms": 240,
+    "response_size_bytes": 421
+  },
+  {
+    "iteration": 47,
+    "http": 200,
+    "response_time_ms": 230,
+    "response_size_bytes": 430
+  },
+  {
+    "iteration": 48,
+    "http": 200,
+    "response_time_ms": 225,
+    "response_size_bytes": 440
+  },
+  {
+    "iteration": 49,
+    "http": 200,
+    "response_time_ms": 233,
+    "response_size_bytes": 410
+  },
+  {
+    "iteration": 50,
+    "http": 200,
+    "response_time_ms": 217,
+    "response_size_bytes": 417
+  }
+]

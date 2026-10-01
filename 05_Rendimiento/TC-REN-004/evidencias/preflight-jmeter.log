@@ -1,0 +1,66 @@
+2026-10-01 02:26:00,833 INFO o.a.j.u.JMeterUtils: Setting Locale to en_EN
+2026-10-01 02:26:00,846 INFO o.a.j.JMeter: Loading user properties from: C:\tools\apache-jmeter-5.6.3\bin\user.properties
+2026-10-01 02:26:00,847 INFO o.a.j.JMeter: Loading system properties from: C:\tools\apache-jmeter-5.6.3\bin\system.properties
+2026-10-01 02:26:00,847 INFO o.a.j.JMeter: Setting JMeter property: threads=1
+2026-10-01 02:26:00,847 INFO o.a.j.JMeter: Setting JMeter property: rampup=0
+2026-10-01 02:26:00,847 INFO o.a.j.JMeter: Setting JMeter property: loops=1
+2026-10-01 02:26:00,854 INFO o.a.j.JMeter: Copyright (c) 1998-2024 The Apache Software Foundation
+2026-10-01 02:26:00,854 INFO o.a.j.JMeter: Version 5.6.3
+2026-10-01 02:26:00,855 INFO o.a.j.JMeter: java.version=22
+2026-10-01 02:26:00,855 INFO o.a.j.JMeter: java.vm.name=Java HotSpot(TM) 64-Bit Server VM
+2026-10-01 02:26:00,855 INFO o.a.j.JMeter: os.name=Windows 11
+2026-10-01 02:26:00,855 INFO o.a.j.JMeter: os.arch=amd64
+2026-10-01 02:26:00,855 INFO o.a.j.JMeter: os.version=10.0
+2026-10-01 02:26:00,855 INFO o.a.j.JMeter: file.encoding=UTF-8
+2026-10-01 02:26:00,855 INFO o.a.j.JMeter: java.awt.headless=true
+2026-10-01 02:26:00,855 INFO o.a.j.JMeter: Max memory     =1073741824
+2026-10-01 02:26:00,855 INFO o.a.j.JMeter: Available Processors =12
+2026-10-01 02:26:00,861 INFO o.a.j.JMeter: Default Locale=English (EN)
+2026-10-01 02:26:00,861 INFO o.a.j.JMeter: JMeter  Locale=English (EN)
+2026-10-01 02:26:00,861 INFO o.a.j.JMeter: JMeterHome=C:\tools\apache-jmeter-5.6.3
+2026-10-01 02:26:00,861 INFO o.a.j.JMeter: user.dir  =C:\Users\yoloh\OneDrive\Escritorio\OpenBreweryDB_QA\05_Rendimiento\TC-REN-004
+2026-10-01 02:26:00,862 INFO o.a.j.JMeter: PWD       =C:\Users\yoloh\OneDrive\Escritorio\OpenBreweryDB_QA\05_Rendimiento\TC-REN-004
+2026-10-01 02:26:00,863 INFO o.a.j.JMeter: IP: 192.168.1.9 Name: Juanher01 FullName: Juanher01
+2026-10-01 02:26:00,875 INFO o.a.j.s.FileServer: Default base='C:\Users\yoloh\OneDrive\Escritorio\OpenBreweryDB_QA\05_Rendimiento\TC-REN-004'
+2026-10-01 02:26:00,877 INFO o.a.j.s.FileServer: Set new base='C:\Users\yoloh\OneDrive\Escritorio\OpenBreweryDB_QA\05_Rendimiento\TC-REN-004\jmeter'
+2026-10-01 02:26:01,044 INFO o.a.j.s.SaveService: Testplan (JMX) version: 2.2. Testlog (JTL) version: 2.2
+2026-10-01 02:26:01,076 INFO o.a.j.s.SaveService: Using SaveService properties version 5.0
+2026-10-01 02:26:01,078 INFO o.a.j.s.SaveService: Using SaveService properties file encoding UTF-8
+2026-10-01 02:26:01,082 INFO o.a.j.s.SaveService: Loading file: jmeter\TC-REN-004.jmx
+2026-10-01 02:26:01,143 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/html is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2026-10-01 02:26:01,143 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xhtml+xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2026-10-01 02:26:01,143 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2026-10-01 02:26:01,143 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2026-10-01 02:26:01,143 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/vnd.wap.wml is org.apache.jmeter.protocol.http.parser.RegexpHTMLParser
+2026-10-01 02:26:01,143 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/css is org.apache.jmeter.protocol.http.parser.CssParser
+2026-10-01 02:26:01,157 INFO o.a.j.JMeter: Creating summariser <summary>
+2026-10-01 02:26:01,174 INFO o.a.j.e.StandardJMeterEngine: Running the test!
+2026-10-01 02:26:01,174 INFO o.a.j.s.SampleEvent: List of sample_variables: []
+2026-10-01 02:26:01,174 INFO o.a.j.s.SampleEvent: List of sample_variables: []
+2026-10-01 02:26:01,178 INFO o.a.j.e.u.CompoundVariable: Note: Function class names must contain the string: '.functions.'
+2026-10-01 02:26:01,178 INFO o.a.j.e.u.CompoundVariable: Note: Function class names must not contain the string: '.gui.'
+2026-10-01 02:26:01,302 INFO o.a.j.JMeter: Running test (1790839561302)
+2026-10-01 02:26:01,321 INFO o.a.j.e.StandardJMeterEngine: Starting ThreadGroup: 1 : TC-REN-004 - Thread Group
+2026-10-01 02:26:01,321 INFO o.a.j.e.StandardJMeterEngine: Starting 1 threads for group TC-REN-004 - Thread Group.
+2026-10-01 02:26:01,321 INFO o.a.j.e.StandardJMeterEngine: Thread will continue on error
+2026-10-01 02:26:01,321 INFO o.a.j.t.ThreadGroup: Starting thread group... number=1 threads=1 ramp-up=0 delayedStart=false
+2026-10-01 02:26:01,325 INFO o.a.j.t.ThreadGroup: Started thread group number 1
+2026-10-01 02:26:01,325 INFO o.a.j.e.StandardJMeterEngine: All thread groups have been started
+2026-10-01 02:26:01,327 INFO o.a.j.t.JMeterThread: Thread started: TC-REN-004 - Thread Group 1-1
+2026-10-01 02:26:01,343 INFO o.a.j.p.h.s.HTTPHCAbstractImpl: Local host = Juanher01
+2026-10-01 02:26:01,351 INFO o.a.j.p.h.s.HTTPHC4Impl: HTTP request retry count = 0
+2026-10-01 02:26:01,353 INFO o.a.j.s.SampleResult: Note: Sample TimeStamps are START times
+2026-10-01 02:26:01,353 INFO o.a.j.s.SampleResult: sampleresult.default.encoding is set to UTF-8
+2026-10-01 02:26:01,353 INFO o.a.j.s.SampleResult: sampleresult.useNanoTime=true
+2026-10-01 02:26:01,353 INFO o.a.j.s.SampleResult: sampleresult.nanoThreadSleep=5000
+2026-10-01 02:26:01,592 INFO o.a.j.p.h.s.h.LazyLayeredConnectionSocketFactory: Setting up HTTPS TrustAll Socket Factory
+2026-10-01 02:26:01,600 INFO o.a.j.u.JsseSSLManager: Using default SSL protocol: TLS
+2026-10-01 02:26:01,600 INFO o.a.j.u.JsseSSLManager: SSL session context: per-thread
+2026-10-01 02:26:01,753 INFO o.a.j.u.SSLManager: JmeterKeyStore Location:  type JKS
+2026-10-01 02:26:01,756 INFO o.a.j.u.SSLManager: KeyStore created OK
+2026-10-01 02:26:01,756 WARN o.a.j.u.SSLManager: Keystore file not found, loading empty keystore
+2026-10-01 02:26:02,205 INFO o.a.j.r.Summariser: summary +      1 in 00:00:01 =    1.1/s Avg:   792 Min:   792 Max:   792 Err:     0 (0.00%) Active: 1 Started: 1 Finished: 0
+2026-10-01 02:26:02,205 INFO o.a.j.t.JMeterThread: Thread is done: TC-REN-004 - Thread Group 1-1
+2026-10-01 02:26:02,205 INFO o.a.j.t.JMeterThread: Thread finished: TC-REN-004 - Thread Group 1-1
+2026-10-01 02:26:02,207 INFO o.a.j.e.StandardJMeterEngine: Notifying test listeners of end of test
+2026-10-01 02:26:02,208 INFO o.a.j.r.Summariser: summary =      1 in 00:00:01 =    1.1/s Avg:   792 Min:   792 Max:   792 Err:     0 (0.00%)

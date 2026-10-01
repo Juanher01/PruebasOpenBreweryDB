@@ -1,0 +1,32 @@
+{
+  "case_id": "TC-REN-003",
+  "source_report": "evidencias/TC-REN-003-newman.json",
+  "run_started_utc": "2026-10-01T07:17:10.030Z",
+  "run_completed_utc": "2026-10-01T07:17:27.251Z",
+  "total_iterations_expected": 50,
+  "iterations_reported_by_newman": 50,
+  "total_executions_observed": 50,
+  "responses_received": 50,
+  "http_200_count": 50,
+  "failure_count": 0,
+  "failures": [],
+  "success_rate_percent": 100,
+  "assertions": {
+    "total": 200,
+    "failed": 0
+  },
+  "response_time_ms": {
+    "n": 50,
+    "min": 217,
+    "max": 1032,
+    "sum": 13035,
+    "mean": 260.7,
+    "median": 228.5,
+    "population_standard_deviation": 118.8468342026829,
+    "p95": 353,
+    "p95_method": "nearest-rank",
+    "p95_rank": 48,
+    "coefficient_of_variation_percent": 45.587585041305296
+  },
+  "standard_deviation_threshold_defined_in_plan": false
+}

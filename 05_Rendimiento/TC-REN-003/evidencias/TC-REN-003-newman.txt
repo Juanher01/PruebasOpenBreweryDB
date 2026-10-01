@@ -1,0 +1,774 @@
+newman
+
+Open BreweryDB - Rendimiento
+
+Iteration 1/50
+
+□ TC-REN-003
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.74kB, 456ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 1
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 456, 'ms'
+  │ 'TC-REN-003 | Response Size:', 438, 'bytes'
+  └
+
+Iteration 2/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.41kB, 224ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 2
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 224, 'ms'
+  │ 'TC-REN-003 | Response Size:', 430, 'bytes'
+  └
+
+Iteration 3/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.39kB, 220ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 3
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 220, 'ms'
+  │ 'TC-REN-003 | Response Size:', 420, 'bytes'
+  └
+
+Iteration 4/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.43kB, 238ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 4
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 238, 'ms'
+  │ 'TC-REN-003 | Response Size:', 457, 'bytes'
+  └
+
+Iteration 5/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.38kB, 237ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 5
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 237, 'ms'
+  │ 'TC-REN-003 | Response Size:', 408, 'bytes'
+  └
+
+Iteration 6/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.45kB, 222ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 6
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 222, 'ms'
+  │ 'TC-REN-003 | Response Size:', 474, 'bytes'
+  └
+
+Iteration 7/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.38kB, 221ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 7
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 221, 'ms'
+  │ 'TC-REN-003 | Response Size:', 413, 'bytes'
+  └
+
+Iteration 8/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.4kB, 220ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 8
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 220, 'ms'
+  │ 'TC-REN-003 | Response Size:', 423, 'bytes'
+  └
+
+Iteration 9/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.38kB, 219ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 9
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 219, 'ms'
+  │ 'TC-REN-003 | Response Size:', 405, 'bytes'
+  └
+
+Iteration 10/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.39kB, 227ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 10
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 227, 'ms'
+  │ 'TC-REN-003 | Response Size:', 422, 'bytes'
+  └
+
+Iteration 11/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.52kB, 224ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 11
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 224, 'ms'
+  │ 'TC-REN-003 | Response Size:', 541, 'bytes'
+  └
+
+Iteration 12/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.39kB, 226ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 12
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 226, 'ms'
+  │ 'TC-REN-003 | Response Size:', 416, 'bytes'
+  └
+
+Iteration 13/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.4kB, 220ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 13
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 220, 'ms'
+  │ 'TC-REN-003 | Response Size:', 433, 'bytes'
+  └
+
+Iteration 14/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.45kB, 231ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 14
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 231, 'ms'
+  │ 'TC-REN-003 | Response Size:', 478, 'bytes'
+  └
+
+Iteration 15/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.4kB, 231ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 15
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 231, 'ms'
+  │ 'TC-REN-003 | Response Size:', 433, 'bytes'
+  └
+
+Iteration 16/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.38kB, 226ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 16
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 226, 'ms'
+  │ 'TC-REN-003 | Response Size:', 403, 'bytes'
+  └
+
+Iteration 17/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.37kB, 222ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 17
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 222, 'ms'
+  │ 'TC-REN-003 | Response Size:', 398, 'bytes'
+  └
+
+Iteration 18/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.35kB, 294ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 18
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 294, 'ms'
+  │ 'TC-REN-003 | Response Size:', 383, 'bytes'
+  └
+
+Iteration 19/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.43kB, 227ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 19
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 227, 'ms'
+  │ 'TC-REN-003 | Response Size:', 443, 'bytes'
+  └
+
+Iteration 20/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.42kB, 229ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 20
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 229, 'ms'
+  │ 'TC-REN-003 | Response Size:', 449, 'bytes'
+  └
+
+Iteration 21/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.41kB, 225ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 21
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 225, 'ms'
+  │ 'TC-REN-003 | Response Size:', 432, 'bytes'
+  └
+
+Iteration 22/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.45kB, 226ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 22
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 226, 'ms'
+  │ 'TC-REN-003 | Response Size:', 469, 'bytes'
+  └
+
+Iteration 23/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.41kB, 246ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 23
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 246, 'ms'
+  │ 'TC-REN-003 | Response Size:', 435, 'bytes'
+  └
+
+Iteration 24/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.41kB, 225ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 24
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 225, 'ms'
+  │ 'TC-REN-003 | Response Size:', 439, 'bytes'
+  └
+
+Iteration 25/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.32kB, 220ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 25
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 220, 'ms'
+  │ 'TC-REN-003 | Response Size:', 349, 'bytes'
+  └
+
+Iteration 26/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.38kB, 226ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 26
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 226, 'ms'
+  │ 'TC-REN-003 | Response Size:', 409, 'bytes'
+  └
+
+Iteration 27/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.41kB, 245ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 27
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 245, 'ms'
+  │ 'TC-REN-003 | Response Size:', 431, 'bytes'
+  └
+
+Iteration 28/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.42kB, 218ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 28
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 218, 'ms'
+  │ 'TC-REN-003 | Response Size:', 445, 'bytes'
+  └
+
+Iteration 29/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.43kB, 219ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 29
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 219, 'ms'
+  │ 'TC-REN-003 | Response Size:', 452, 'bytes'
+  └
+
+Iteration 30/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.39kB, 221ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 30
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 221, 'ms'
+  │ 'TC-REN-003 | Response Size:', 413, 'bytes'
+  └
+
+Iteration 31/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.35kB, 228ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 31
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 228, 'ms'
+  │ 'TC-REN-003 | Response Size:', 376, 'bytes'
+  └
+
+Iteration 32/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.35kB, 229ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 32
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 229, 'ms'
+  │ 'TC-REN-003 | Response Size:', 379, 'bytes'
+  └
+
+Iteration 33/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.43kB, 231ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 33
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 231, 'ms'
+  │ 'TC-REN-003 | Response Size:', 458, 'bytes'
+  └
+
+Iteration 34/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.41kB, 240ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 34
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 240, 'ms'
+  │ 'TC-REN-003 | Response Size:', 433, 'bytes'
+  └
+
+Iteration 35/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.4kB, 223ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 35
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 223, 'ms'
+  │ 'TC-REN-003 | Response Size:', 427, 'bytes'
+  └
+
+Iteration 36/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.4kB, 229ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 36
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 229, 'ms'
+  │ 'TC-REN-003 | Response Size:', 429, 'bytes'
+  └
+
+Iteration 37/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.38kB, 230ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 37
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 230, 'ms'
+  │ 'TC-REN-003 | Response Size:', 412, 'bytes'
+  └
+
+Iteration 38/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.4kB, 231ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 38
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 231, 'ms'
+  │ 'TC-REN-003 | Response Size:', 427, 'bytes'
+  └
+
+Iteration 39/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.39kB, 353ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 39
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 353, 'ms'
+  │ 'TC-REN-003 | Response Size:', 418, 'bytes'
+  └
+
+Iteration 40/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.43kB, 323ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 40
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 323, 'ms'
+  │ 'TC-REN-003 | Response Size:', 456, 'bytes'
+  └
+
+Iteration 41/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.41kB, 311ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 41
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 311, 'ms'
+  │ 'TC-REN-003 | Response Size:', 429, 'bytes'
+  └
+
+Iteration 42/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.4kB, 296ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 42
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 296, 'ms'
+  │ 'TC-REN-003 | Response Size:', 434, 'bytes'
+  └
+
+Iteration 43/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.41kB, 331ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 43
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 331, 'ms'
+  │ 'TC-REN-003 | Response Size:', 432, 'bytes'
+  └
+
+Iteration 44/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.39kB, 318ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 44
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 318, 'ms'
+  │ 'TC-REN-003 | Response Size:', 416, 'bytes'
+  └
+
+Iteration 45/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.41kB, 1032ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 45
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 1032, 'ms'
+  │ 'TC-REN-003 | Response Size:', 444, 'bytes'
+  └
+
+Iteration 46/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.4kB, 240ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 46
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 240, 'ms'
+  │ 'TC-REN-003 | Response Size:', 421, 'bytes'
+  └
+
+Iteration 47/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.4kB, 230ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 47
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 230, 'ms'
+  │ 'TC-REN-003 | Response Size:', 430, 'bytes'
+  └
+
+Iteration 48/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.42kB, 225ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 48
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 225, 'ms'
+  │ 'TC-REN-003 | Response Size:', 440, 'bytes'
+  └
+
+Iteration 49/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.39kB, 233ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 49
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 233, 'ms'
+  │ 'TC-REN-003 | Response Size:', 410, 'bytes'
+  └
+
+Iteration 50/50
+
+└ TC-REN-003 - Estabilidad bajo repetición
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.4kB, 217ms]
+  √  TC-REN-003 | HTTP 200 OK
+  √  TC-REN-003 | Response Time válido
+  √  TC-REN-003 | Content-Type JSON
+  √  TC-REN-003 | Respuesta JSON válida
+  ┌
+  │ 'TC-REN-003 | Iteración:', 50
+  │ 'TC-REN-003 | HTTP:', 200
+  │ 'TC-REN-003 | Response Time:', 217, 'ms'
+  │ 'TC-REN-003 | Response Size:', 417, 'bytes'
+  └
+
+┌─────────────────────────┬─────────────────────┬─────────────────────┐
+│                         │            executed │              failed │
+├─────────────────────────┼─────────────────────┼─────────────────────┤
+│              iterations │                  50 │                   0 │
+├─────────────────────────┼─────────────────────┼─────────────────────┤
+│                requests │                  50 │                   0 │
+├─────────────────────────┼─────────────────────┼─────────────────────┤
+│            test-scripts │                  50 │                   0 │
+├─────────────────────────┼─────────────────────┼─────────────────────┤
+│      prerequest-scripts │                   0 │                   0 │
+├─────────────────────────┼─────────────────────┼─────────────────────┤
+│              assertions │                 200 │                   0 │
+├─────────────────────────┴─────────────────────┴─────────────────────┤
+│ total run duration: 17.2s                                           │
+├─────────────────────────────────────────────────────────────────────┤
+│ total data received: 21.43kB (approx)                               │
+├─────────────────────────────────────────────────────────────────────┤
+│ average response time: 260ms [min: 217ms, max: 1032ms, s.d.: 118ms] │
+└─────────────────────────────────────────────────────────────────────┘

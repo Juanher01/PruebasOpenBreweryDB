@@ -1,0 +1,205 @@
+{
+  "case_id": "TC-REN-004",
+  "source_jtl": "evidencias/TC-REN-004-results.jtl",
+  "configuration": {
+    "threads": 10,
+    "ramp_up_seconds": 0,
+    "loops": 1,
+    "expected_samples": 10
+  },
+  "observed": {
+    "total_samples": 10,
+    "success_samples": 10,
+    "failed_samples": 0,
+    "http_200_count": 10,
+    "non_200_count": 0,
+    "distinct_threads": 10,
+    "urls": [
+      "https://api.openbrewerydb.org/v1/breweries"
+    ]
+  },
+  "latency_ms": {
+    "threshold_ms": 3000,
+    "comparison": "elapsed < 3000 (estricto)",
+    "under_3000_count": 10,
+    "at_or_over_3000_count": 0,
+    "under_3000_percent": 100.0,
+    "min": 613,
+    "max": 624,
+    "mean": 618.7,
+    "median": 619.5,
+    "p95": 624,
+    "p95_method": "nearest-rank",
+    "p95_rank": 10
+  },
+  "errors": {
+    "error_rate_percent": 0.0,
+    "response_codes": {
+      "200": 10
+    },
+    "failed": []
+  },
+  "throughput_observed_req_per_sec": 16.025641025641026,
+  "throughput_method": "total_samples / (max(timeStamp+elapsed) - min(timeStamp)) en segundos; diagnóstico",
+  "concurrency": {
+    "window_start_epoch_ms": 1790839574849,
+    "window_end_epoch_ms": 1790839575473,
+    "window_ms": 624,
+    "start_offsets_ms": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "start_spread_ms": 0,
+    "samples_in_flight_when_last_started": 10
+  },
+  "samples": [
+    {
+      "timeStamp": 1790839574849,
+      "elapsed": 623,
+      "threadName": "TC-REN-004 - Thread Group 1-1",
+      "responseCode": "200",
+      "responseMessage": "OK",
+      "success": true,
+      "failureMessage": "",
+      "bytes": 22187,
+      "sentBytes": 131,
+      "Latency": 618,
+      "Connect": 497,
+      "URL": "https://api.openbrewerydb.org/v1/breweries"
+    },
+    {
+      "timeStamp": 1790839574849,
+      "elapsed": 616,
+      "threadName": "TC-REN-004 - Thread Group 1-10",
+      "responseCode": "200",
+      "responseMessage": "OK",
+      "success": true,
+      "failureMessage": "",
+      "bytes": 22189,
+      "sentBytes": 131,
+      "Latency": 611,
+      "Connect": 493,
+      "URL": "https://api.openbrewerydb.org/v1/breweries"
+    },
+    {
+      "timeStamp": 1790839574849,
+      "elapsed": 620,
+      "threadName": "TC-REN-004 - Thread Group 1-2",
+      "responseCode": "200",
+      "responseMessage": "OK",
+      "success": true,
+      "failureMessage": "",
+      "bytes": 22210,
+      "sentBytes": 131,
+      "Latency": 617,
+      "Connect": 497,
+      "URL": "https://api.openbrewerydb.org/v1/breweries"
+    },
+    {
+      "timeStamp": 1790839574849,
+      "elapsed": 620,
+      "threadName": "TC-REN-004 - Thread Group 1-3",
+      "responseCode": "200",
+      "responseMessage": "OK",
+      "success": true,
+      "failureMessage": "",
+      "bytes": 22203,
+      "sentBytes": 131,
+      "Latency": 617,
+      "Connect": 497,
+      "URL": "https://api.openbrewerydb.org/v1/breweries"
+    },
+    {
+      "timeStamp": 1790839574849,
+      "elapsed": 624,
+      "threadName": "TC-REN-004 - Thread Group 1-4",
+      "responseCode": "200",
+      "responseMessage": "OK",
+      "success": true,
+      "failureMessage": "",
+      "bytes": 22173,
+      "sentBytes": 131,
+      "Latency": 621,
+      "Connect": 496,
+      "URL": "https://api.openbrewerydb.org/v1/breweries"
+    },
+    {
+      "timeStamp": 1790839574849,
+      "elapsed": 616,
+      "threadName": "TC-REN-004 - Thread Group 1-5",
+      "responseCode": "200",
+      "responseMessage": "OK",
+      "success": true,
+      "failureMessage": "",
+      "bytes": 22175,
+      "sentBytes": 131,
+      "Latency": 611,
+      "Connect": 493,
+      "URL": "https://api.openbrewerydb.org/v1/breweries"
+    },
+    {
+      "timeStamp": 1790839574849,
+      "elapsed": 620,
+      "threadName": "TC-REN-004 - Thread Group 1-6",
+      "responseCode": "200",
+      "responseMessage": "OK",
+      "success": true,
+      "failureMessage": "",
+      "bytes": 22185,
+      "sentBytes": 131,
+      "Latency": 617,
+      "Connect": 496,
+      "URL": "https://api.openbrewerydb.org/v1/breweries"
+    },
+    {
+      "timeStamp": 1790839574849,
+      "elapsed": 619,
+      "threadName": "TC-REN-004 - Thread Group 1-7",
+      "responseCode": "200",
+      "responseMessage": "OK",
+      "success": true,
+      "failureMessage": "",
+      "bytes": 22181,
+      "sentBytes": 131,
+      "Latency": 614,
+      "Connect": 496,
+      "URL": "https://api.openbrewerydb.org/v1/breweries"
+    },
+    {
+      "timeStamp": 1790839574849,
+      "elapsed": 613,
+      "threadName": "TC-REN-004 - Thread Group 1-8",
+      "responseCode": "200",
+      "responseMessage": "OK",
+      "success": true,
+      "failureMessage": "",
+      "bytes": 22188,
+      "sentBytes": 131,
+      "Latency": 599,
+      "Connect": 495,
+      "URL": "https://api.openbrewerydb.org/v1/breweries"
+    },
+    {
+      "timeStamp": 1790839574849,
+      "elapsed": 616,
+      "threadName": "TC-REN-004 - Thread Group 1-9",
+      "responseCode": "200",
+      "responseMessage": "OK",
+      "success": true,
+      "failureMessage": "",
+      "bytes": 22186,
+      "sentBytes": 131,
+      "Latency": 611,
+      "Connect": 493,
+      "URL": "https://api.openbrewerydb.org/v1/breweries"
+    }
+  ]
+}
