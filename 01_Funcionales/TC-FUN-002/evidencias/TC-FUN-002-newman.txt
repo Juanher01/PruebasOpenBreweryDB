@@ -1,0 +1,69 @@
+newman
+
+Open BreweryDB - Pruebas Funcionales
+
+□ TC-FUN-002
+└ TC-FUN-002 - Paso 1 - Obtener ID dinámico
+  GET https://api.openbrewerydb.org/v1/breweries [200 OK, 22.09kB, 390ms]
+  √  TC-FUN-002 PRE | HTTP 200 en consulta previa
+  √  TC-FUN-002 PRE | La respuesta previa es JSON válido
+  √  TC-FUN-002 PRE | La respuesta previa es un arreglo
+  √  TC-FUN-002 PRE | El listado contiene registros
+  √  TC-FUN-002 PRE | El registro seleccionado contiene ID
+  ┌
+  │ 'TC-FUN-002 PRE | ID seleccionado dinámicamente: ae7b3
+  │ 174-8be8-4d53-a3a5-9b8240970eea'
+  │ 'TC-FUN-002 PRE | Fecha/hora: 2026-10-01T05:29:08.946Z
+  │ '
+  │ 'TC-FUN-002 PRE | URL: https://api.openbrewerydb.org/v
+  │ 1/breweries'
+  │ 'TC-FUN-002 PRE | HTTP: 200 OK'
+  │ 'TC-FUN-002 PRE | Tiempo de respuesta (ms): 390'
+  │ 'TC-FUN-002 PRE | Registros: 50'
+  └
+
+└ TC-FUN-002 - Paso 2 - Consultar cervecería por ID
+  GET https://api.openbrewerydb.org/v1/breweries/ae7b3174-8be8-4d53-a3a5-9b8240970eea [200 OK, 1.43kB, 90ms]
+  √  TC-FUN-002 | HTTP 200 OK
+  √  TC-FUN-002 | La respuesta es JSON
+  √  TC-FUN-002 | El cuerpo contiene JSON válido
+  √  TC-FUN-002 | La respuesta es un objeto JSON único
+  √  TC-FUN-002 | El objeto contiene campo id
+  √  TC-FUN-002 | El ID retornado coincide con el solicitado
+  √  TC-FUN-002 | Contiene estructura básica de cervecería
+  √  TC-FUN-002 | Nombre consistente entre listado y detalle
+  √  TC-FUN-002 | Tipo consistente entre listado y detalle
+  ┌
+  │ 'TC-FUN-002 | Fecha/hora: 2026-10-01T05:29:09.148Z'
+  │ 'TC-FUN-002 | URL: https://api.openbrewerydb.org/v1/br
+  │ eweries/ae7b3174-8be8-4d53-a3a5-9b8240970eea'
+  │ 'TC-FUN-002 | HTTP: 200 OK'
+  │ 'TC-FUN-002 | Content-Type: application/json'
+  │ 'TC-FUN-002 | Tiempo de respuesta (ms): 90'
+  │ 'TC-FUN-002 | ID solicitado: ae7b3174-8be8-4d53-a3a5-9
+  │ b8240970eea'
+  │ 'TC-FUN-002 | ID retornado: ae7b3174-8be8-4d53-a3a5-9b
+  │ 8240970eea'
+  │ "TC-FUN-002 | Nombre: 's"
+  │ 'TC-FUN-002 | brewery_type: brewpub'
+  └
+
+┌─────────────────────────┬────────────────────┬────────────────────┐
+│                         │           executed │             failed │
+├─────────────────────────┼────────────────────┼────────────────────┤
+│              iterations │                  1 │                  0 │
+├─────────────────────────┼────────────────────┼────────────────────┤
+│                requests │                  2 │                  0 │
+├─────────────────────────┼────────────────────┼────────────────────┤
+│            test-scripts │                  2 │                  0 │
+├─────────────────────────┼────────────────────┼────────────────────┤
+│      prerequest-scripts │                  1 │                  0 │
+├─────────────────────────┼────────────────────┼────────────────────┤
+│              assertions │                 14 │                  0 │
+├─────────────────────────┴────────────────────┴────────────────────┤
+│ total run duration: 699ms                                         │
+├───────────────────────────────────────────────────────────────────┤
+│ total data received: 21.13kB (approx)                             │
+├───────────────────────────────────────────────────────────────────┤
+│ average response time: 240ms [min: 90ms, max: 390ms, s.d.: 150ms] │
+└───────────────────────────────────────────────────────────────────┘

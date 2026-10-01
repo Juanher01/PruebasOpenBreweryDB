@@ -1,0 +1,78 @@
+{
+  "info": {
+    "_postman_id": "3b8e5d0c-7f2a-4e61-b1c4-tcfun001col",
+    "name": "Open BreweryDB - Pruebas Funcionales",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "TC-FUN-001",
+      "item": [
+        {
+          "name": "TC-FUN-001 - Listado general de cervecerías",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// TC-FUN-001 - Listado general de cervecerías (paginación por defecto)",
+                  "let responseData;",
+                  "",
+                  "pm.test(\"TC-FUN-001 | HTTP 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-001 | La respuesta es JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\"))",
+                  "        .to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-001 | El cuerpo contiene JSON válido\", function () {",
+                  "    pm.expect(function () {",
+                  "        responseData = pm.response.json();",
+                  "    }).to.not.throw();",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-001 | La respuesta es un arreglo\", function () {",
+                  "    pm.expect(responseData).to.be.an(\"array\");",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-001 | El listado contiene registros\", function () {",
+                  "    pm.expect(responseData.length).to.be.above(0);",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-001 | Los registros retornados son objetos\", function () {",
+                  "    responseData.forEach(function (brewery) {",
+                  "        pm.expect(brewery).to.be.an(\"object\");",
+                  "    });",
+                  "});",
+                  "",
+                  "// Información de ejecución (solo valores producidos por esta ejecución)",
+                  "console.log(\"TC-FUN-001 | Fecha/hora: \" + new Date().toISOString());",
+                  "console.log(\"TC-FUN-001 | URL: \" + pm.request.url.toString());",
+                  "console.log(\"TC-FUN-001 | Método: \" + pm.request.method);",
+                  "console.log(\"TC-FUN-001 | HTTP: \" + pm.response.code + \" \" + pm.response.status);",
+                  "console.log(\"TC-FUN-001 | Content-Type: \" + pm.response.headers.get(\"Content-Type\"));",
+                  "console.log(\"TC-FUN-001 | Tiempo de respuesta (ms): \" + pm.response.responseTime);",
+                  "console.log(\"TC-FUN-001 | Tamaño de respuesta (bytes): \" + pm.response.responseSize);",
+                  "console.log(\"TC-FUN-001 | Registros retornados: \" + (Array.isArray(responseData) ? responseData.length : \"N/A\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/breweries",
+              "host": ["{{base_url}}"],
+              "path": ["breweries"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

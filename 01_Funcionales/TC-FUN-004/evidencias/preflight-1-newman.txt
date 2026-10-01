@@ -1,0 +1,74 @@
+newman
+
+Open BreweryDB - Pruebas Funcionales
+
+□ TC-FUN-004
+└ TC-FUN-004 - Cervecería aleatoria
+  GET https://api.openbrewerydb.org/v1/breweries/random [200 OK, 1.75kB, 1116ms]
+  √  TC-FUN-004 | HTTP 200 OK
+  √  TC-FUN-004 | La respuesta es JSON
+  √  TC-FUN-004 | El cuerpo contiene JSON válido
+  1. TC-FUN-004 | La respuesta es un objeto JSON
+  2. TC-FUN-004 | La respuesta no es un arreglo
+  3. TC-FUN-004 | Contiene un ID válido
+  4. TC-FUN-004 | Contiene un nombre válido
+  5. TC-FUN-004 | Contiene brewery_type
+  ┌
+  │ 'TC-FUN-004 | Fecha/hora:', '2026-10-01T05:54:18.296Z'
+  │ 'TC-FUN-004 | URL:', 'https://api.openbrewerydb.org/v1
+  │ /breweries/random'
+  │ 'TC-FUN-004 | HTTP:', 200, 'OK'
+  │ 'TC-FUN-004 | Content-Type:', 'application/json'
+  │ 'TC-FUN-004 | Tipo raíz:', 'array'
+  │ 'TC-FUN-004 | ID:', undefined
+  │ 'TC-FUN-004 | Nombre:', undefined
+  │ 'TC-FUN-004 | brewery_type:', undefined
+  │ 'TC-FUN-004 | Response Time:', 1116, 'ms'
+  └
+
+┌─────────────────────────┬─────────────────────┬─────────────────────┐
+│                         │            executed │              failed │
+├─────────────────────────┼─────────────────────┼─────────────────────┤
+│              iterations │                   1 │                   0 │
+├─────────────────────────┼─────────────────────┼─────────────────────┤
+│                requests │                   1 │                   0 │
+├─────────────────────────┼─────────────────────┼─────────────────────┤
+│            test-scripts │                   1 │                   0 │
+├─────────────────────────┼─────────────────────┼─────────────────────┤
+│      prerequest-scripts │                   0 │                   0 │
+├─────────────────────────┼─────────────────────┼─────────────────────┤
+│              assertions │                   8 │                   5 │
+├─────────────────────────┴─────────────────────┴─────────────────────┤
+│ total run duration: 1218ms                                          │
+├─────────────────────────────────────────────────────────────────────┤
+│ total data received: 448B (approx)                                  │
+├─────────────────────────────────────────────────────────────────────┤
+│ average response time: 1116ms [min: 1116ms, max: 1116ms, s.d.: 0µs] │
+└─────────────────────────────────────────────────────────────────────┘
+
+[31m  # [39m[31m failure        [39m[31m detail                                                  [39m
+[90m    [39m[90m                [39m[90m                                                         [39m
+ 1.  AssertionError  TC-FUN-004 | La respuesta es un objeto JSON             
+                     expected [ { …(16) } ] to be an object                  
+                     at assertion:3 in test-script                           
+                     inside "TC-FUN-004 / TC-FUN-004 - Cervecería aleatoria" 
+[90m    [39m[90m                [39m[90m                                                         [39m
+ 2.  AssertionError  TC-FUN-004 | La respuesta no es un arreglo              
+                     expected true to be false                               
+                     at assertion:4 in test-script                           
+                     inside "TC-FUN-004 / TC-FUN-004 - Cervecería aleatoria" 
+[90m    [39m[90m                [39m[90m                                                         [39m
+ 3.  AssertionError  TC-FUN-004 | Contiene un ID válido                      
+                     expected [ { …(16) } ] to have property 'id'            
+                     at assertion:5 in test-script                           
+                     inside "TC-FUN-004 / TC-FUN-004 - Cervecería aleatoria" 
+[90m    [39m[90m                [39m[90m                                                         [39m
+ 4.  AssertionError  TC-FUN-004 | Contiene un nombre válido                  
+                     expected [ { …(16) } ] to have property 'name'          
+                     at assertion:6 in test-script                           
+                     inside "TC-FUN-004 / TC-FUN-004 - Cervecería aleatoria" 
+[90m    [39m[90m                [39m[90m                                                         [39m
+ 5.  AssertionError  TC-FUN-004 | Contiene brewery_type                      
+                     expected [ { …(16) } ] to have property 'brewery_type'  
+                     at assertion:7 in test-script                           
+                     inside "TC-FUN-004 / TC-FUN-004 - Cervecería aleatoria" 

@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="en" style="overflow-y: scroll;">
+<head>
+  <meta charset="UTF-8">
+  <title>Newman Summary Report</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/default.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.css"/>
+
+<style>
+code.renderMarkdown table, code.renderMarkdown th, code.renderMarkdown td {
+    border: 1px solid black;
+    width: max-content;
+    padding: .75rem;
+}
+
+.theme-dark {
+    --background-color: #222;
+    --bg-card-deck: #444444;
+    --text-color: #ccd2d8;
+    --tab-border: solid 1px #444;
+    --success: #3c9372;
+    --failure: #c24a3f;
+    --warning: #d28c23;
+    --info: #4083b6;
+    --badge-outline: #3c9372;
+    --badge-bg: #cdd3db;
+    --badge-text: #ccd2d9;
+    --failure-row: #c24a3f;
+    --warning-row: #d28c23;
+    --card-bg: #444;
+    --card-footer: #4f5758;
+    --form-input: #ececb5;
+    --hov-text: #d2dae5;
+    --h4-text: #ccd1d9;
+}
+
+.theme-light {
+    --tab-border: solid 1px #fff;
+    --text-color: #000000;
+    --success: #42a745;
+    --failure: #dc3544;
+    --warning: #f4c10b;
+    --info: #49a1b8;
+    --badge-outline: #040411;
+    --badge-bg: #f8f9fa;
+    --badge-text: #fff;
+    --failure-row: #f5c6cb;
+    --warning-row: #ffeeba;
+    --card-bg: #f7f7f7;
+    --hov-text: #fff;
+    --h4-text: #ffffff;
+}
+
+body {
+  padding-top:30px;
+  background-color: var(--background-color)!important;
+  color: var(--text-color);
+}
+
+#execution-data {
+  padding: 10px;
+  border: var(--tab-border);
+  border-top: none;
+}
+
+.nav-tabs {
+  padding-top: 10px;
+  height: 105px;
+  overflow-y: auto;
+}
+
+body.theme-dark .card-header {
+    background-color: #444;
+}
+
+body.theme-light .card-header {
+    background-color: #f7f7f7;
+}
+
+.card-footer {
+    padding: .75rem 1.25rem;
+    background-color: var(--card-footer);
+}
+
+.card-deck {
+    background-color: var(--bg-card-deck)!important;
+}
+.form-control {
+    background: var(--form-input);
+}
+
+.custom-tab {
+  padding: 10px 15px;
+  margin-right: 0px;
+  height: 47px;
+  width: 69px;
+  text-align: center;
+  border: var(--tab-border);
+  border-bottom: none;
+  cursor:pointer;
+}
+
+body.theme-dark .text-white {
+    color: #ccd2d9!important;
+}
+h4 {
+    color: var(--h4-text);
+}
+
+body.theme-dark h1 {
+    color: #ccd2da;
+}
+
+body.theme-dark .bg-light>td {
+    background: #4f5858!important;
+}
+
+body.theme-dark .hljs {
+    background: #0a0a0ab0!important;
+    color: #8d8787!important;
+}
+
+.bg-info {
+    background-color: var(--info)!important;
+}
+.bg-success {
+    background-color: var(--success)!important;
+}
+
+.alert-success {
+    background-color: var(--success)!important;
+}
+
+.alert-warning {
+    background-color: var(--warning)!important;
+}
+
+.alert-info {
+    background-color: var(--info)!important;
+}
+
+.bg-warning {
+    background-color: var(--warning)!important;
+}
+
+.badge-warning {
+    color: var(--badge-text)!important;
+    background-color: var(--warning)!important;
+}
+
+.table-warning>td {
+    background-color: var(--warning-row);
+}
+
+.alert-danger {
+    background-color: var(--failure)!important;
+}
+
+body.theme-dark .alert-dark {
+    background-color: #636467!important;
+}
+
+body.theme-dark .text-dark {
+    color: #d1dae4!important;
+}
+
+body.theme-dark .badge-light {
+    color: #212529;
+    background-color: #cdd3db;
+}
+
+body.theme-light .badge-light {
+    color: #212529;
+    background-color: #f8f9fa;
+}
+body.theme-light .bg-danger {
+    background-color: var(--failure)!important;
+}
+
+body.theme-dark .bg-danger {
+    background-color: var(--failure)!important;
+}
+
+.table-danger>td {
+    background-color: var(--failure-row);
+}
+
+body.theme-dark .table .thead-light th {
+    background-color: #4f5858!important;
+    border-color: #dee2e6!important;
+    color: #ccd2d8!important;
+}
+
+.itPassed {
+  background: var(--success);
+  color: white;
+}
+.itFailed {
+  background: var(--failure);
+  color: white;
+}
+
+.resultsInfoPass {
+  color: var(--success);
+  padding-top: 4px;
+}
+
+.resultsInfoFail {
+  color: var(--failure);
+  padding-top: 4px;
+}
+
+.badge-outline-success {
+  color: var(--success);
+  border: 1px solid var(--success);
+  background-color: transparent;
+}
+
+.badge-outline {
+  color: var(--badge-outline);
+  border: 1px solid var(--badge-outline);
+  background-color: transparent;
+}
+
+.btn-outline-success {
+    color: var(--success)!important;
+    border-color: var(--success)!important;
+}
+
+.backToTop:hover {
+  background-color: var(--success);
+  border-color: var(--success);
+  color: var(--hov-text)!important;
+}
+
+.btn-outline-success:hover {
+  background-color: var(--success);
+  border-color: var(--success);
+  color: var(--hov-text)!important;
+}
+
+.btn-outline-secondary {
+  background-color: var(--success)!important;
+  color: var(--hov-text)!important;
+}
+
+body.theme-dark .env-heading {
+    color: #ccd2d9!important;
+}
+
+body, html {
+  height:100%;
+}
+
+.card {
+  overflow:hidden;
+}
+
+body.theme-dark .card-body {
+    background-color: #444;
+}
+
+body.theme-light .card-body {
+    background-color: #f7f7f7;
+}
+
+body.theme-dark .card-body .bg-danger {
+    background-color: var(--failure)!important;
+}
+
+body.theme-light .card-body .bg-danger {
+    background-color: var(--failure)!important;
+}
+
+.card-body .rotate {
+  z-index: 8;
+  float: right;
+  height: 100%;
+}
+
+.card-body .rotate i {
+  color: #14141426;
+  position: absolute;
+  left: 0;
+  left: auto;
+  right: -10px;
+  bottom: 0;
+  display: block;
+  -webkit-transform: rotate(-44deg);
+  -moz-transform: rotate(-44deg);
+  -o-transform: rotate(-44deg);
+  -ms-transform: rotate(-44deg);
+  transform: rotate(-44deg);
+}
+
+.dyn-height {
+  max-height:350px;
+  overflow-y:auto;
+}
+
+.nav-pills .nav-link.active {
+  background-color: transparent!important;
+}
+
+.backToTop {
+  display: none;
+  position: fixed;
+  bottom: 10px;
+  right: 20px;
+  z-index: 99;
+  font-size: 15px;
+  outline: none;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 4px;
+}
+
+.card-header .fa {
+  transition: .3s transform ease-in-out;
+}
+.card-header .collapsed .fa {
+  transform: rotate(90deg);
+}
+
+.single-line-tabs {
+  padding-top: 10px;
+  height: 60px;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 20px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 0px;
+  bottom: 4px;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  box-shadow: 0 0px 15px #2020203d;
+  background: white;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+input:checked + .slider {
+  background-color: #4083b6;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #4083b6;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(24px);
+  -ms-transform: translateX(24px);
+  transform: translateX(24px);
+  background: white;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+table.dataTable td, table.dataTable tr {
+    vertical-align: middle;
+}
+
+body.theme-dark code {
+    color: #ccd2d8!important;
+}
+
+body.theme-light code {
+    color: #000000!important;
+}
+
+.text-wrap {
+    word-wrap: break-word; 
+    min-width: 600px; 
+    max-width: 600px; 
+    white-space: normal;
+}
+
+</style>
+</head>
+<body class="theme-dark">
+<script>
+    function setTheme(themeName) {
+        localStorage.setItem('theme', themeName);
+        document.body.className = themeName;
+    }
+
+    function toggleTheme() {
+        if (localStorage.getItem('theme') === 'theme-light') {
+            setTheme('theme-dark');
+        } else {
+            setTheme('theme-light');
+        }
+    }
+</script>
+  <div class="container">
+        <div class="container">
+            <label>Light</label>
+            <label id="switch" class="switch">
+                <input type="checkbox" onchange="toggleTheme()" id="slider">
+                <span class="slider round"></span>
+            </label>
+            <label>Dark</label>
+        </div>
+        <div class="card">
+        <div class="card-header">
+            <ul class="nav nav-pills mb-3 nav-justified" id="pills-tab" role="tablist">
+            <li class="nav-item bg-info active" data-toggle="tooltip" title="Click to view the Summary">
+                <a class="nav-link text-white" id="pills-summary-tab" data-toggle="pill" href="#pills-summary" role="tab" aria-controls="pills-summary" aria-selected="true">Summary</a>
+            </li>
+            <li class="nav-item bg-success" data-toggle="tooltip" title="Click to view the Requests">
+                <a class="nav-link text-white" id="pills-requests-tab" data-toggle="pill" href="#pills-requests" role="tab" aria-controls="pills-requests" aria-selected="false">Total Requests <span class="badge badge-light">1</span></a>
+            </li>
+            <li class="nav-item bg-danger" data-toggle="tooltip" title="Click to view the Failed Tests">
+                <a class="nav-link text-white" id="pills-failed-tab" data-toggle="pill" href="#pills-failed" role="tab" aria-controls="pills-failed" aria-selected="false">Failed Tests <span class="badge badge-light">0</span></a>
+            </li>
+            <li class="nav-item bg-warning" data-toggle="tooltip" title="Click to view the Skipped Tests">
+                <a class="nav-link text-white" id="pills-skipped-tab" data-toggle="pill" href="#pills-skipped" role="tab" aria-controls="pills-skipped" aria-selected="false">Skipped Tests <span class="badge badge-light">0</span></a>
+            </li>
+            </ul>
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-summary" role="tabcard" aria-labelledby="pills-summary-tab">
+<div class="row">
+  <div class="col-md-9 col-lg-12 main">
+   <h1 class="display-2 text-center">Newman Run Dashboard</h1>
+   <h5 class="text-center">Thursday, 01 October 2026 01:04:26</h5>
+   <div class="row">
+    <div class="col-lg-3 col-md-6">
+     <div class="card text-white card-success">
+      <div class="card-body bg-success">
+       <div class="rotate">
+        <i class="fa fa-retweet fa-5x"></i>
+       </div>
+       <h6 class="text-uppercase">Total Iterations</h6>
+       <h1 class="display-1">1</h1>
+      </div>
+     </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+     <div class="card text-white card-danger">
+      <div class="card-body bg-success">
+       <div class="rotate">
+        <i class="fa fa-list fa-4x"></i>
+       </div>
+       <h6 class="text-uppercase">Total Assertions</h6>
+       <h1 class="display-1">8</h1>
+      </div>
+     </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+     <div class="card text-white card-info">
+      <div class="card-body bg-success">
+       <div class="rotate">
+        <i class="fa fa-plus-circle fa-5x"></i>
+       </div>
+       <h6 class="text-uppercase">Total Failed Tests</h6>
+       <h1 class="display-1">0</h1>
+      </div>
+     </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+     <div class="card text-white card-warning">
+      <div class="card-body bg-success">
+       <div class="rotate">
+        <i class="fa fa-share fa-5x"></i>
+       </div>
+       <h6 class="text-uppercase">Total Skipped Tests</h6>
+       <h1 class="display-1">0</h1>
+      </div>
+     </div>
+    </div>
+   </div>
+   <hr>
+    <div class="row">
+    <div class="col">
+        <div class="row">
+        <div class="col-sm-12 mb-3">
+            <div class="card border-info">
+                <div class="card-body">
+                <h5 class="card-title text-uppercase text-white text-center bg-info">File Information</h5>
+                <span><i class="fas fa-file-code"></i></span><strong> Collection:</strong> Open BreweryDB - Pruebas Funcionales<br>
+                <span><i class="fas fa-folder"></i></span><strong> Specified Folders:</strong> TC-FUN-006<br>
+                <span><i class="fas fa-file-code"></i></span><strong> Environment:</strong> OpenBreweryDB<br>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="row">
+        <div class="col-sm-12 mb-3">
+            <div class="card border-info">
+                <div class="card-body">
+                <h5 class="card-title text-uppercase text-white text-center bg-info">Timings and Data</h5>
+                <span><i class="fas fa-stopwatch"></i></span><strong> Total run duration:</strong> 422ms<br>
+                <span><i class="fas fa-database"></i></span><strong> Total data received:</strong> 20.97KB<br>
+                <span><i class="fas fa-stopwatch"></i></span><strong> Average response time:</strong> 314ms<br>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="row">
+        <div class="col-sm-12 mb-3">
+            <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead class="thead-inverse">
+                    <tr class="text-center">
+                        <th class="text-uppercase">Summary Item</th>
+                        <th class="text-uppercase">Total</th>
+                        <th class="text-uppercase">Failed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Requests</td>
+                        <td class="text-center">1</td>
+                        <td class="text-center">0</td>
+                    </tr>
+                    <tr>
+                        <td>Prerequest Scripts</td>
+                        <td class="text-center">0</td>
+                        <td class="text-center">0</td>
+                    </tr>
+                    <tr>
+                        <td>Test Scripts</td>
+                        <td class="text-center">1</td>
+                        <td class="text-center">0</td>
+                    </tr>
+                    <tr class="">
+                        <td>Assertions</td>
+                        <td class="text-center">8</td>
+                        <td class="text-center">0</td>
+                    </tr>
+                    <tr class="">
+                        <td>Skipped Tests</td>
+                        <td class="text-center">0</td>
+                        <td class="text-center">-</td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+        </div>
+    <hr>
+   </div>
+   </div>
+  </div>
+ </div>
+        </div>
+            <div class="tab-pane fade" id="pills-failed" role="tabcard" aria-labelledby="pills-failed-tab">
+                <button id="topOfFailuresScreen" class="btn btn-outline-success btn-sm backToTop" onclick="topFunction()">Go To Top</button>
+
+                <div class="alert alert-success text-uppercase text-center">
+                     <br><br><h1 class="text-center">There are no failed tests <span><i class="far fa-thumbs-up"></i></span></h1><br><br>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="pills-skipped" role="tabcard" aria-labelledby="pills-skipped-tab">
+                <button id="topOfSkippedScreen" class="btn btn-outline-success btn-sm backToTop" onclick="topFunction()">Go To Top</button>
+
+                <div class="alert alert-success text-uppercase text-center">
+                    <br><br><h1 class="text-center">There are no skipped tests <span><i class="far fa-thumbs-up"></i></span></h1><br><br>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="pills-requests" role="tabcard" aria-labelledby="pills-requests-tab">
+
+            <button id="topOfRequestsScreen" class="btn btn-outline-success btn-sm backToTop" onclick="topFunction()">Go To Top</button>
+
+            <div class="btn-group float-right" role="group" aria-label="Button Group">
+                <button id="openAll" class="btn btn-outline-success btn-sm float-right" style="text-align: center; width: 140px;">Expand Folders</button>
+                <button id="openAllRequests" class="btn btn-outline-success btn-sm float-right" style="text-align: center; width: 140px;">Expand Requests</button>
+            </div>
+
+    <div class="text-uppercase" id="execution-menu">
+        <h5>1 Iteration available to view</h5>
+        
+        <nav class="table-responsive">
+        <ul class="nav single-line-tabs" id="iterationList">
+        </ul>
+        </nav>
+    </div>
+    <h6 class="text-uppercase text-muted" id="iterationSelected" style="padding-top: 10px;"></h6>
+	<div class="tab-content" id="execution-data">
+        <div class="alert alert-dark text-uppercase text-center iteration-0">
+        <a data-toggle="collapse" href="#" data-target="#folder-collapse-f4a73598-29bb-4886-864a-0835e07a5902-iteration-0" aria-expanded="false" aria-controls="collapse" id="folder-f4a73598-29bb-4886-864a-0835e07a5902-iteration-0" class="collapsed text-dark z-block">
+        <i class="fas fa-info-circle float-left resultsInfoPass" ></i>
+            TC-FUN-006 - 1 Request in the folder<i class="float-lg-right fa fa-chevron-down" style="padding-top: 5px;"></i>
+        </a>
+        </div>
+        <div id="folder-collapse-f4a73598-29bb-4886-864a-0835e07a5902-iteration-0" class="collapse" aria-labelledby="folder-f4a73598-29bb-4886-864a-0835e07a5902">
+            <div id="folder-29680ec9-5171-4cef-ab79-0635637d1230" class="card-deck iteration-0">
+            <div class="row iteration-0">
+                <div class="col-sm-12 mb-3 iteration-0">
+                <div class="card iteration-0">
+                    <div class="card-header  bg-success iteration-0">
+                        <a data-toggle="collapse" href="#" data-target="#collapse-29680ec9-5171-4cef-ab79-0635637d1230" aria-expanded="false" aria-controls="collapse" id="requests-29680ec9-5171-4cef-ab79-0635637d1230" class="collapsed text-white z-block">
+                    Iteration: 1 - TC-FUN-006 - Filtrado por Estado <i class="float-lg-right fa fa-chevron-down" style="padding-top: 5px;"></i>
+                </a>
+                    </div>
+                    <div id="collapse-29680ec9-5171-4cef-ab79-0635637d1230" class="collapse" aria-labelledby="requests-29680ec9-5171-4cef-ab79-0635637d1230">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-12 mb-3">
+                                <div class="card-deck">
+                                <div class="card border-info" style="width: 50rem;">
+                                    <div class="card-body">
+                                    <h5 class="card-title text-uppercase text-white text-center bg-info">Request Information</h5>
+                                    <span><i class="fas fa-info-circle"></i></span><strong> Request Method:</strong> <span class="badge-outline-success badge badge-success"> GET</span><br>
+                                    <span><i class="fas fa-info-circle"></i></span><strong> Request URL:</strong> <a href="https://api.openbrewerydb.org/v1/breweries?by_state&#x3D;california" target="_blank">https://api.openbrewerydb.org/v1/breweries?by_state&#x3D;california</a><br>
+                                    </div>
+                                </div>
+                                <div class="card border-info" style="width: 50rem;">
+                                    <div class="card-body">
+                                    <h5 class="card-title text-uppercase text-white text-center bg-info">Response Information</h5>
+                                    <span><i class="fas fa-info-circle"></i></span><strong> Response Code:</strong> <span class="float-right badge-outline badge badge-success"> 200 - OK</span><br>
+                                    <span><i class="fas fa-stopwatch"></i></span><strong> Mean time per request:</strong> <span class="float-right badge-outline badge badge-success"> 314ms</span><br>
+                                    <span><i class="fas fa-database"></i></span><strong> Mean size per request:</strong> <span class="float-right badge-outline badge badge-success"> 20.97KB</span><br>
+                                    <hr>
+                                    <h5 class="card-title text-uppercase text-white text-center bg-info">Test Pass Percentage</h5>
+                                    <div>
+                                        <div class="progress" style="height: 40px;">
+                                            <div class="progress-bar  bg-success" style="width: 100%" role="progressbar">
+                                            <h5 style="padding-top:5px;"><strong>100 %</strong></h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 mb-3">
+                                <div class="card-deck">
+                                <div class="card border-info" style="width: 50rem;">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-uppercase text-white text-center bg-info">Request Headers</h5>
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered">
+                                            <thead class="thead-light text-center"><tr><th>Header Name</th><th>Header Value</th></tr></thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="text-nowrap">User-Agent</td>
+                                                        <td class="text-wrap">PostmanRuntime/7.39.1</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Accept</td>
+                                                        <td class="text-wrap">*/*</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Cache-Control</td>
+                                                        <td class="text-wrap">no-cache</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Postman-Token</td>
+                                                        <td class="text-wrap">6e76dcab-3649-4b60-9423-7947e3759fce</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Host</td>
+                                                        <td class="text-wrap">api.openbrewerydb.org</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Accept-Encoding</td>
+                                                        <td class="text-wrap">gzip, deflate, br</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-nowrap">Connection</td>
+                                                        <td class="text-wrap">keep-alive</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-sm-12 mb-3">
+                            <div class="card-deck">
+                            <div class="card border-info" style="width: 50rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title text-uppercase text-white text-center bg-info">Response Headers</h5>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                        <thead class="thead-light text-center"><tr><th>Header Name</th><th>Header Value</th></tr></thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-nowrap">Date</td>
+                                                    <td class="text-wrap">Thu, 01 Oct 2026 06:04:27 GMT</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Content-Type</td>
+                                                    <td class="text-wrap">application/json</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Transfer-Encoding</td>
+                                                    <td class="text-wrap">chunked</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Connection</td>
+                                                    <td class="text-wrap">keep-alive</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Server</td>
+                                                    <td class="text-wrap">cloudflare</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">vary</td>
+                                                    <td class="text-wrap">Accept-Encoding,Origin</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Cache-Control</td>
+                                                    <td class="text-wrap">etag, max-age&#x3D;300, public</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">x-ratelimit-limit</td>
+                                                    <td class="text-wrap">120</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">x-ratelimit-remaining</td>
+                                                    <td class="text-wrap">104</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">x-frame-options</td>
+                                                    <td class="text-wrap">SAMEORIGIN</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">x-content-type-options</td>
+                                                    <td class="text-wrap">nosniff</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">referrer-policy</td>
+                                                    <td class="text-wrap">strict-origin-when-cross-origin</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">strict-transport-security</td>
+                                                    <td class="text-wrap">max-age&#x3D;31536000; includeSubDomains</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Content-Encoding</td>
+                                                    <td class="text-wrap">gzip</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">last-modified</td>
+                                                    <td class="text-wrap">Thu, 01 Oct 2026 06:04:13 GMT</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">x-do-app-origin</td>
+                                                    <td class="text-wrap">67ba9744-8641-488d-8d6d-ec79fa2d19d8</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">x-do-orig-status</td>
+                                                    <td class="text-wrap">200</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">set-cookie</td>
+                                                    <td class="text-wrap">__cf_bm&#x3D;E8mMuJ9RRNgDjruo00CWU1pV95Lgt5TnFYK4fDhRVfs-1790834667.5442023-1.0.1.1-PCe0Yj5mRb87V_3qQCv66XQZPruIELom3gR_XZXZizYGbCVf8zw.9fXVLqFCjwydHcXYn7a4MTrBH7RbThZ9E56Px5wccLr3cdWwWJTJnLfWS3FdS0Rx2r6w5chEegFI; HttpOnly; SameSite&#x3D;None; Secure; Path&#x3D;/; Domain&#x3D;api.openbrewerydb.org; Expires&#x3D;Thu, 01 Oct 2026 06:34:27 GMT</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">cf-cache-status</td>
+                                                    <td class="text-wrap">BYPASS</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Age</td>
+                                                    <td class="text-wrap">13</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Nel</td>
+                                                    <td class="text-wrap">{&quot;report_to&quot;:&quot;cf-nel&quot;,&quot;success_fraction&quot;:0.0,&quot;max_age&quot;:604800}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">Report-To</td>
+                                                    <td class="text-wrap">{&quot;group&quot;:&quot;cf-nel&quot;,&quot;max_age&quot;:604800,&quot;endpoints&quot;:[{&quot;url&quot;:&quot;https://a.nel.cloudflare.com/report/v4?s&#x3D;oeBzvrySE6V6Kg9I4LbdL3zrdrAkUdj1RNSm%2Ffi1Ti74dc0i7JJpDSui5K%2FtOpqHtjeYVlNNbSsVUMdXKPEjw8H164Gr4S8UyRaSjqpCUPu5I9ruEAZNavZtmmvffvn5in2yFn6Y188%3D&quot;}]}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">CF-RAY</td>
+                                                    <td class="text-wrap">a439452018023715-MIA</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-nowrap">alt-svc</td>
+                                                    <td class="text-wrap">h3&#x3D;&quot;:443&quot;; ma&#x3D;86400</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-sm-12 mb-3">
+                            <div class="card-deck">
+                            <div class="card border-info" style="width: 50rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title text-uppercase text-white text-center bg-info">Response Body</h5>
+                                        <div class="dyn-height">
+                                                <pre><code id="copyText-59374162-b6db-455a-8a82-277cc913bac2" class="prettyPrint">[{&quot;id&quot;:&quot;ef970757-fe42-416f-931d-722451f1f59c&quot;,&quot;name&quot;:&quot;10 Barrel Brewing Co&quot;,&quot;brewery_type&quot;:&quot;large&quot;,&quot;address_1&quot;:&quot;1501 E St&quot;,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;San Diego&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;92101-6618&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-117.129593,&quot;latitude&quot;:32.714813,&quot;phone&quot;:&quot;6195782311&quot;,&quot;website_url&quot;:&quot;http:\/\/10barrel.com&quot;,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:&quot;1501 E St&quot;},{&quot;id&quot;:&quot;5ae467af-66dc-4d7f-8839-44228f89b596&quot;,&quot;name&quot;:&quot;101 North Brewing Company&quot;,&quot;brewery_type&quot;:&quot;closed&quot;,&quot;address_1&quot;:&quot;1304 Scott St Ste D&quot;,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;Petaluma&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;94954-7100&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-122.665055,&quot;latitude&quot;:38.27029381,&quot;phone&quot;:&quot;7077534934&quot;,&quot;website_url&quot;:&quot;http:\/\/www.101northbeer.com&quot;,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:&quot;1304 Scott St Ste D&quot;},{&quot;id&quot;:&quot;4788221a-a03b-458c-9084-4cadd69ade6d&quot;,&quot;name&quot;:&quot;14 Cannons Brewing Company&quot;,&quot;brewery_type&quot;:&quot;micro&quot;,&quot;address_1&quot;:&quot;31125 Via Colinas Ste 907&quot;,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;Westlake Village&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;91362-3974&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-118.802397,&quot;latitude&quot;:34.15334,&quot;phone&quot;:&quot;8186996165&quot;,&quot;website_url&quot;:&quot;http:\/\/14cannons.com&quot;,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:&quot;31125 Via Colinas Ste 907&quot;},{&quot;id&quot;:&quot;fe6b9893-b93e-43d5-a9f6-3e0c89a3f13c&quot;,&quot;name&quot;:&quot;1850 Brewing Company&quot;,&quot;brewery_type&quot;:&quot;micro&quot;,&quot;address_1&quot;:null,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;Mariposa&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;95338&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-119.9036592,&quot;latitude&quot;:37.570148,&quot;phone&quot;:null,&quot;website_url&quot;:&quot;http:\/\/www.1850restaurant.com&quot;,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:null},{&quot;id&quot;:&quot;5ec3b488-48bd-49a7-9828-05bd90195cd5&quot;,&quot;name&quot;:&quot;2 Tread Brewing Co&quot;,&quot;brewery_type&quot;:&quot;brewpub&quot;,&quot;address_1&quot;:&quot;1018 Santa Rosa Plz&quot;,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;Santa Rosa&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;95401-6399&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-122.7167729,&quot;latitude&quot;:38.4387767,&quot;phone&quot;:&quot;4152330857&quot;,&quot;website_url&quot;:&quot;http:\/\/www.2treadbrewing.com&quot;,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:&quot;1018 Santa Rosa Plz&quot;},{&quot;id&quot;:&quot;63baab9a-b561-4eff-8619-f95290a61b77&quot;,&quot;name&quot;:&quot;21st Amendment Brewery&quot;,&quot;brewery_type&quot;:&quot;regional&quot;,&quot;address_1&quot;:&quot;2010 Williams St Unit A&quot;,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;San Leandro&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;94577-2334&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-122.1772928,&quot;latitude&quot;:37.71130036,&quot;phone&quot;:&quot;5105952111&quot;,&quot;website_url&quot;:&quot;http:\/\/www.21st-Amendment.com&quot;,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:&quot;2010 Williams St Unit A&quot;},{&quot;id&quot;:&quot;8f9621dc-da98-4ddb-82a1-039c9e2b3224&quot;,&quot;name&quot;:&quot;21st Amendment Brewery Cafe&quot;,&quot;brewery_type&quot;:&quot;brewpub&quot;,&quot;address_1&quot;:&quot;563 2nd St&quot;,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;San Francisco&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;94107-1411&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-122.3925769,&quot;latitude&quot;:37.782448,&quot;phone&quot;:&quot;4153690900&quot;,&quot;website_url&quot;:&quot;http:\/\/www.21st-amendment.com&quot;,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:&quot;563 2nd St&quot;},{&quot;id&quot;:&quot;5fdcc498-f9df-4fa5-b35d-487a59f0fecc&quot;,&quot;name&quot;:&quot;2Kids Brewing Company&quot;,&quot;brewery_type&quot;:&quot;micro&quot;,&quot;address_1&quot;:&quot;8680 Miralani Dr Ste 123&quot;,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;San Diego&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;92126-6391&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-117.137429,&quot;latitude&quot;:32.896584,&quot;phone&quot;:&quot;8584805437&quot;,&quot;website_url&quot;:&quot;http:\/\/www.2kidsBrewing.com&quot;,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:&quot;8680 Miralani Dr Ste 123&quot;},{&quot;id&quot;:&quot;60c00c0b-b797-4f6a-b442-3bfbaec156ca&quot;,&quot;name&quot;:&quot;3 Disciples Brewing&quot;,&quot;brewery_type&quot;:&quot;micro&quot;,&quot;address_1&quot;:null,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;Sebastopol&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;95472-5937&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-122.8332502,&quot;latitude&quot;:38.3845125,&quot;phone&quot;:&quot;7072287309&quot;,&quot;website_url&quot;:&quot;http:\/\/www.3disciplesbrewing.com\/home&quot;,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:null},{&quot;id&quot;:&quot;a74744eb-ca98-43c5-9199-09df39f8b400&quot;,&quot;name&quot;:&quot;3 Iron Brewing Company&quot;,&quot;brewery_type&quot;:&quot;micro&quot;,&quot;address_1&quot;:&quot;898 Via Lata Ste A&quot;,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;Colton&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;92324-3920&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-117.3066993,&quot;latitude&quot;:34.05616889,&quot;phone&quot;:&quot;9095334892&quot;,&quot;website_url&quot;:&quot;http:\/\/www.3ironbrewingco.com&quot;,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:&quot;898 Via Lata Ste A&quot;},{&quot;id&quot;:&quot;3b0b5b9b-f6d8-49e3-8ebd-0bcef6939bcd&quot;,&quot;name&quot;:&quot;32 North Brewing Co&quot;,&quot;brewery_type&quot;:&quot;brewpub&quot;,&quot;address_1&quot;:&quot;8655 Production Ave Ste A&quot;,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;San Diego&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;92121-2258&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-117.1649842,&quot;latitude&quot;:32.88313237,&quot;phone&quot;:&quot;(619) 363-2622&quot;,&quot;website_url&quot;:&quot;https:\/\/42northbrewing.com&quot;,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:&quot;8655 Production Ave Ste A&quot;},{&quot;id&quot;:&quot;b7f2ebb8-6764-4654-a98b-246724c8952a&quot;,&quot;name&quot;:&quot;411 Broadway Ales&quot;,&quot;brewery_type&quot;:&quot;planning&quot;,&quot;address_1&quot;:null,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;Fresno&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;93721-2801&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-119.7088613,&quot;latitude&quot;:36.7295295,&quot;phone&quot;:&quot;5412706076&quot;,&quot;website_url&quot;:null,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:null},{&quot;id&quot;:&quot;6b892c61-269b-453f-acd1-b79491b0ef0b&quot;,&quot;name&quot;:&quot;47 Hills Brewing Co&quot;,&quot;brewery_type&quot;:&quot;brewpub&quot;,&quot;address_1&quot;:&quot;137 S Linden Ave&quot;,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;South San Francisco&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;94080-6410&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-122.4136168,&quot;latitude&quot;:37.64425595,&quot;phone&quot;:&quot;6508678476&quot;,&quot;website_url&quot;:&quot;http:\/\/47hillsbrewingcompany.com&quot;,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:&quot;137 S Linden Ave&quot;},{&quot;id&quot;:&quot;7e12d827-22dc-4d07-8715-8192c9680b23&quot;,&quot;name&quot;:&quot;5150 Brewing At The Brass Tap Rocklin&quot;,&quot;brewery_type&quot;:&quot;micro&quot;,&quot;address_1&quot;:&quot;5150 Commons Dr Ste 101&quot;,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;Rocklin&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;95677-3925&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-121.207331,&quot;latitude&quot;:38.8047402,&quot;phone&quot;:&quot;9162462729&quot;,&quot;website_url&quot;:&quot;http:\/\/www.brasstaprocklin.com&quot;,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:&quot;5150 Commons Dr Ste 101&quot;},{&quot;id&quot;:&quot;4a4baf4f-921c-46c0-9130-afcc4ce4f4d2&quot;,&quot;name&quot;:&quot;559 Local Brewing&quot;,&quot;brewery_type&quot;:&quot;micro&quot;,&quot;address_1&quot;:&quot;608 4th St&quot;,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;Clovis&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;93612-1183&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-119.7017487,&quot;latitude&quot;:36.82517171,&quot;phone&quot;:&quot;5594731875&quot;,&quot;website_url&quot;:&quot;http:\/\/www.fresnobrewingcompany.com&quot;,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:&quot;608 4th St&quot;},{&quot;id&quot;:&quot;af6cb069-b61a-4c69-8fd2-0a5f87c11a17&quot;,&quot;name&quot;:&quot;6th and La Brea&quot;,&quot;brewery_type&quot;:&quot;brewpub&quot;,&quot;address_1&quot;:&quot;600 South La Brea Ave&quot;,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;Los Angeles&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;90036&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-118.3440213,&quot;latitude&quot;:34.0730485,&quot;phone&quot;:null,&quot;website_url&quot;:&quot;http:\/\/www.6thlabrea.com&quot;,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:&quot;600 South La Brea Ave&quot;},{&quot;id&quot;:&quot;a3a1eac7-b858-4bdd-81ac-c2099b717da2&quot;,&quot;name&quot;:&quot;7 Sisters Brewing Co&quot;,&quot;brewery_type&quot;:&quot;brewpub&quot;,&quot;address_1&quot;:&quot;181 Tank Farm Rd Ste 110&quot;,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;San Luis Obispo&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;93401-7082&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-120.6706375,&quot;latitude&quot;:35.2467278,&quot;phone&quot;:&quot;8058687133&quot;,&quot;website_url&quot;:&quot;http:\/\/www.7sistersbrewing.com&quot;,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:&quot;181 Tank Farm Rd Ste 110&quot;},{&quot;id&quot;:&quot;c6a766f9-a187-4e5b-9519-6c737ce0cde5&quot;,&quot;name&quot;:&quot;8 Bit Brewing Company&quot;,&quot;brewery_type&quot;:&quot;brewpub&quot;,&quot;address_1&quot;:&quot;26755 Jefferson Ave Ste F&quot;,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;Murrieta&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;92562-6941&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-117.1762542,&quot;latitude&quot;:33.53033448,&quot;phone&quot;:&quot;9516772322&quot;,&quot;website_url&quot;:&quot;http:\/\/www.8bitbrewerycompany.com&quot;,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:&quot;26755 Jefferson Ave Ste F&quot;},{&quot;id&quot;:&quot;3055793c-9330-4fe1-958b-fef6d2a0e057&quot;,&quot;name&quot;:&quot;8one8 Brewing Company&quot;,&quot;brewery_type&quot;:&quot;micro&quot;,&quot;address_1&quot;:&quot;8951 de Soto Ave&quot;,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;Canoga Park&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;91304-5901&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-118.5885323,&quot;latitude&quot;:34.2218019,&quot;phone&quot;:&quot;8188352286&quot;,&quot;website_url&quot;:&quot;http:\/\/www.818brewing.com&quot;,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:&quot;8951 de Soto Ave&quot;},{&quot;id&quot;:&quot;de6341a8-881b-4d9f-9335-5e9203e8a2c3&quot;,&quot;name&quot;:&quot;927 Beer Company&quot;,&quot;brewery_type&quot;:&quot;micro&quot;,&quot;address_1&quot;:&quot;821 Cornwall St&quot;,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;Cambria&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;93428-2434&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-121.0985408,&quot;latitude&quot;:35.5666725,&quot;phone&quot;:&quot;8052035265&quot;,&quot;website_url&quot;:&quot;http:\/\/www.cambriabeerco.com&quot;,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:&quot;821 Cornwall St&quot;},{&quot;id&quot;:&quot;e2fa853c-ca91-4043-878d-0bcee9900ea3&quot;,&quot;name&quot;:&quot;Abigaile&quot;,&quot;brewery_type&quot;:&quot;brewpub&quot;,&quot;address_1&quot;:&quot;1301 Manhattan Ave&quot;,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;Hermosa Beach&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;90254-3666&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-118.4048656,&quot;latitude&quot;:33.8734519,&quot;phone&quot;:&quot;3107988227&quot;,&quot;website_url&quot;:&quot;http:\/\/abigailrestaurant.com&quot;,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:&quot;1301 Manhattan Ave&quot;},{&quot;id&quot;:&quot;4db32843-26ff-4e73-9e24-1cb874109b24&quot;,&quot;name&quot;:&quot;Abnormal Beer Company&quot;,&quot;brewery_type&quot;:&quot;micro&quot;,&quot;address_1&quot;:&quot;16990 Via Tazon Ste 123&quot;,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;San Diego&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;92127-1649&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-117.08575,&quot;latitude&quot;:33.02391,&quot;phone&quot;:&quot;8586182463&quot;,&quot;website_url&quot;:&quot;http:\/\/abnormalbeer.co&quot;,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:&quot;16990 Via Tazon Ste 123&quot;},{&quot;id&quot;:&quot;67525d30-1f18-4f03-a8ba-28a1153955eb&quot;,&quot;name&quot;:&quot;Absolution Brewing Co&quot;,&quot;brewery_type&quot;:&quot;micro&quot;,&quot;address_1&quot;:&quot;2878 Columbia St&quot;,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;Torrance&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;90503-3808&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-118.3378601,&quot;latitude&quot;:33.8431391,&quot;phone&quot;:&quot;3104904860&quot;,&quot;website_url&quot;:&quot;http:\/\/www.absolutionbrewingcompany.com&quot;,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:&quot;2878 Columbia St&quot;},{&quot;id&quot;:&quot;600f88e5-9dc9-4a41-b54e-909c292ba4bb&quot;,&quot;name&quot;:&quot;Absolution By the Sea&quot;,&quot;brewery_type&quot;:&quot;brewpub&quot;,&quot;address_1&quot;:&quot;7536 Fay Ave&quot;,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;La Jolla&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;92037-4839&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-117.2740167,&quot;latitude&quot;:32.84083388,&quot;phone&quot;:&quot;6192024152&quot;,&quot;website_url&quot;:null,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:&quot;7536 Fay Ave&quot;},{&quot;id&quot;:&quot;2fe1e670-d832-4ba5-b957-f86a09ee062d&quot;,&quot;name&quot;:&quot;Acoustic Ales Brewing Experiment&quot;,&quot;brewery_type&quot;:&quot;closed&quot;,&quot;address_1&quot;:&quot;1795 Hancock St Ste P1&quot;,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;San Diego&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;92110-2006&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-117.1840465,&quot;latitude&quot;:32.74219079,&quot;phone&quot;:&quot;6192992537&quot;,&quot;website_url&quot;:&quot;http:\/\/www.acousticales.com&quot;,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:&quot;1795 Hancock St Ste P1&quot;},{&quot;id&quot;:&quot;2861f9b7-ebe4-49a5-a047-8aa0c142dbf3&quot;,&quot;name&quot;:&quot;Adobe Creek Brewing Company&quot;,&quot;brewery_type&quot;:&quot;micro&quot;,&quot;address_1&quot;:&quot;67 Galli Dr Ste E&quot;,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;Novato&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;94949-5718&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-122.5358157,&quot;latitude&quot;:38.07349982,&quot;phone&quot;:&quot;4155064565&quot;,&quot;website_url&quot;:&quot;http:\/\/www.adobecreekbrewing.com&quot;,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:&quot;67 Galli Dr Ste E&quot;},{&quot;id&quot;:&quot;333c81a4-9bcd-4699-b28a-2c49dd696596&quot;,&quot;name&quot;:&quot;Aftershock Brewing Co&quot;,&quot;brewery_type&quot;:&quot;micro&quot;,&quot;address_1&quot;:&quot;28822 Old Town Front St Ste 107&quot;,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;Temecula&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;92590-2893&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-117.1485306,&quot;latitude&quot;:33.49310382,&quot;phone&quot;:&quot;9519722256&quot;,&quot;website_url&quot;:&quot;http:\/\/www.aftershockbrewingco.com&quot;,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:&quot;28822 Old Town Front St Ste 107&quot;},{&quot;id&quot;:&quot;6fbd1118-ceea-4be9-a784-45dd623f16f0&quot;,&quot;name&quot;:&quot;Alameda Island Brewing Company&quot;,&quot;brewery_type&quot;:&quot;micro&quot;,&quot;address_1&quot;:&quot;1716 Park St&quot;,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;Alameda&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;94501-1416&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-122.2394506,&quot;latitude&quot;:37.76833631,&quot;phone&quot;:&quot;5102178885&quot;,&quot;website_url&quot;:&quot;http:\/\/www.alamedaislandbrewingcompany.com&quot;,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:&quot;1716 Park St&quot;},{&quot;id&quot;:&quot;aa3c4d60-4fb2-49e2-980c-6a61672d90cb&quot;,&quot;name&quot;:&quot;Alaro Craft Brewery&quot;,&quot;brewery_type&quot;:&quot;brewpub&quot;,&quot;address_1&quot;:&quot;2004 Capitol Ave&quot;,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;Sacramento&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;95811&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-121.4811835,&quot;latitude&quot;:38.57323961,&quot;phone&quot;:&quot;9164367711&quot;,&quot;website_url&quot;:&quot;http:\/\/www.alarobrewing.com&quot;,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:&quot;2004 Capitol Ave&quot;},{&quot;id&quot;:&quot;e13a5403-3cd7-4dbf-92f1-e48d0f26c750&quot;,&quot;name&quot;:&quot;Ale House Brewing Co&quot;,&quot;brewery_type&quot;:&quot;micro&quot;,&quot;address_1&quot;:null,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;San Jose&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;95118-1605&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-121.8905833,&quot;latitude&quot;:37.3361905,&quot;phone&quot;:&quot;4083907574&quot;,&quot;website_url&quot;:null,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:null},{&quot;id&quot;:&quot;13f19f47-cac4-44df-b4f3-728e4dcde6c5&quot;,&quot;name&quot;:&quot;Ale Industries&quot;,&quot;brewery_type&quot;:&quot;micro&quot;,&quot;address_1&quot;:&quot;3096 E 10th St&quot;,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;Oakland&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;94601-2960&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-122.2281897,&quot;latitude&quot;:37.7761111,&quot;phone&quot;:&quot;9254705280&quot;,&quot;website_url&quot;:&quot;http:\/\/www.aleindustries.com&quot;,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:&quot;3096 E 10th St&quot;},{&quot;id&quot;:&quot;f8097dbc-c8e6-4068-9540-5c4bd4ac0bcf&quot;,&quot;name&quot;:&quot;AleSmith Brewing Co&quot;,&quot;brewery_type&quot;:&quot;regional&quot;,&quot;address_1&quot;:&quot;9990 Alesmith Ct&quot;,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;San Diego&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;92126-4200&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-117.1495496,&quot;latitude&quot;:32.88858458,&quot;phone&quot;:&quot;8585499888&quot;,&quot;website_url&quot;:&quot;http:\/\/www.alesmith.com&quot;,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:&quot;9990 Alesmith Ct&quot;},{&quot;id&quot;:&quot;68b447a3-c65c-459f-8d02-334757bc6f71&quot;,&quot;name&quot;:&quot;Align Brewing Co&quot;,&quot;brewery_type&quot;:&quot;micro&quot;,&quot;address_1&quot;:&quot;8680 Miralani Dr&quot;,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;San Diego&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;92126-6300&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-117.137429,&quot;latitude&quot;:32.896584,&quot;phone&quot;:null,&quot;website_url&quot;:&quot;http:\/\/www.facebook.com\/alignbrewing&quot;,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:&quot;8680 Miralani Dr&quot;},{&quot;id&quot;:&quot;82ea8f08-2026-43f8-b1a7-cc57ebe8c0bb&quot;,&quot;name&quot;:&quot;All-American Ale Works&quot;,&quot;brewery_type&quot;:&quot;micro&quot;,&quot;address_1&quot;:&quot;5120 E La Palma Ave Ste 103&quot;,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;Anaheim&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;92807-2082&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-117.8056915,&quot;latitude&quot;:33.85925032,&quot;phone&quot;:&quot;9517412771&quot;,&quot;website_url&quot;:&quot;http:\/\/www.all-americanaleworks.com&quot;,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:&quot;5120 E La Palma Ave Ste 103&quot;},{&quot;id&quot;:&quot;9a6f84d7-194b-426d-999f-c1be9beb835d&quot;,&quot;name&quot;:&quot;Almanac Beer Company&quot;,&quot;brewery_type&quot;:&quot;micro&quot;,&quot;address_1&quot;:&quot;651B W Tower Ave&quot;,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;Alameda&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;94501-5047&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-122.3062832,&quot;latitude&quot;:37.78344977,&quot;phone&quot;:&quot;4159326531&quot;,&quot;website_url&quot;:&quot;http:\/\/almanacbeer.com&quot;,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:&quot;651B W Tower Ave&quot;},{&quot;id&quot;:&quot;30ef2457-11c4-48ef-ae58-37109ceda4c7&quot;,&quot;name&quot;:&quot;Alosta Brewing Co&quot;,&quot;brewery_type&quot;:&quot;micro&quot;,&quot;address_1&quot;:&quot;692 Arrow Grand Cir&quot;,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;Covina&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;91722-2122&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-117.8781466,&quot;latitude&quot;:34.10365026,&quot;phone&quot;:&quot;9094558707&quot;,&quot;website_url&quot;:&quot;http:\/\/www.alostabrewing.com&quot;,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:&quot;692 Arrow Grand Cir&quot;},{&quot;id&quot;:&quot;abe71cdf-8c92-4be2-adac-902d1a14e7bb&quot;,&quot;name&quot;:&quot;Alpenglow Beer Co&quot;,&quot;brewery_type&quot;:&quot;contract&quot;,&quot;address_1&quot;:null,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;Lafayette&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;94549-4621&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-122.1180201,&quot;latitude&quot;:37.8857582,&quot;phone&quot;:null,&quot;website_url&quot;:&quot;http:\/\/www.buckwildbrew.com&quot;,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:null},{&quot;id&quot;:&quot;dc9fb80b-fb92-47c2-8b13-9a6f6990f99e&quot;,&quot;name&quot;:&quot;Alpha Acid Brewing Co&quot;,&quot;brewery_type&quot;:&quot;micro&quot;,&quot;address_1&quot;:&quot;121 Industrial Way Ste 12&quot;,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;Belmont&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;94002-8208&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-122.2655717,&quot;latitude&quot;:37.52125155,&quot;phone&quot;:&quot;6503944728&quot;,&quot;website_url&quot;:null,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:&quot;121 Industrial Way Ste 12&quot;},{&quot;id&quot;:&quot;1d7c2273-8031-40d2-bb50-7f518722e291&quot;,&quot;name&quot;:&quot;Alpine Beer Company&quot;,&quot;brewery_type&quot;:&quot;brewpub&quot;,&quot;address_1&quot;:&quot;6550 Mira Mesa Blvd&quot;,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;San Diego&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;92121-4100&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-117.113975,&quot;latitude&quot;:32.9167796,&quot;phone&quot;:&quot;6194452337&quot;,&quot;website_url&quot;:&quot;http:\/\/www.alpinebrewing.com&quot;,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:&quot;6550 Mira Mesa Blvd&quot;},{&quot;id&quot;:&quot;728f9750-1c56-48be-9f96-b26d04215958&quot;,&quot;name&quot;:&quot;Alta Brewing Company&quot;,&quot;brewery_type&quot;:&quot;micro&quot;,&quot;address_1&quot;:&quot;1983 Julian Avenue&quot;,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;San Diego&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;92113-1125&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-117.1414712,&quot;latitude&quot;:32.7018758,&quot;phone&quot;:&quot;6197957300&quot;,&quot;website_url&quot;:&quot;http:\/\/www.altabrewing.com&quot;,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:&quot;1983 Julian Avenue&quot;},{&quot;id&quot;:&quot;ce487823-fb0a-4ad9-b3de-2f2ec4ce0631&quot;,&quot;name&quot;:&quot;Altamont Beer Works&quot;,&quot;brewery_type&quot;:&quot;micro&quot;,&quot;address_1&quot;:&quot;2402 Research Dr&quot;,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;Livermore&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;94550-3850&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-121.7210974,&quot;latitude&quot;:37.67839114,&quot;phone&quot;:&quot;9254432337&quot;,&quot;website_url&quot;:&quot;http:\/\/www.altamontbeerworks.com&quot;,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:&quot;2402 Research Dr&quot;},{&quot;id&quot;:&quot;7d0a71c4-cec0-431b-be2f-d125a9b9a44b&quot;,&quot;name&quot;:&quot;Alvarado Street Brewery&quot;,&quot;brewery_type&quot;:&quot;micro&quot;,&quot;address_1&quot;:&quot;1315 Dayton St Ste E&quot;,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;Salinas&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;93901-4400&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-121.6305329,&quot;latitude&quot;:36.64880356,&quot;phone&quot;:null,&quot;website_url&quot;:null,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:&quot;1315 Dayton St Ste E&quot;},{&quot;id&quot;:&quot;08bf17d8-5f8f-40bc-88cb-5661f0791b35&quot;,&quot;name&quot;:&quot;Alvarado Street Brewery &amp; Grill&quot;,&quot;brewery_type&quot;:&quot;brewpub&quot;,&quot;address_1&quot;:&quot;426 Alvarado St&quot;,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;Monterey&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;93940-2711&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-121.8946096,&quot;latitude&quot;:36.59857755,&quot;phone&quot;:&quot;8316552337&quot;,&quot;website_url&quot;:null,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:&quot;426 Alvarado St&quot;},{&quot;id&quot;:&quot;a649a8d5-f59e-4007-bf75-e1609ef76467&quot;,&quot;name&quot;:&quot;Amador Brewing Company&quot;,&quot;brewery_type&quot;:&quot;micro&quot;,&quot;address_1&quot;:&quot;9659 Main St&quot;,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;Plymouth&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;95669-9570&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-120.849271,&quot;latitude&quot;:38.4808723,&quot;phone&quot;:&quot;2095071900&quot;,&quot;website_url&quot;:&quot;http:\/\/www.amadorbrewing.com&quot;,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:&quot;9659 Main St&quot;},{&quot;id&quot;:&quot;a580bbc1-343c-4213-968d-6f332755f739&quot;,&quot;name&quot;:&quot;Ambitious Ales&quot;,&quot;brewery_type&quot;:&quot;planning&quot;,&quot;address_1&quot;:null,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;Long Beach&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;90807-2907&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-118.1580493,&quot;latitude&quot;:33.78538945,&quot;phone&quot;:&quot;7142962550&quot;,&quot;website_url&quot;:&quot;http:\/\/www.ambitiousales.com&quot;,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:null},{&quot;id&quot;:&quot;fd0d376e-1c1d-48ce-ba6f-897298c20b85&quot;,&quot;name&quot;:&quot;Amplified Ale Works&quot;,&quot;brewery_type&quot;:&quot;brewpub&quot;,&quot;address_1&quot;:&quot;4150 Mission Blvd Ste 208&quot;,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;San Diego&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;92109-5054&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-117.2511178,&quot;latitude&quot;:32.7719729,&quot;phone&quot;:&quot;6195871400&quot;,&quot;website_url&quot;:&quot;http:\/\/www.amplifiedales.com&quot;,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:&quot;4150 Mission Blvd Ste 208&quot;},{&quot;id&quot;:&quot;c3f5bb6a-c7f4-45a9-829c-3978625f111e&quot;,&quot;name&quot;:&quot;Amplified Ale Works Miramar Studio&quot;,&quot;brewery_type&quot;:&quot;brewpub&quot;,&quot;address_1&quot;:&quot;9030 Kenamar Dr Ste 309&quot;,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;San Diego&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;92121-2432&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-117.1570695,&quot;latitude&quot;:32.88687598,&quot;phone&quot;:&quot;6503804220&quot;,&quot;website_url&quot;:&quot;https:\/\/amplifiedales.com\/&quot;,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:&quot;9030 Kenamar Dr Ste 309&quot;},{&quot;id&quot;:&quot;f99c834f-df7e-41e9-8236-ce0d25e43189&quot;,&quot;name&quot;:&quot;Anacapa Brewing Co&quot;,&quot;brewery_type&quot;:&quot;brewpub&quot;,&quot;address_1&quot;:&quot;472 E Main St&quot;,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;Ventura&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;93001-2627&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-119.2935874,&quot;latitude&quot;:34.28073347,&quot;phone&quot;:&quot;8056432337&quot;,&quot;website_url&quot;:&quot;http:\/\/www.anacapabrewing.com&quot;,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:&quot;472 E Main St&quot;},{&quot;id&quot;:&quot;e6663203-a997-403b-b130-63dd975b00c6&quot;,&quot;name&quot;:&quot;Anaheim Brewery&quot;,&quot;brewery_type&quot;:&quot;micro&quot;,&quot;address_1&quot;:&quot;336 S Anaheim Blvd&quot;,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;Anaheim&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;92805-3830&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-117.9125249,&quot;latitude&quot;:33.8328226,&quot;phone&quot;:&quot;7147801888&quot;,&quot;website_url&quot;:&quot;http:\/\/www.anaheimbrew.com&quot;,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:&quot;336 S Anaheim Blvd&quot;},{&quot;id&quot;:&quot;25809e1c-0c76-498b-8a57-d6b85ff24c3c&quot;,&quot;name&quot;:&quot;Anchor Brewing Co&quot;,&quot;brewery_type&quot;:&quot;large&quot;,&quot;address_1&quot;:&quot;1705 Mariposa St&quot;,&quot;address_2&quot;:null,&quot;address_3&quot;:null,&quot;city&quot;:&quot;San Francisco&quot;,&quot;state_province&quot;:&quot;California&quot;,&quot;postal_code&quot;:&quot;94107-2334&quot;,&quot;country&quot;:&quot;United States&quot;,&quot;longitude&quot;:-122.4011065,&quot;latitude&quot;:37.7630772,&quot;phone&quot;:&quot;4158638350&quot;,&quot;website_url&quot;:&quot;http:\/\/www.anchorbrewing.com&quot;,&quot;state&quot;:&quot;California&quot;,&quot;street&quot;:&quot;1705 Mariposa St&quot;}]</code></pre>
+                                        </div>
+                                        <div class="card-footer">
+                                            <button class="btn btn-outline-secondary btn-sm copyButton" type="button" data-clipboard-action="copy" data-clipboard-target="#copyText-59374162-b6db-455a-8a82-277cc913bac2">Copy to Clipboard</button>
+                                        </div>
+                                </div>
+                            </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="card border-info">
+                                <div class="card-body">
+                                <h5 class="card-title text-uppercase text-white text-center bg-info">Test Information</h5>
+                                    <div class="table-responsive text-nowrap">
+                                        <table class="datatable table table-hover">
+                                        <thead><tr class="text-center"><th>Name</th><th>Passed</th><th>Failed</th><th>Skipped</th></tr></thead>
+                                            <tbody>
+                                                <tr >
+                                                    <td >TC-FUN-006 | HTTP 200 OK</td>
+                                                    <td class="text-center bg-success">1</td>
+                                                    <td class="text-center ">0</td>
+                                                    <td class="text-center ">0</td>
+                                                </tr>
+                                                <tr >
+                                                    <td >TC-FUN-006 | La respuesta es JSON</td>
+                                                    <td class="text-center bg-success">1</td>
+                                                    <td class="text-center ">0</td>
+                                                    <td class="text-center ">0</td>
+                                                </tr>
+                                                <tr >
+                                                    <td >TC-FUN-006 | El cuerpo contiene JSON válido</td>
+                                                    <td class="text-center bg-success">1</td>
+                                                    <td class="text-center ">0</td>
+                                                    <td class="text-center ">0</td>
+                                                </tr>
+                                                <tr >
+                                                    <td >TC-FUN-006 | La respuesta es un arreglo</td>
+                                                    <td class="text-center bg-success">1</td>
+                                                    <td class="text-center ">0</td>
+                                                    <td class="text-center ">0</td>
+                                                </tr>
+                                                <tr >
+                                                    <td >TC-FUN-006 | El filtro retorna al menos un resultado</td>
+                                                    <td class="text-center bg-success">1</td>
+                                                    <td class="text-center ">0</td>
+                                                    <td class="text-center ">0</td>
+                                                </tr>
+                                                <tr >
+                                                    <td >TC-FUN-006 | Todos los resultados son objetos</td>
+                                                    <td class="text-center bg-success">1</td>
+                                                    <td class="text-center ">0</td>
+                                                    <td class="text-center ">0</td>
+                                                </tr>
+                                                <tr >
+                                                    <td >TC-FUN-006 | Todos los resultados contienen state</td>
+                                                    <td class="text-center bg-success">1</td>
+                                                    <td class="text-center ">0</td>
+                                                    <td class="text-center ">0</td>
+                                                </tr>
+                                                <tr >
+                                                    <td >TC-FUN-006 | Todos los registros tienen state &quot;California&quot;</td>
+                                                    <td class="text-center bg-success">1</td>
+                                                    <td class="text-center ">0</td>
+                                                    <td class="text-center ">0</td>
+                                                </tr>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr class="bg-light">
+                                                    <td><strong>Total</strong></td>
+                                                    <td class="text-center">8</td>
+                                                    <td class="text-center">0</td>
+                                                    <td class="text-center">0</td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                    <div class="row d-none">
+                                    <div class="col-sm-12 mb-3">
+                                        <div class="card-deck">
+                                        <div class="card border-danger" style="width: 50rem;">
+                                            <div class="card-body">
+                                                <h5 class="card-title text-uppercase text-white text-center bg-danger">Test Failure</h5>
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover">
+                                                    <thead><tr class="text-nowrap"><th>Test Name</th><th>Assertion Error</th></tr></thead>
+                                                        <tbody>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/1.7.1/remarkable.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<!-- Set slider initial position depending on the localstorage state -->
+
+<script>
+(function () {
+  var sliderChecked = true;
+  if (localStorage.getItem('theme') === 'theme-light') {
+    setTheme('theme-light');
+    sliderChecked = false;
+  } else {
+    setTheme('theme-dark');
+    sliderChecked = true;
+  }
+  $(document).ready( function () {
+    document.getElementById('slider').checked = sliderChecked;
+  });
+})();
+</script>
+
+<!-- Data Table Configuration -->
+
+<script>
+$(document).ready( function () {
+    $('.datatable').DataTable({
+        "retrieve": true,
+        "paging": false,
+        "info": false,
+        "fixedColumns":   {
+            "heightMatch": 'none'
+        }
+    });
+});
+</script>
+
+<!-- Tooltip Configuration -->
+
+<script>
+$(document).ready(function() {
+    $('[data-toggle="tooltip"]').tooltip({
+        trigger : 'hover'
+    })
+})
+</script>
+
+<!-- Show/Hide The Folders -->
+
+<script>
+$('#openAll').on('click', function(e) {
+let clickCount = $(this).data("clickCount") || 1
+switch (clickCount){
+    case 1:
+            $('#folder-f4a73598-29bb-4886-864a-0835e07a5902-iteration-0').removeClass('collapsed')
+            $('#folder-collapse-f4a73598-29bb-4886-864a-0835e07a5902-iteration-0').addClass('show')
+        $('#openAll').html("Collapse Folders");
+        break;
+    case 2:
+            $('#folder-f4a73598-29bb-4886-864a-0835e07a5902-iteration-0').addClass('collapsed')
+            $('#folder-collapse-f4a73598-29bb-4886-864a-0835e07a5902-iteration-0').removeClass('show')
+        $('#openAll').html("Expand Folders");
+        break;
+}
+clickCount = clickCount > 1 ? 1 : ++clickCount;
+$(this).data("clickCount", clickCount)
+})
+</script>
+
+<!-- Show/Hide The Requests -->
+
+<script>
+$('#openAllRequests').on('click', function(e) {
+let clickCount = $(this).data("clickCount") || 1
+switch (clickCount){
+    case 1:
+            $('#requests-29680ec9-5171-4cef-ab79-0635637d1230').removeClass('collapsed')
+            $('#collapse-29680ec9-5171-4cef-ab79-0635637d1230').removeClass('collapsed')
+            $('#requests-29680ec9-5171-4cef-ab79-0635637d1230').addClass('show')
+            $('#collapse-29680ec9-5171-4cef-ab79-0635637d1230').addClass('show')
+        $('#openAllRequests').html("Collapse Requests");
+        break;
+    case 2:
+            $('#requests-29680ec9-5171-4cef-ab79-0635637d1230').addClass('collapsed')
+            $('#collapse-29680ec9-5171-4cef-ab79-0635637d1230').addClass('collapsed')
+            $('#requests-29680ec9-5171-4cef-ab79-0635637d1230').removeClass('show')
+            $('#collapse-29680ec9-5171-4cef-ab79-0635637d1230').removeClass('show')
+        $('#openAllRequests').html("Expand Requests");
+        break;
+}
+clickCount = clickCount > 1 ? 1 : ++clickCount;
+$(this).data("clickCount", clickCount)
+})
+</script>
+
+<!-- Show/Hide The Skipped Tests -->
+
+<script>
+$('#openAllSkipped').on('click', function(e) {
+let clickCount = $(this).data("clickCount") || 1
+switch (clickCount){
+    case 1:
+            $('#skipped-29680ec9-5171-4cef-ab79-0635637d1230').removeClass('collapsed')
+            $('#skipped-collapse-29680ec9-5171-4cef-ab79-0635637d1230').removeClass('collapsed')
+            $('#skipped-29680ec9-5171-4cef-ab79-0635637d1230').addClass('show')
+            $('#skipped-collapse-29680ec9-5171-4cef-ab79-0635637d1230').addClass('show')
+        $('#openAllSkipped').html("Collapse All Skipped Tests");
+        break;
+    case 2:
+            $('#skipped-29680ec9-5171-4cef-ab79-0635637d1230').addClass('collapsed')
+            $('#skipped-collapse-29680ec9-5171-4cef-ab79-0635637d1230').addClass('collapsed')
+            $('#skipped-29680ec9-5171-4cef-ab79-0635637d1230').removeClass('show')
+            $('#skipped-collapse-29680ec9-5171-4cef-ab79-0635637d1230').removeClass('show')
+        $('#openAllSkipped').html("Expand All Skipped Tests");
+        break;
+}
+clickCount = clickCount > 1 ? 1 : ++clickCount;
+$(this).data("clickCount", clickCount)
+})
+</script>
+
+<!-- Show/Hide The Failures -->
+
+<script>
+$('#openAllFailed').on('click', function(e) {
+let clickCount = $(this).data("clickCount") || 1
+let failedItemContent
+let failedItemHeading
+switch (clickCount){
+    case 1:
+        $('#openAllFailed').html("Collapse All Failed Tests");
+        break;
+    case 2:
+        $('#openAllFailed').html("Expand All Failed Tests");
+        break;
+}
+clickCount = clickCount > 1 ? 1 : ++clickCount;
+$(this).data("clickCount", clickCount)
+})
+</script>
+
+<!-- Pretty Print the Response Body-->
+
+<script>
+function isJSON(data)
+{
+    var ret = true;
+    try {
+            JSON.parse(data);
+    }catch(e) {
+            ret = false;
+    }
+    return ret;
+}
+
+function isXML(data)
+{
+    return (data.length > 0 && data[0] === '<');
+}
+
+// see https://gist.github.com/sente/1083506/d2834134cd070dbcc08bf42ee27dabb746a1c54d#gistcomment-2254622
+function formatXML(data) {
+    const PADDING = ' '.repeat(2); // set desired indent size here
+    const reg = /(>)(<)(\/*)/g;
+    let pad = 0;
+    xml = data.replace(reg, '$1\r\n$2$3');
+
+    return xml.split('\r\n').map((node, index) => {
+        let indent = 0;
+        if (node.match(/.+<\/\w[^>]*>$/)) {
+            indent = 0;
+        } else if (node.match(/^<\/\w/) && pad > 0) {
+            pad -= 1;
+        } else if (node.match(/^<\w[^>]*[^\/]>.*$/)) {
+            indent = 1;
+        } else {
+            indent = 0;
+        }
+
+        pad += indent;
+        return PADDING.repeat(pad - indent) + node;
+    }).join('\r\n');
+}
+
+$(".prettyPrint").each(function () {
+        var data = $(this).text();
+        // Verify whether data is JSON
+        if(isJSON(data))
+        {
+                obj = JSON.parse(data);
+                data = JSON.stringify(obj, null, 2);
+        }
+        else if(isXML(data)) {
+            data = formatXML(data);
+        }
+        $(this).text(data);
+});
+</script>
+
+
+<!-- Copy Response Body To Clipboard -->
+
+<script>
+    var clipboard = new ClipboardJS('.copyButton');
+
+    clipboard.on('success', function(e) {
+        e.clearSelection();
+        $(".copyButton").addClass("bg-success text-white")
+        e.trigger.textContent = '✔ Copied!';
+        window.setTimeout(function() {
+            $(".copyButton").removeClass("bg-success text-white")
+            e.trigger.textContent = 'Copy to Clipboard';
+        }, 2000);
+    });
+    clipboard.on('error', function(e) {
+        e.clearSelection();
+        $(".copyButton").addClass("bg-danger text-white")
+        e.trigger.textContent = '✗ Not Copied';
+        window.setTimeout(function() {
+            $(".copyButton").removeClass("bg-danger text-white")
+            e.trigger.textContent = 'Copy to Clipboard';
+        }, 2000);
+    });
+
+</script>
+
+<!-- Render the Description Markdown and link in the test failures -->
+
+<script>
+    const remarkable = new Remarkable();
+
+    const descriptions = document.querySelectorAll(".renderMarkdown");
+    descriptions.forEach(description => {
+        description.innerHTML = renderHtmlFromMarkdown(description.textContent);
+    });
+    function renderHtmlFromMarkdown(markdown) {
+        return remarkable.render(trim(markdown));
+    }
+    function trim(string) {
+        return string ? string.replace(/^ +| +$/gm, "") : string;
+    }
+</script>
+
+<!-- Show/Hide The Toggles When Scrolling The Page -->
+
+<script>
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    document.getElementById("topOfRequestsScreen").style.display = "block";
+    document.getElementById("topOfFailuresScreen").style.display = "block";
+    document.getElementById("topOfSkippedScreen").style.display = "block";
+    document.getElementById("openAll").style.display = "none";
+    document.getElementById("openAllRequests").style.display = "none";
+
+
+  } else {
+    document.getElementById("topOfRequestsScreen").style.display = "none";
+    document.getElementById("topOfFailuresScreen").style.display = "none";
+    document.getElementById("topOfSkippedScreen").style.display = "none";
+    document.getElementById("openAll").style.display = "block";
+    document.getElementById("openAllRequests").style.display = "block";
+
+  }
+}
+
+function topFunction() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+</script>
+
+<!-- Creates The Iteration Tabs -->
+
+<script type="text/javascript">
+    "use strict";
+
+window.onload = function () {
+
+  // set display for all blocks of response
+  var allItems = document.querySelectorAll('[class*=iteration-]');
+  allItems.forEach(function(elem){
+    elem.style.display = 'block';
+  });
+
+   
+  let totalIterations = 1;
+   
+
+  let menu = document.querySelector('#execution-menu .nav');
+
+  for(var i = 0; i < totalIterations; i++)
+  {
+    let li = document.createElement('li');
+    li.appendChild(document.createTextNode((i + 1)));
+    li.setAttribute('id', 'iteration-' + i);
+    li.classList.add("custom-tab");
+    li.classList.add("itPassed");
+
+    li.addEventListener('click', function() {
+      //set display to none for all except row
+      let allItems = document.querySelectorAll('[class*=iteration-]:not(.row)');
+      allItems.forEach(function(elem) {
+        elem.style.display = 'none';
+      })
+
+      let allMenus = document.querySelectorAll('[id*=iteration-]');
+      allMenus.forEach(function(elem){
+        elem.style.borderBottom = 'none';
+      })
+
+      this.style.borderBottom = 'solid 3px #032a33';
+
+      let items = document.querySelectorAll("." + this.id + ':not(.row)');
+      items.forEach(function(elem) {
+        elem.style.display = elem.style.display == 'block' ? 'none' : 'block';
+      })
+    });
+    menu.appendChild(li);
+  }
+
+  //shows first tab data
+  document.getElementById('iteration-0').click();
+  document.getElementById('iterationSelected').innerHTML = `Iteration ${document.getElementById('iteration-0').innerHTML} selected`
+
+}
+</script>
+
+<!-- Create the Selected Iteration Label -->
+
+<script>
+$(document).ready(function(){
+    $(function() {
+        $("#iterationList li").click(function() {
+            document.getElementById('iterationSelected').innerHTML = "Iteration " + this.innerHTML + " selected"
+        });
+    });
+});
+</script>
+
+<!-- Filter Action for the Iterations -->
+
+<script>
+$("#filterInput").on("input paste", function() {
+    var value = $(this).val();
+    $("#iterationList li").filter(function() {
+	    $("#showOnlyFailures").data("clickCount") ? $("#showOnlyFailures").click():null;
+        $(this).toggle($(this).text().indexOf(value) > -1)
+    });
+});
+</script>
+
+<!-- Showing the Failed Interations -->
+
+<script>
+$('#showOnlyFailures').on('click', function(e) {
+    let clickCount = $(this).data("clickCount") || 1
+	$("#filterInput").val()!="" && clickCount==1 ? $("#filterInput").val('').trigger('input'): null;
+    let selectedIteration = $('#iterationList li').filter(function () {
+        return $(this).css('border-bottom').indexOf("solid") > -1 && $(this).hasClass('itFailed');
+    });
+    selectedIteration.length || clickCount > 1 ? null : $("#iterationList li.itFailed")[0].click()
+    $("#iterationList li.itPassed").toggle()
+    $("div.bg-success [id*=requests]").parents('[class^="row iteration-"]').toggle();
+    clickCount = clickCount > 1 ? 1 : ++clickCount;
+    clickCount > 1 ? $("#showOnlyFailures").html("Show All Iterations") : $("#showOnlyFailures").html("Show Failed Iterations");
+    $(this).data("clickCount", clickCount)
+})
+</script>
+</body>
+</html>

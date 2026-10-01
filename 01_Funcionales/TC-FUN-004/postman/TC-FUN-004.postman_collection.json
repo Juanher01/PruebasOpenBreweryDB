@@ -1,0 +1,102 @@
+{
+  "info": {
+    "_postman_id": "2a6d9f3e-1c8b-4e5a-a7d2-tcfun004col",
+    "name": "Open BreweryDB - Pruebas Funcionales",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "TC-FUN-004",
+      "item": [
+        {
+          "name": "TC-FUN-004 - Cervecería aleatoria",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// TC-FUN-004 - Cervecería aleatoria (comportamiento por defecto, sin query params)",
+                  "pm.test(\"TC-FUN-004 | HTTP 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-004 | La respuesta es JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\"))",
+                  "        .to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "let randomResponse;",
+                  "",
+                  "pm.test(\"TC-FUN-004 | El cuerpo contiene JSON válido\", function () {",
+                  "    pm.expect(function () {",
+                  "        randomResponse = pm.response.json();",
+                  "    }).to.not.throw();",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-004 | La respuesta es un objeto JSON\", function () {",
+                  "    pm.expect(randomResponse).to.be.an(\"object\");",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-004 | La respuesta no es un arreglo\", function () {",
+                  "    pm.expect(Array.isArray(randomResponse)).to.be.false;",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-004 | Contiene un ID válido\", function () {",
+                  "    pm.expect(randomResponse).to.have.property(\"id\");",
+                  "    pm.expect(randomResponse.id).to.be.a(\"string\");",
+                  "    pm.expect(randomResponse.id.length).to.be.above(0);",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-004 | Contiene un nombre válido\", function () {",
+                  "    pm.expect(randomResponse).to.have.property(\"name\");",
+                  "    pm.expect(randomResponse.name).to.be.a(\"string\");",
+                  "    pm.expect(randomResponse.name.length).to.be.above(0);",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-004 | Contiene brewery_type\", function () {",
+                  "    pm.expect(randomResponse).to.have.property(\"brewery_type\");",
+                  "    pm.expect(randomResponse.brewery_type).to.be.a(\"string\");",
+                  "    pm.expect(randomResponse.brewery_type.length).to.be.above(0);",
+                  "});",
+                  "",
+                  "// Datos de diagnóstico (auxiliares, no sustituyen las assertions)",
+                  "console.log(\"TC-FUN-004 | Fecha/hora:\", new Date().toISOString());",
+                  "console.log(\"TC-FUN-004 | URL:\", pm.request.url.toString());",
+                  "console.log(\"TC-FUN-004 | HTTP:\", pm.response.code, pm.response.status);",
+                  "console.log(\"TC-FUN-004 | Content-Type:\", pm.response.headers.get(\"Content-Type\"));",
+                  "console.log(\"TC-FUN-004 | Tipo raíz:\", Array.isArray(randomResponse) ? \"array\" : typeof randomResponse);",
+                  "if (randomResponse) {",
+                  "    console.log(\"TC-FUN-004 | ID:\", randomResponse.id);",
+                  "    console.log(\"TC-FUN-004 | Nombre:\", randomResponse.name);",
+                  "    console.log(\"TC-FUN-004 | brewery_type:\", randomResponse.brewery_type);",
+                  "}",
+                  "console.log(",
+                  "    \"TC-FUN-004 | Response Time:\",",
+                  "    pm.response.responseTime,",
+                  "    \"ms\"",
+                  ");"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/breweries/random",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "breweries",
+                "random"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

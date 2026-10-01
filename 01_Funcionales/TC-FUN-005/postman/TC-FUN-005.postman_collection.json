@@ -1,0 +1,96 @@
+{
+  "info": {
+    "_postman_id": "9f3c7b2d-4e1a-4c8f-b5d6-tcfun005col",
+    "name": "Open BreweryDB - Pruebas Funcionales",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "TC-FUN-005",
+      "item": [
+        {
+          "name": "TC-FUN-005 - Consulta de Metadatos",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// TC-FUN-005 - Consulta de Metadatos (sin query params)",
+                  "pm.test(\"TC-FUN-005 | HTTP 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-005 | La respuesta es JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\"))",
+                  "        .to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "let metaResponse;",
+                  "",
+                  "pm.test(\"TC-FUN-005 | El cuerpo contiene JSON válido\", function () {",
+                  "    pm.expect(function () {",
+                  "        metaResponse = pm.response.json();",
+                  "    }).to.not.throw();",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-005 | La respuesta es un objeto JSON\", function () {",
+                  "    pm.expect(metaResponse).to.be.an(\"object\");",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-005 | La respuesta no es un arreglo\", function () {",
+                  "    pm.expect(Array.isArray(metaResponse)).to.be.false;",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-005 | Contiene campo total\", function () {",
+                  "    pm.expect(metaResponse).to.have.property(\"total\");",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-005 | Contiene campo page\", function () {",
+                  "    pm.expect(metaResponse).to.have.property(\"page\");",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-005 | Contiene campo per_page\", function () {",
+                  "    pm.expect(metaResponse).to.have.property(\"per_page\");",
+                  "});",
+                  "",
+                  "// Datos de diagnóstico (auxiliares, no sustituyen las assertions)",
+                  "console.log(\"TC-FUN-005 | Fecha/hora:\", new Date().toISOString());",
+                  "console.log(\"TC-FUN-005 | URL:\", pm.request.url.toString());",
+                  "console.log(\"TC-FUN-005 | HTTP:\", pm.response.code, pm.response.status);",
+                  "console.log(\"TC-FUN-005 | Content-Type:\", pm.response.headers.get(\"Content-Type\"));",
+                  "console.log(\"TC-FUN-005 | Tipo raíz:\", Array.isArray(metaResponse) ? \"array\" : typeof metaResponse);",
+                  "if (metaResponse) {",
+                  "    console.log(\"TC-FUN-005 | total:\", metaResponse.total);",
+                  "    console.log(\"TC-FUN-005 | page:\", metaResponse.page);",
+                  "    console.log(\"TC-FUN-005 | per_page:\", metaResponse.per_page);",
+                  "}",
+                  "console.log(",
+                  "    \"TC-FUN-005 | Response Time:\",",
+                  "    pm.response.responseTime,",
+                  "    \"ms\"",
+                  ");"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/breweries/meta",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "breweries",
+                "meta"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

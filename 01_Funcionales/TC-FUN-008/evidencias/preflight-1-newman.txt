@@ -1,0 +1,80 @@
+newman
+
+Open BreweryDB - Pruebas Funcionales
+
+□ TC-FUN-008
+└ TC-FUN-008 - Paso 1 - Página 1 de referencia
+  GET https://api.openbrewerydb.org/v1/breweries?page=1&per_page=5 [200 OK, 3.38kB, 636ms]
+  √  TC-FUN-008 PRE | Página 1 responde HTTP 200
+  √  TC-FUN-008 PRE | Página 1 contiene JSON válido
+  √  TC-FUN-008 PRE | Página 1 es un arreglo
+  √  TC-FUN-008 PRE | Página 1 contiene máximo 5 registros
+  √  TC-FUN-008 PRE | Página 1 contiene registros
+  √  TC-FUN-008 PRE | Registros de página 1 contienen id
+  ┌
+  │ 'TC-FUN-008 | Página 1 IDs:', [
+  │   'ae7b3174-8be8-4d53-a3a5-9b8240970eea',
+  │   'aa7cbe9b-3a0f-4888-9884-6186b0042b55',
+  │   '1034754f-abf9-4b42-bd6d-37e110ba4b1a',
+  │   '5128df48-79fc-4f0f-8b52-d06be54d0cec',
+  │   '9c5a66c8-cc13-416f-a5d9-0a769c87d318'
+  │ ]
+  │ 'TC-FUN-008 | Página 1 cantidad:', 5
+  │ 'TC-FUN-008 | Página 1 URL:', 'https://api.openbrewery
+  │ db.org/v1/breweries?page=1&per_page=5'
+  │ 'TC-FUN-008 | Página 1 HTTP:', 200, 'OK'
+  │ 'TC-FUN-008 | Response Time página 1:', 636, 'ms'
+  └
+
+└ TC-FUN-008 - Paso 2 - Página 2 personalizada
+  GET https://api.openbrewerydb.org/v1/breweries?page=2&per_page=5 [200 OK, 3.16kB, 356ms]
+  √  TC-FUN-008 | HTTP 200 OK
+  √  TC-FUN-008 | La respuesta es JSON
+  √  TC-FUN-008 | El cuerpo contiene JSON válido
+  √  TC-FUN-008 | La respuesta es un arreglo
+  √  TC-FUN-008 | per_page=5 es respetado
+  √  TC-FUN-008 | Página 2 contiene registros
+  √  TC-FUN-008 | Registros de página 2 contienen id
+  √  TC-FUN-008 | Los registros de página 2 difieren de página 1
+  ┌
+  │ 'TC-FUN-008 | Página 1 IDs:', [
+  │   'ae7b3174-8be8-4d53-a3a5-9b8240970eea',
+  │   'aa7cbe9b-3a0f-4888-9884-6186b0042b55',
+  │   '1034754f-abf9-4b42-bd6d-37e110ba4b1a',
+  │   '5128df48-79fc-4f0f-8b52-d06be54d0cec',
+  │   '9c5a66c8-cc13-416f-a5d9-0a769c87d318'
+  │ ]
+  │ 'TC-FUN-008 | Página 2 IDs:', [
+  │   '34e8c68b-6146-453f-a4b9-1f6cd99a5ada',
+  │   '21f21cc0-5b2f-4b79-be29-3bc625bcc4c8',
+  │   '6d14b220-8926-4521-8d19-b98a2d6ec3db',
+  │   'e2e78bd8-80ff-4a61-a65c-3bfbd9d76ce2',
+  │   'e432899b-7f58-455f-9c7b-9a6e2130a1e0'
+  │ ]
+  │ 'TC-FUN-008 | IDs solapados:', []
+  │ 'TC-FUN-008 | Página 2 cantidad:', 5
+  │ 'TC-FUN-008 | Página 2 URL:', 'https://api.openbrewery
+  │ db.org/v1/breweries?page=2&per_page=5'
+  │ 'TC-FUN-008 | Página 2 HTTP:', 200, 'OK'
+  │ 'TC-FUN-008 | Response Time página 2:', 356, 'ms'
+  └
+
+┌─────────────────────────┬─────────────────────┬────────────────────┐
+│                         │            executed │             failed │
+├─────────────────────────┼─────────────────────┼────────────────────┤
+│              iterations │                   1 │                  0 │
+├─────────────────────────┼─────────────────────┼────────────────────┤
+│                requests │                   2 │                  0 │
+├─────────────────────────┼─────────────────────┼────────────────────┤
+│            test-scripts │                   2 │                  0 │
+├─────────────────────────┼─────────────────────┼────────────────────┤
+│      prerequest-scripts │                   1 │                  0 │
+├─────────────────────────┼─────────────────────┼────────────────────┤
+│              assertions │                  14 │                  0 │
+├─────────────────────────┴─────────────────────┴────────────────────┤
+│ total run duration: 1178ms                                         │
+├────────────────────────────────────────────────────────────────────┤
+│ total data received: 4.15kB (approx)                               │
+├────────────────────────────────────────────────────────────────────┤
+│ average response time: 496ms [min: 356ms, max: 636ms, s.d.: 140ms] │
+└────────────────────────────────────────────────────────────────────┘

@@ -1,0 +1,212 @@
+{
+  "info": {
+    "_postman_id": "d7a1b5c9-8e2f-4d4b-b6a8-tcfun009col",
+    "name": "Open BreweryDB - Pruebas Funcionales",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "TC-FUN-009",
+      "item": [
+        {
+          "name": "TC-FUN-009 - Paso 1 - Listar California y seleccionar registro",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Se limpian valores previos: el ID y el snapshot deben obtenerse en esta ejecución",
+                  "pm.environment.set(\"brewery_id\", \"\");",
+                  "pm.environment.set(\"selected_brewery_snapshot\", \"\");"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// TC-FUN-009 - Paso 1: listado California y selección dinámica",
+                  "pm.test(\"TC-FUN-009 PRE | Listado California responde HTTP 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-009 PRE | Listado California es JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\"))",
+                  "        .to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "let californiaResponse;",
+                  "",
+                  "pm.test(\"TC-FUN-009 PRE | Listado contiene JSON válido\", function () {",
+                  "    pm.expect(function () {",
+                  "        californiaResponse = pm.response.json();",
+                  "    }).to.not.throw();",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-009 PRE | Listado es un arreglo\", function () {",
+                  "    pm.expect(californiaResponse).to.be.an(\"array\");",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-009 PRE | Listado contiene registros\", function () {",
+                  "    pm.expect(californiaResponse.length).to.be.above(0);",
+                  "});",
+                  "",
+                  "// Selección dinámica del primer registro disponible",
+                  "const selectedBrewery = Array.isArray(californiaResponse) ? californiaResponse[0] : undefined;",
+                  "",
+                  "pm.test(\"TC-FUN-009 PRE | Registro seleccionado contiene ID válido\", function () {",
+                  "    pm.expect(selectedBrewery).to.be.an(\"object\");",
+                  "    pm.expect(selectedBrewery).to.have.property(\"id\");",
+                  "    pm.expect(selectedBrewery.id).to.be.a(\"string\");",
+                  "    pm.expect(selectedBrewery.id.length).to.be.above(0);",
+                  "});",
+                  "",
+                  "// Guardar el ID y el snapshot sin modificar el objeto",
+                  "if (selectedBrewery && typeof selectedBrewery.id === \"string\") {",
+                  "    pm.environment.set(\"brewery_id\", selectedBrewery.id);",
+                  "",
+                  "    pm.environment.set(",
+                  "        \"selected_brewery_snapshot\",",
+                  "        JSON.stringify(selectedBrewery)",
+                  "    );",
+                  "",
+                  "    console.log(\"TC-FUN-009 | ID seleccionado:\", selectedBrewery.id);",
+                  "    console.log(\"TC-FUN-009 | Nombre seleccionado:\", selectedBrewery.name);",
+                  "    console.log(",
+                  "        \"TC-FUN-009 | Registros obtenidos en California:\",",
+                  "        californiaResponse.length",
+                  "    );",
+                  "}",
+                  "console.log(\"TC-FUN-009 | Listado URL:\", pm.request.url.toString());",
+                  "console.log(\"TC-FUN-009 | Listado HTTP:\", pm.response.code, pm.response.status);",
+                  "console.log(\"TC-FUN-009 | Response Time listado:\", pm.response.responseTime, \"ms\");"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/breweries?by_state=california",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "breweries"
+              ],
+              "query": [
+                {
+                  "key": "by_state",
+                  "value": "california"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "TC-FUN-009 - Paso 2 - Consultar detalle por ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// TC-FUN-009 - Paso 2: detalle por el ID obtenido en el Paso 1",
+                  "pm.test(\"TC-FUN-009 | Detalle responde HTTP 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-009 | El detalle es JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\"))",
+                  "        .to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "let detailResponse;",
+                  "",
+                  "pm.test(\"TC-FUN-009 | El detalle contiene JSON válido\", function () {",
+                  "    pm.expect(function () {",
+                  "        detailResponse = pm.response.json();",
+                  "    }).to.not.throw();",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-009 | El detalle es un objeto JSON\", function () {",
+                  "    pm.expect(detailResponse).to.be.an(\"object\");",
+                  "    pm.expect(Array.isArray(detailResponse)).to.be.false;",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-009 | El ID retornado coincide con el solicitado\", function () {",
+                  "    const requestedId = pm.environment.get(\"brewery_id\");",
+                  "    pm.expect(detailResponse).to.have.property(\"id\");",
+                  "    pm.expect(detailResponse.id).to.eql(requestedId);",
+                  "});",
+                  "",
+                  "let selectedSnapshot;",
+                  "try {",
+                  "    selectedSnapshot = JSON.parse(",
+                  "        pm.environment.get(\"selected_brewery_snapshot\")",
+                  "    );",
+                  "} catch (e) {",
+                  "    selectedSnapshot = undefined;",
+                  "}",
+                  "",
+                  "pm.test(\"TC-FUN-009 | El detalle coincide con el elemento seleccionado del listado\", function () {",
+                  "    pm.expect(detailResponse).to.deep.equal(selectedSnapshot);",
+                  "});",
+                  "",
+                  "// Diagnóstico de diferencias (no modifica el resultado de la assertion)",
+                  "if (selectedSnapshot && detailResponse && typeof detailResponse === \"object\") {",
+                  "    const allKeys = Array.from(",
+                  "        new Set([",
+                  "            ...Object.keys(selectedSnapshot),",
+                  "            ...Object.keys(detailResponse)",
+                  "        ])",
+                  "    );",
+                  "",
+                  "    const differences = allKeys",
+                  "        .filter(function (key) {",
+                  "            return JSON.stringify(selectedSnapshot[key]) !==",
+                  "                   JSON.stringify(detailResponse[key]);",
+                  "        })",
+                  "        .map(function (key) {",
+                  "            return {",
+                  "                field: key,",
+                  "                listado: selectedSnapshot[key],",
+                  "                detalle: detailResponse[key]",
+                  "            };",
+                  "        });",
+                  "",
+                  "    console.log(\"TC-FUN-009 | Campos comparados:\", allKeys.length);",
+                  "    console.log(\"TC-FUN-009 | Diferencias listado vs detalle:\", differences);",
+                  "}",
+                  "console.log(\"TC-FUN-009 | Detalle URL:\", pm.request.url.toString());",
+                  "console.log(\"TC-FUN-009 | Detalle HTTP:\", pm.response.code, pm.response.status);",
+                  "console.log(\"TC-FUN-009 | ID retornado:\", detailResponse ? detailResponse.id : \"N/A\");",
+                  "console.log(\"TC-FUN-009 | Response Time detalle:\", pm.response.responseTime, \"ms\");"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/breweries/{{brewery_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "breweries",
+                "{{brewery_id}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

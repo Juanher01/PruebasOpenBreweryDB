@@ -1,0 +1,44 @@
+newman
+
+Open BreweryDB - Pruebas Funcionales
+
+□ TC-FUN-001
+└ TC-FUN-001 - Listado general de cervecerías
+  GET https://api.openbrewerydb.org/v1/breweries [200 OK, 22.1kB, 323ms]
+  √  TC-FUN-001 | HTTP 200 OK
+  √  TC-FUN-001 | La respuesta es JSON
+  √  TC-FUN-001 | El cuerpo contiene JSON válido
+  √  TC-FUN-001 | La respuesta es un arreglo
+  √  TC-FUN-001 | El listado contiene registros
+  √  TC-FUN-001 | Los registros retornados son objetos
+  ┌
+  │ 'TC-FUN-001 | Fecha/hora: 2026-10-01T03:19:28.752Z'
+  │ 'TC-FUN-001 | URL: https://api.openbrewerydb.org/v1/br
+  │ eweries'
+  │ 'TC-FUN-001 | Método: GET'
+  │ 'TC-FUN-001 | HTTP: 200 OK'
+  │ 'TC-FUN-001 | Content-Type: application/json'
+  │ 'TC-FUN-001 | Tiempo de respuesta (ms): 323'
+  │ 'TC-FUN-001 | Tamaño de respuesta (bytes): 20731'
+  │ 'TC-FUN-001 | Registros retornados: 50'
+  └
+
+┌─────────────────────────┬────────────────────┬───────────────────┐
+│                         │           executed │            failed │
+├─────────────────────────┼────────────────────┼───────────────────┤
+│              iterations │                  1 │                 0 │
+├─────────────────────────┼────────────────────┼───────────────────┤
+│                requests │                  1 │                 0 │
+├─────────────────────────┼────────────────────┼───────────────────┤
+│            test-scripts │                  1 │                 0 │
+├─────────────────────────┼────────────────────┼───────────────────┤
+│      prerequest-scripts │                  0 │                 0 │
+├─────────────────────────┼────────────────────┼───────────────────┤
+│              assertions │                  6 │                 0 │
+├─────────────────────────┴────────────────────┴───────────────────┤
+│ total run duration: 440ms                                        │
+├──────────────────────────────────────────────────────────────────┤
+│ total data received: 20.73kB (approx)                            │
+├──────────────────────────────────────────────────────────────────┤
+│ average response time: 323ms [min: 323ms, max: 323ms, s.d.: 0µs] │
+└──────────────────────────────────────────────────────────────────┘

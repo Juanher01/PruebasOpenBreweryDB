@@ -1,0 +1,2065 @@
+{
+  "collection": {
+    "_": {
+      "postman_id": "2a6d9f3e-1c8b-4e5a-a7d2-tcfun004col"
+    },
+    "item": [
+      {
+        "id": "3fe6423d-0b88-466b-b813-02ef04a04693",
+        "name": "TC-FUN-004",
+        "item": [
+          {
+            "id": "6cf456d6-d581-4315-8f63-7c2b16dd8213",
+            "name": "TC-FUN-004 - Cervecería aleatoria",
+            "request": {
+              "url": {
+                "path": [
+                  "breweries",
+                  "random"
+                ],
+                "host": [
+                  "{{base_url}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "method": "GET"
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "39375872-88a3-499a-b7bc-82ae7ae800aa",
+                  "type": "text/javascript",
+                  "exec": [
+                    "// TC-FUN-004 - Cervecería aleatoria (comportamiento por defecto, sin query params)",
+                    "pm.test(\"TC-FUN-004 | HTTP 200 OK\", function () {",
+                    "    pm.response.to.have.status(200);",
+                    "});",
+                    "",
+                    "pm.test(\"TC-FUN-004 | La respuesta es JSON\", function () {",
+                    "    pm.expect(pm.response.headers.get(\"Content-Type\"))",
+                    "        .to.include(\"application/json\");",
+                    "});",
+                    "",
+                    "let randomResponse;",
+                    "",
+                    "pm.test(\"TC-FUN-004 | El cuerpo contiene JSON válido\", function () {",
+                    "    pm.expect(function () {",
+                    "        randomResponse = pm.response.json();",
+                    "    }).to.not.throw();",
+                    "});",
+                    "",
+                    "pm.test(\"TC-FUN-004 | La respuesta es un objeto JSON\", function () {",
+                    "    pm.expect(randomResponse).to.be.an(\"object\");",
+                    "});",
+                    "",
+                    "pm.test(\"TC-FUN-004 | La respuesta no es un arreglo\", function () {",
+                    "    pm.expect(Array.isArray(randomResponse)).to.be.false;",
+                    "});",
+                    "",
+                    "pm.test(\"TC-FUN-004 | Contiene un ID válido\", function () {",
+                    "    pm.expect(randomResponse).to.have.property(\"id\");",
+                    "    pm.expect(randomResponse.id).to.be.a(\"string\");",
+                    "    pm.expect(randomResponse.id.length).to.be.above(0);",
+                    "});",
+                    "",
+                    "pm.test(\"TC-FUN-004 | Contiene un nombre válido\", function () {",
+                    "    pm.expect(randomResponse).to.have.property(\"name\");",
+                    "    pm.expect(randomResponse.name).to.be.a(\"string\");",
+                    "    pm.expect(randomResponse.name.length).to.be.above(0);",
+                    "});",
+                    "",
+                    "pm.test(\"TC-FUN-004 | Contiene brewery_type\", function () {",
+                    "    pm.expect(randomResponse).to.have.property(\"brewery_type\");",
+                    "    pm.expect(randomResponse.brewery_type).to.be.a(\"string\");",
+                    "    pm.expect(randomResponse.brewery_type.length).to.be.above(0);",
+                    "});",
+                    "",
+                    "// Datos de diagnóstico (auxiliares, no sustituyen las assertions)",
+                    "console.log(\"TC-FUN-004 | Fecha/hora:\", new Date().toISOString());",
+                    "console.log(\"TC-FUN-004 | URL:\", pm.request.url.toString());",
+                    "console.log(\"TC-FUN-004 | HTTP:\", pm.response.code, pm.response.status);",
+                    "console.log(\"TC-FUN-004 | Content-Type:\", pm.response.headers.get(\"Content-Type\"));",
+                    "console.log(\"TC-FUN-004 | Tipo raíz:\", Array.isArray(randomResponse) ? \"array\" : typeof randomResponse);",
+                    "if (randomResponse) {",
+                    "    console.log(\"TC-FUN-004 | ID:\", randomResponse.id);",
+                    "    console.log(\"TC-FUN-004 | Nombre:\", randomResponse.name);",
+                    "    console.log(\"TC-FUN-004 | brewery_type:\", randomResponse.brewery_type);",
+                    "}",
+                    "console.log(",
+                    "    \"TC-FUN-004 | Response Time:\",",
+                    "    pm.response.responseTime,",
+                    "    \"ms\"",
+                    ");"
+                  ],
+                  "_lastExecutionId": "c3ad492b-8dbd-4656-815c-69224a71bd20"
+                }
+              }
+            ]
+          }
+        ],
+        "event": []
+      }
+    ],
+    "event": [],
+    "variable": [],
+    "info": {
+      "_postman_id": "2a6d9f3e-1c8b-4e5a-a7d2-tcfun004col",
+      "name": "Open BreweryDB - Pruebas Funcionales",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    }
+  },
+  "environment": {
+    "_": {
+      "postman_variable_scope": "environment"
+    },
+    "id": "d1f7c3a9-6e2b-4a8d-9c05-tcfun004env",
+    "name": "OpenBreweryDB",
+    "values": [
+      {
+        "type": "any",
+        "value": "https://api.openbrewerydb.org/v1",
+        "key": "base_url"
+      }
+    ]
+  },
+  "globals": {
+    "id": "ed2ca5ca-afc6-4ed2-aefb-7c2f9da5e613",
+    "values": []
+  },
+  "run": {
+    "stats": {
+      "iterations": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "items": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "scripts": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequests": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "requests": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "tests": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "assertions": {
+        "total": 8,
+        "pending": 0,
+        "failed": 5
+      },
+      "testScripts": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequestScripts": {
+        "total": 0,
+        "pending": 0,
+        "failed": 0
+      }
+    },
+    "timings": {
+      "responseAverage": 1183,
+      "responseMin": 1183,
+      "responseMax": 1183,
+      "responseSd": 0,
+      "dnsAverage": 0,
+      "dnsMin": 0,
+      "dnsMax": 0,
+      "dnsSd": 0,
+      "firstByteAverage": 0,
+      "firstByteMin": 0,
+      "firstByteMax": 0,
+      "firstByteSd": 0,
+      "started": 1790834074221,
+      "completed": 1790834075523
+    },
+    "executions": [
+      {
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 1,
+          "cycles": 1,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "d723dab8-5ada-4c86-994c-36e2ce1ee4ca",
+          "httpRequestId": "535828d7-7ab6-4edd-b8e8-c54f752ba5ad"
+        },
+        "item": {
+          "id": "6cf456d6-d581-4315-8f63-7c2b16dd8213",
+          "name": "TC-FUN-004 - Cervecería aleatoria",
+          "request": {
+            "url": {
+              "path": [
+                "breweries",
+                "random"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "39375872-88a3-499a-b7bc-82ae7ae800aa",
+                "type": "text/javascript",
+                "exec": [
+                  "// TC-FUN-004 - Cervecería aleatoria (comportamiento por defecto, sin query params)",
+                  "pm.test(\"TC-FUN-004 | HTTP 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-004 | La respuesta es JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\"))",
+                  "        .to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "let randomResponse;",
+                  "",
+                  "pm.test(\"TC-FUN-004 | El cuerpo contiene JSON válido\", function () {",
+                  "    pm.expect(function () {",
+                  "        randomResponse = pm.response.json();",
+                  "    }).to.not.throw();",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-004 | La respuesta es un objeto JSON\", function () {",
+                  "    pm.expect(randomResponse).to.be.an(\"object\");",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-004 | La respuesta no es un arreglo\", function () {",
+                  "    pm.expect(Array.isArray(randomResponse)).to.be.false;",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-004 | Contiene un ID válido\", function () {",
+                  "    pm.expect(randomResponse).to.have.property(\"id\");",
+                  "    pm.expect(randomResponse.id).to.be.a(\"string\");",
+                  "    pm.expect(randomResponse.id.length).to.be.above(0);",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-004 | Contiene un nombre válido\", function () {",
+                  "    pm.expect(randomResponse).to.have.property(\"name\");",
+                  "    pm.expect(randomResponse.name).to.be.a(\"string\");",
+                  "    pm.expect(randomResponse.name.length).to.be.above(0);",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-004 | Contiene brewery_type\", function () {",
+                  "    pm.expect(randomResponse).to.have.property(\"brewery_type\");",
+                  "    pm.expect(randomResponse.brewery_type).to.be.a(\"string\");",
+                  "    pm.expect(randomResponse.brewery_type.length).to.be.above(0);",
+                  "});",
+                  "",
+                  "// Datos de diagnóstico (auxiliares, no sustituyen las assertions)",
+                  "console.log(\"TC-FUN-004 | Fecha/hora:\", new Date().toISOString());",
+                  "console.log(\"TC-FUN-004 | URL:\", pm.request.url.toString());",
+                  "console.log(\"TC-FUN-004 | HTTP:\", pm.response.code, pm.response.status);",
+                  "console.log(\"TC-FUN-004 | Content-Type:\", pm.response.headers.get(\"Content-Type\"));",
+                  "console.log(\"TC-FUN-004 | Tipo raíz:\", Array.isArray(randomResponse) ? \"array\" : typeof randomResponse);",
+                  "if (randomResponse) {",
+                  "    console.log(\"TC-FUN-004 | ID:\", randomResponse.id);",
+                  "    console.log(\"TC-FUN-004 | Nombre:\", randomResponse.name);",
+                  "    console.log(\"TC-FUN-004 | brewery_type:\", randomResponse.brewery_type);",
+                  "}",
+                  "console.log(",
+                  "    \"TC-FUN-004 | Response Time:\",",
+                  "    pm.response.responseTime,",
+                  "    \"ms\"",
+                  ");"
+                ],
+                "_lastExecutionId": "c3ad492b-8dbd-4656-815c-69224a71bd20"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "https",
+            "path": [
+              "v1",
+              "breweries",
+              "random"
+            ],
+            "host": [
+              "api",
+              "openbrewerydb",
+              "org"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "d3d70a94-284d-4900-a270-1b29b648dff4",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "api.openbrewerydb.org",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "c78d8b38-eca7-4618-acf8-97d4e858bcf2",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Date",
+              "value": "Thu, 01 Oct 2026 05:54:36 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Server",
+              "value": "cloudflare"
+            },
+            {
+              "key": "vary",
+              "value": "Accept-Encoding,Origin"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, private"
+            },
+            {
+              "key": "x-ratelimit-limit",
+              "value": "120"
+            },
+            {
+              "key": "x-ratelimit-remaining",
+              "value": "107"
+            },
+            {
+              "key": "x-frame-options",
+              "value": "SAMEORIGIN"
+            },
+            {
+              "key": "x-content-type-options",
+              "value": "nosniff"
+            },
+            {
+              "key": "referrer-policy",
+              "value": "strict-origin-when-cross-origin"
+            },
+            {
+              "key": "strict-transport-security",
+              "value": "max-age=31536000; includeSubDomains"
+            },
+            {
+              "key": "Content-Encoding",
+              "value": "gzip"
+            },
+            {
+              "key": "set-cookie",
+              "value": "__cf_bm=l98fOTLYb63ClhLbjyAhvj2SVV51sLQP5GgQNMIIESg-1790834075.8092237-1.0.1.1-gJ4UMamOq_3S3VeWMSGkmRta3MUIpAc18KCX8M45ybfFJzr8.BkTwiA2BrlwL21M232hGxnowP62V6UaSuSzIUBDRvt5RsMSblPhSK3WDSH2ZshhSCC3ixsDcHDXeoWk; HttpOnly; SameSite=None; Secure; Path=/; Domain=api.openbrewerydb.org; Expires=Thu, 01 Oct 2026 06:24:36 GMT"
+            },
+            {
+              "key": "x-do-app-origin",
+              "value": "67ba9744-8641-488d-8d6d-ec79fa2d19d8"
+            },
+            {
+              "key": "x-do-orig-status",
+              "value": "200"
+            },
+            {
+              "key": "cf-cache-status",
+              "value": "DYNAMIC"
+            },
+            {
+              "key": "Nel",
+              "value": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+            },
+            {
+              "key": "Report-To",
+              "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=4%2BbaxuNT%2FKA%2FEC6trKB7LCYTs9cq1vubXMexFA8Pk5N2tSKBghi3zZsf9JiGp2XNGaedVP5siu28Qu8amZkdmgZ9ou%2FP%2BB8ZmHr2CR15yT0H3RtryVujRIhCpcUQsIrL8ALqedm56hw%3D\"}]}"
+            },
+            {
+              "key": "CF-RAY",
+              "value": "a43936adba5642fa-MIA"
+            },
+            {
+              "key": "alt-svc",
+              "value": "h3=\":443\"; ma=86400"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              91,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              34,
+              55,
+              57,
+              50,
+              53,
+              97,
+              51,
+              97,
+              50,
+              45,
+              50,
+              53,
+              52,
+              101,
+              45,
+              52,
+              49,
+              49,
+              50,
+              45,
+              98,
+              57,
+              100,
+              56,
+              45,
+              48,
+              97,
+              98,
+              49,
+              97,
+              102,
+              51,
+              49,
+              54,
+              54,
+              52,
+              99,
+              34,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              67,
+              114,
+              97,
+              110,
+              107,
+              101,
+              114,
+              39,
+              115,
+              32,
+              66,
+              114,
+              101,
+              119,
+              101,
+              114,
+              121,
+              34,
+              44,
+              34,
+              98,
+              114,
+              101,
+              119,
+              101,
+              114,
+              121,
+              95,
+              116,
+              121,
+              112,
+              101,
+              34,
+              58,
+              34,
+              98,
+              114,
+              101,
+              119,
+              112,
+              117,
+              98,
+              34,
+              44,
+              34,
+              97,
+              100,
+              100,
+              114,
+              101,
+              115,
+              115,
+              95,
+              49,
+              34,
+              58,
+              34,
+              50,
+              49,
+              51,
+              32,
+              83,
+              32,
+              83,
+              116,
+              97,
+              116,
+              101,
+              32,
+              83,
+              116,
+              34,
+              44,
+              34,
+              97,
+              100,
+              100,
+              114,
+              101,
+              115,
+              115,
+              95,
+              50,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              44,
+              34,
+              97,
+              100,
+              100,
+              114,
+              101,
+              115,
+              115,
+              95,
+              51,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              44,
+              34,
+              99,
+              105,
+              116,
+              121,
+              34,
+              58,
+              34,
+              66,
+              105,
+              103,
+              32,
+              82,
+              97,
+              112,
+              105,
+              100,
+              115,
+              34,
+              44,
+              34,
+              115,
+              116,
+              97,
+              116,
+              101,
+              95,
+              112,
+              114,
+              111,
+              118,
+              105,
+              110,
+              99,
+              101,
+              34,
+              58,
+              34,
+              77,
+              105,
+              99,
+              104,
+              105,
+              103,
+              97,
+              110,
+              34,
+              44,
+              34,
+              112,
+              111,
+              115,
+              116,
+              97,
+              108,
+              95,
+              99,
+              111,
+              100,
+              101,
+              34,
+              58,
+              34,
+              52,
+              57,
+              51,
+              48,
+              55,
+              45,
+              49,
+              55,
+              53,
+              56,
+              34,
+              44,
+              34,
+              99,
+              111,
+              117,
+              110,
+              116,
+              114,
+              121,
+              34,
+              58,
+              34,
+              85,
+              110,
+              105,
+              116,
+              101,
+              100,
+              32,
+              83,
+              116,
+              97,
+              116,
+              101,
+              115,
+              34,
+              44,
+              34,
+              108,
+              111,
+              110,
+              103,
+              105,
+              116,
+              117,
+              100,
+              101,
+              34,
+              58,
+              45,
+              56,
+              53,
+              46,
+              52,
+              56,
+              51,
+              55,
+              50,
+              51,
+              44,
+              34,
+              108,
+              97,
+              116,
+              105,
+              116,
+              117,
+              100,
+              101,
+              34,
+              58,
+              52,
+              51,
+              46,
+              54,
+              56,
+              56,
+              48,
+              49,
+              51,
+              44,
+              34,
+              112,
+              104,
+              111,
+              110,
+              101,
+              34,
+              58,
+              34,
+              50,
+              51,
+              49,
+              55,
+              57,
+              54,
+              49,
+              57,
+              49,
+              57,
+              34,
+              44,
+              34,
+              119,
+              101,
+              98,
+              115,
+              105,
+              116,
+              101,
+              95,
+              117,
+              114,
+              108,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              44,
+              34,
+              115,
+              116,
+              97,
+              116,
+              101,
+              34,
+              58,
+              34,
+              77,
+              105,
+              99,
+              104,
+              105,
+              103,
+              97,
+              110,
+              34,
+              44,
+              34,
+              115,
+              116,
+              114,
+              101,
+              101,
+              116,
+              34,
+              58,
+              34,
+              50,
+              49,
+              51,
+              32,
+              83,
+              32,
+              83,
+              116,
+              97,
+              116,
+              101,
+              32,
+              83,
+              116,
+              34,
+              125,
+              93
+            ]
+          },
+          "cookie": [],
+          "responseTime": 1183,
+          "responseSize": 392
+        },
+        "id": "6cf456d6-d581-4315-8f63-7c2b16dd8213",
+        "assertions": [
+          {
+            "assertion": "TC-FUN-004 | HTTP 200 OK",
+            "skipped": false
+          },
+          {
+            "assertion": "TC-FUN-004 | La respuesta es JSON",
+            "skipped": false
+          },
+          {
+            "assertion": "TC-FUN-004 | El cuerpo contiene JSON válido",
+            "skipped": false
+          },
+          {
+            "assertion": "TC-FUN-004 | La respuesta es un objeto JSON",
+            "skipped": false,
+            "error": {
+              "name": "AssertionError",
+              "index": 3,
+              "test": "TC-FUN-004 | La respuesta es un objeto JSON",
+              "message": "expected [ { …(16) } ] to be an object",
+              "stack": "AssertionError: expected [ { …(16) } ] to be an object\n   at Object.eval sandbox-script.js:4:1)"
+            }
+          },
+          {
+            "assertion": "TC-FUN-004 | La respuesta no es un arreglo",
+            "skipped": false,
+            "error": {
+              "name": "AssertionError",
+              "index": 4,
+              "test": "TC-FUN-004 | La respuesta no es un arreglo",
+              "message": "expected true to be false",
+              "stack": "AssertionError: expected true to be false\n   at Object.eval sandbox-script.js:5:1)"
+            }
+          },
+          {
+            "assertion": "TC-FUN-004 | Contiene un ID válido",
+            "skipped": false,
+            "error": {
+              "name": "AssertionError",
+              "index": 5,
+              "test": "TC-FUN-004 | Contiene un ID válido",
+              "message": "expected [ { …(16) } ] to have property 'id'",
+              "stack": "AssertionError: expected [ { …(16) } ] to have property 'id'\n   at Object.eval sandbox-script.js:6:1)"
+            }
+          },
+          {
+            "assertion": "TC-FUN-004 | Contiene un nombre válido",
+            "skipped": false,
+            "error": {
+              "name": "AssertionError",
+              "index": 6,
+              "test": "TC-FUN-004 | Contiene un nombre válido",
+              "message": "expected [ { …(16) } ] to have property 'name'",
+              "stack": "AssertionError: expected [ { …(16) } ] to have property 'name'\n   at Object.eval sandbox-script.js:7:1)"
+            }
+          },
+          {
+            "assertion": "TC-FUN-004 | Contiene brewery_type",
+            "skipped": false,
+            "error": {
+              "name": "AssertionError",
+              "index": 7,
+              "test": "TC-FUN-004 | Contiene brewery_type",
+              "message": "expected [ { …(16) } ] to have property 'brewery_type'",
+              "stack": "AssertionError: expected [ { …(16) } ] to have property 'brewery_type'\n   at Object.eval sandbox-script.js:8:1)"
+            }
+          }
+        ]
+      }
+    ],
+    "transfers": {
+      "responseTotal": 392
+    },
+    "failures": [
+      {
+        "error": {
+          "name": "AssertionError",
+          "index": 3,
+          "test": "TC-FUN-004 | La respuesta es un objeto JSON",
+          "message": "expected [ { …(16) } ] to be an object",
+          "stack": "AssertionError: expected [ { …(16) } ] to be an object\n   at Object.eval sandbox-script.js:4:1)",
+          "checksum": "07c640f4d41d03a0c22b4b4f7a0dc1bb",
+          "id": "a18a40bf-d8d6-42db-b9e0-240ee68ae283",
+          "timestamp": 1790834075481,
+          "stacktrace": [
+            {
+              "fileName": "sandbox-script.js",
+              "lineNumber": 4,
+              "functionName": "Object.eval",
+              "typeName": "Object",
+              "methodName": "eval",
+              "columnNumber": 1,
+              "native": false
+            }
+          ]
+        },
+        "at": "assertion:3 in test-script",
+        "source": {
+          "id": "6cf456d6-d581-4315-8f63-7c2b16dd8213",
+          "name": "TC-FUN-004 - Cervecería aleatoria",
+          "request": {
+            "url": {
+              "path": [
+                "breweries",
+                "random"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "39375872-88a3-499a-b7bc-82ae7ae800aa",
+                "type": "text/javascript",
+                "exec": [
+                  "// TC-FUN-004 - Cervecería aleatoria (comportamiento por defecto, sin query params)",
+                  "pm.test(\"TC-FUN-004 | HTTP 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-004 | La respuesta es JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\"))",
+                  "        .to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "let randomResponse;",
+                  "",
+                  "pm.test(\"TC-FUN-004 | El cuerpo contiene JSON válido\", function () {",
+                  "    pm.expect(function () {",
+                  "        randomResponse = pm.response.json();",
+                  "    }).to.not.throw();",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-004 | La respuesta es un objeto JSON\", function () {",
+                  "    pm.expect(randomResponse).to.be.an(\"object\");",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-004 | La respuesta no es un arreglo\", function () {",
+                  "    pm.expect(Array.isArray(randomResponse)).to.be.false;",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-004 | Contiene un ID válido\", function () {",
+                  "    pm.expect(randomResponse).to.have.property(\"id\");",
+                  "    pm.expect(randomResponse.id).to.be.a(\"string\");",
+                  "    pm.expect(randomResponse.id.length).to.be.above(0);",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-004 | Contiene un nombre válido\", function () {",
+                  "    pm.expect(randomResponse).to.have.property(\"name\");",
+                  "    pm.expect(randomResponse.name).to.be.a(\"string\");",
+                  "    pm.expect(randomResponse.name.length).to.be.above(0);",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-004 | Contiene brewery_type\", function () {",
+                  "    pm.expect(randomResponse).to.have.property(\"brewery_type\");",
+                  "    pm.expect(randomResponse.brewery_type).to.be.a(\"string\");",
+                  "    pm.expect(randomResponse.brewery_type.length).to.be.above(0);",
+                  "});",
+                  "",
+                  "// Datos de diagnóstico (auxiliares, no sustituyen las assertions)",
+                  "console.log(\"TC-FUN-004 | Fecha/hora:\", new Date().toISOString());",
+                  "console.log(\"TC-FUN-004 | URL:\", pm.request.url.toString());",
+                  "console.log(\"TC-FUN-004 | HTTP:\", pm.response.code, pm.response.status);",
+                  "console.log(\"TC-FUN-004 | Content-Type:\", pm.response.headers.get(\"Content-Type\"));",
+                  "console.log(\"TC-FUN-004 | Tipo raíz:\", Array.isArray(randomResponse) ? \"array\" : typeof randomResponse);",
+                  "if (randomResponse) {",
+                  "    console.log(\"TC-FUN-004 | ID:\", randomResponse.id);",
+                  "    console.log(\"TC-FUN-004 | Nombre:\", randomResponse.name);",
+                  "    console.log(\"TC-FUN-004 | brewery_type:\", randomResponse.brewery_type);",
+                  "}",
+                  "console.log(",
+                  "    \"TC-FUN-004 | Response Time:\",",
+                  "    pm.response.responseTime,",
+                  "    \"ms\"",
+                  ");"
+                ],
+                "_lastExecutionId": "c3ad492b-8dbd-4656-815c-69224a71bd20"
+              }
+            }
+          ]
+        },
+        "parent": {
+          "id": "3fe6423d-0b88-466b-b813-02ef04a04693",
+          "name": "TC-FUN-004",
+          "item": [
+            {
+              "id": "6cf456d6-d581-4315-8f63-7c2b16dd8213",
+              "name": "TC-FUN-004 - Cervecería aleatoria",
+              "request": {
+                "url": {
+                  "path": [
+                    "breweries",
+                    "random"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET"
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "39375872-88a3-499a-b7bc-82ae7ae800aa",
+                    "type": "text/javascript",
+                    "exec": [
+                      "// TC-FUN-004 - Cervecería aleatoria (comportamiento por defecto, sin query params)",
+                      "pm.test(\"TC-FUN-004 | HTTP 200 OK\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "",
+                      "pm.test(\"TC-FUN-004 | La respuesta es JSON\", function () {",
+                      "    pm.expect(pm.response.headers.get(\"Content-Type\"))",
+                      "        .to.include(\"application/json\");",
+                      "});",
+                      "",
+                      "let randomResponse;",
+                      "",
+                      "pm.test(\"TC-FUN-004 | El cuerpo contiene JSON válido\", function () {",
+                      "    pm.expect(function () {",
+                      "        randomResponse = pm.response.json();",
+                      "    }).to.not.throw();",
+                      "});",
+                      "",
+                      "pm.test(\"TC-FUN-004 | La respuesta es un objeto JSON\", function () {",
+                      "    pm.expect(randomResponse).to.be.an(\"object\");",
+                      "});",
+                      "",
+                      "pm.test(\"TC-FUN-004 | La respuesta no es un arreglo\", function () {",
+                      "    pm.expect(Array.isArray(randomResponse)).to.be.false;",
+                      "});",
+                      "",
+                      "pm.test(\"TC-FUN-004 | Contiene un ID válido\", function () {",
+                      "    pm.expect(randomResponse).to.have.property(\"id\");",
+                      "    pm.expect(randomResponse.id).to.be.a(\"string\");",
+                      "    pm.expect(randomResponse.id.length).to.be.above(0);",
+                      "});",
+                      "",
+                      "pm.test(\"TC-FUN-004 | Contiene un nombre válido\", function () {",
+                      "    pm.expect(randomResponse).to.have.property(\"name\");",
+                      "    pm.expect(randomResponse.name).to.be.a(\"string\");",
+                      "    pm.expect(randomResponse.name.length).to.be.above(0);",
+                      "});",
+                      "",
+                      "pm.test(\"TC-FUN-004 | Contiene brewery_type\", function () {",
+                      "    pm.expect(randomResponse).to.have.property(\"brewery_type\");",
+                      "    pm.expect(randomResponse.brewery_type).to.be.a(\"string\");",
+                      "    pm.expect(randomResponse.brewery_type.length).to.be.above(0);",
+                      "});",
+                      "",
+                      "// Datos de diagnóstico (auxiliares, no sustituyen las assertions)",
+                      "console.log(\"TC-FUN-004 | Fecha/hora:\", new Date().toISOString());",
+                      "console.log(\"TC-FUN-004 | URL:\", pm.request.url.toString());",
+                      "console.log(\"TC-FUN-004 | HTTP:\", pm.response.code, pm.response.status);",
+                      "console.log(\"TC-FUN-004 | Content-Type:\", pm.response.headers.get(\"Content-Type\"));",
+                      "console.log(\"TC-FUN-004 | Tipo raíz:\", Array.isArray(randomResponse) ? \"array\" : typeof randomResponse);",
+                      "if (randomResponse) {",
+                      "    console.log(\"TC-FUN-004 | ID:\", randomResponse.id);",
+                      "    console.log(\"TC-FUN-004 | Nombre:\", randomResponse.name);",
+                      "    console.log(\"TC-FUN-004 | brewery_type:\", randomResponse.brewery_type);",
+                      "}",
+                      "console.log(",
+                      "    \"TC-FUN-004 | Response Time:\",",
+                      "    pm.response.responseTime,",
+                      "    \"ms\"",
+                      ");"
+                    ],
+                    "_lastExecutionId": "c3ad492b-8dbd-4656-815c-69224a71bd20"
+                  }
+                }
+              ]
+            }
+          ],
+          "event": []
+        },
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 1,
+          "cycles": 1,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "d723dab8-5ada-4c86-994c-36e2ce1ee4ca",
+          "httpRequestId": "535828d7-7ab6-4edd-b8e8-c54f752ba5ad",
+          "scriptId": "39375872-88a3-499a-b7bc-82ae7ae800aa",
+          "execution": "c3ad492b-8dbd-4656-815c-69224a71bd20"
+        }
+      },
+      {
+        "error": {
+          "name": "AssertionError",
+          "index": 4,
+          "test": "TC-FUN-004 | La respuesta no es un arreglo",
+          "message": "expected true to be false",
+          "stack": "AssertionError: expected true to be false\n   at Object.eval sandbox-script.js:5:1)",
+          "checksum": "adc349b4bbe25fe31031e5c200cf15df",
+          "id": "9a57ee99-493a-4c7a-a571-f70b65246deb",
+          "timestamp": 1790834075483,
+          "stacktrace": [
+            {
+              "fileName": "sandbox-script.js",
+              "lineNumber": 5,
+              "functionName": "Object.eval",
+              "typeName": "Object",
+              "methodName": "eval",
+              "columnNumber": 1,
+              "native": false
+            }
+          ]
+        },
+        "at": "assertion:4 in test-script",
+        "source": {
+          "id": "6cf456d6-d581-4315-8f63-7c2b16dd8213",
+          "name": "TC-FUN-004 - Cervecería aleatoria",
+          "request": {
+            "url": {
+              "path": [
+                "breweries",
+                "random"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "39375872-88a3-499a-b7bc-82ae7ae800aa",
+                "type": "text/javascript",
+                "exec": [
+                  "// TC-FUN-004 - Cervecería aleatoria (comportamiento por defecto, sin query params)",
+                  "pm.test(\"TC-FUN-004 | HTTP 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-004 | La respuesta es JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\"))",
+                  "        .to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "let randomResponse;",
+                  "",
+                  "pm.test(\"TC-FUN-004 | El cuerpo contiene JSON válido\", function () {",
+                  "    pm.expect(function () {",
+                  "        randomResponse = pm.response.json();",
+                  "    }).to.not.throw();",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-004 | La respuesta es un objeto JSON\", function () {",
+                  "    pm.expect(randomResponse).to.be.an(\"object\");",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-004 | La respuesta no es un arreglo\", function () {",
+                  "    pm.expect(Array.isArray(randomResponse)).to.be.false;",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-004 | Contiene un ID válido\", function () {",
+                  "    pm.expect(randomResponse).to.have.property(\"id\");",
+                  "    pm.expect(randomResponse.id).to.be.a(\"string\");",
+                  "    pm.expect(randomResponse.id.length).to.be.above(0);",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-004 | Contiene un nombre válido\", function () {",
+                  "    pm.expect(randomResponse).to.have.property(\"name\");",
+                  "    pm.expect(randomResponse.name).to.be.a(\"string\");",
+                  "    pm.expect(randomResponse.name.length).to.be.above(0);",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-004 | Contiene brewery_type\", function () {",
+                  "    pm.expect(randomResponse).to.have.property(\"brewery_type\");",
+                  "    pm.expect(randomResponse.brewery_type).to.be.a(\"string\");",
+                  "    pm.expect(randomResponse.brewery_type.length).to.be.above(0);",
+                  "});",
+                  "",
+                  "// Datos de diagnóstico (auxiliares, no sustituyen las assertions)",
+                  "console.log(\"TC-FUN-004 | Fecha/hora:\", new Date().toISOString());",
+                  "console.log(\"TC-FUN-004 | URL:\", pm.request.url.toString());",
+                  "console.log(\"TC-FUN-004 | HTTP:\", pm.response.code, pm.response.status);",
+                  "console.log(\"TC-FUN-004 | Content-Type:\", pm.response.headers.get(\"Content-Type\"));",
+                  "console.log(\"TC-FUN-004 | Tipo raíz:\", Array.isArray(randomResponse) ? \"array\" : typeof randomResponse);",
+                  "if (randomResponse) {",
+                  "    console.log(\"TC-FUN-004 | ID:\", randomResponse.id);",
+                  "    console.log(\"TC-FUN-004 | Nombre:\", randomResponse.name);",
+                  "    console.log(\"TC-FUN-004 | brewery_type:\", randomResponse.brewery_type);",
+                  "}",
+                  "console.log(",
+                  "    \"TC-FUN-004 | Response Time:\",",
+                  "    pm.response.responseTime,",
+                  "    \"ms\"",
+                  ");"
+                ],
+                "_lastExecutionId": "c3ad492b-8dbd-4656-815c-69224a71bd20"
+              }
+            }
+          ]
+        },
+        "parent": {
+          "id": "3fe6423d-0b88-466b-b813-02ef04a04693",
+          "name": "TC-FUN-004",
+          "item": [
+            {
+              "id": "6cf456d6-d581-4315-8f63-7c2b16dd8213",
+              "name": "TC-FUN-004 - Cervecería aleatoria",
+              "request": {
+                "url": {
+                  "path": [
+                    "breweries",
+                    "random"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET"
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "39375872-88a3-499a-b7bc-82ae7ae800aa",
+                    "type": "text/javascript",
+                    "exec": [
+                      "// TC-FUN-004 - Cervecería aleatoria (comportamiento por defecto, sin query params)",
+                      "pm.test(\"TC-FUN-004 | HTTP 200 OK\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "",
+                      "pm.test(\"TC-FUN-004 | La respuesta es JSON\", function () {",
+                      "    pm.expect(pm.response.headers.get(\"Content-Type\"))",
+                      "        .to.include(\"application/json\");",
+                      "});",
+                      "",
+                      "let randomResponse;",
+                      "",
+                      "pm.test(\"TC-FUN-004 | El cuerpo contiene JSON válido\", function () {",
+                      "    pm.expect(function () {",
+                      "        randomResponse = pm.response.json();",
+                      "    }).to.not.throw();",
+                      "});",
+                      "",
+                      "pm.test(\"TC-FUN-004 | La respuesta es un objeto JSON\", function () {",
+                      "    pm.expect(randomResponse).to.be.an(\"object\");",
+                      "});",
+                      "",
+                      "pm.test(\"TC-FUN-004 | La respuesta no es un arreglo\", function () {",
+                      "    pm.expect(Array.isArray(randomResponse)).to.be.false;",
+                      "});",
+                      "",
+                      "pm.test(\"TC-FUN-004 | Contiene un ID válido\", function () {",
+                      "    pm.expect(randomResponse).to.have.property(\"id\");",
+                      "    pm.expect(randomResponse.id).to.be.a(\"string\");",
+                      "    pm.expect(randomResponse.id.length).to.be.above(0);",
+                      "});",
+                      "",
+                      "pm.test(\"TC-FUN-004 | Contiene un nombre válido\", function () {",
+                      "    pm.expect(randomResponse).to.have.property(\"name\");",
+                      "    pm.expect(randomResponse.name).to.be.a(\"string\");",
+                      "    pm.expect(randomResponse.name.length).to.be.above(0);",
+                      "});",
+                      "",
+                      "pm.test(\"TC-FUN-004 | Contiene brewery_type\", function () {",
+                      "    pm.expect(randomResponse).to.have.property(\"brewery_type\");",
+                      "    pm.expect(randomResponse.brewery_type).to.be.a(\"string\");",
+                      "    pm.expect(randomResponse.brewery_type.length).to.be.above(0);",
+                      "});",
+                      "",
+                      "// Datos de diagnóstico (auxiliares, no sustituyen las assertions)",
+                      "console.log(\"TC-FUN-004 | Fecha/hora:\", new Date().toISOString());",
+                      "console.log(\"TC-FUN-004 | URL:\", pm.request.url.toString());",
+                      "console.log(\"TC-FUN-004 | HTTP:\", pm.response.code, pm.response.status);",
+                      "console.log(\"TC-FUN-004 | Content-Type:\", pm.response.headers.get(\"Content-Type\"));",
+                      "console.log(\"TC-FUN-004 | Tipo raíz:\", Array.isArray(randomResponse) ? \"array\" : typeof randomResponse);",
+                      "if (randomResponse) {",
+                      "    console.log(\"TC-FUN-004 | ID:\", randomResponse.id);",
+                      "    console.log(\"TC-FUN-004 | Nombre:\", randomResponse.name);",
+                      "    console.log(\"TC-FUN-004 | brewery_type:\", randomResponse.brewery_type);",
+                      "}",
+                      "console.log(",
+                      "    \"TC-FUN-004 | Response Time:\",",
+                      "    pm.response.responseTime,",
+                      "    \"ms\"",
+                      ");"
+                    ],
+                    "_lastExecutionId": "c3ad492b-8dbd-4656-815c-69224a71bd20"
+                  }
+                }
+              ]
+            }
+          ],
+          "event": []
+        },
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 1,
+          "cycles": 1,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "d723dab8-5ada-4c86-994c-36e2ce1ee4ca",
+          "httpRequestId": "535828d7-7ab6-4edd-b8e8-c54f752ba5ad",
+          "scriptId": "39375872-88a3-499a-b7bc-82ae7ae800aa",
+          "execution": "c3ad492b-8dbd-4656-815c-69224a71bd20"
+        }
+      },
+      {
+        "error": {
+          "name": "AssertionError",
+          "index": 5,
+          "test": "TC-FUN-004 | Contiene un ID válido",
+          "message": "expected [ { …(16) } ] to have property 'id'",
+          "stack": "AssertionError: expected [ { …(16) } ] to have property 'id'\n   at Object.eval sandbox-script.js:6:1)",
+          "checksum": "155c0cce5b7a458ae7fdc748c48cd8d7",
+          "id": "8249d6de-c820-4b08-8a3a-cf1972950153",
+          "timestamp": 1790834075484,
+          "stacktrace": [
+            {
+              "fileName": "sandbox-script.js",
+              "lineNumber": 6,
+              "functionName": "Object.eval",
+              "typeName": "Object",
+              "methodName": "eval",
+              "columnNumber": 1,
+              "native": false
+            }
+          ]
+        },
+        "at": "assertion:5 in test-script",
+        "source": {
+          "id": "6cf456d6-d581-4315-8f63-7c2b16dd8213",
+          "name": "TC-FUN-004 - Cervecería aleatoria",
+          "request": {
+            "url": {
+              "path": [
+                "breweries",
+                "random"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "39375872-88a3-499a-b7bc-82ae7ae800aa",
+                "type": "text/javascript",
+                "exec": [
+                  "// TC-FUN-004 - Cervecería aleatoria (comportamiento por defecto, sin query params)",
+                  "pm.test(\"TC-FUN-004 | HTTP 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-004 | La respuesta es JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\"))",
+                  "        .to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "let randomResponse;",
+                  "",
+                  "pm.test(\"TC-FUN-004 | El cuerpo contiene JSON válido\", function () {",
+                  "    pm.expect(function () {",
+                  "        randomResponse = pm.response.json();",
+                  "    }).to.not.throw();",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-004 | La respuesta es un objeto JSON\", function () {",
+                  "    pm.expect(randomResponse).to.be.an(\"object\");",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-004 | La respuesta no es un arreglo\", function () {",
+                  "    pm.expect(Array.isArray(randomResponse)).to.be.false;",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-004 | Contiene un ID válido\", function () {",
+                  "    pm.expect(randomResponse).to.have.property(\"id\");",
+                  "    pm.expect(randomResponse.id).to.be.a(\"string\");",
+                  "    pm.expect(randomResponse.id.length).to.be.above(0);",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-004 | Contiene un nombre válido\", function () {",
+                  "    pm.expect(randomResponse).to.have.property(\"name\");",
+                  "    pm.expect(randomResponse.name).to.be.a(\"string\");",
+                  "    pm.expect(randomResponse.name.length).to.be.above(0);",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-004 | Contiene brewery_type\", function () {",
+                  "    pm.expect(randomResponse).to.have.property(\"brewery_type\");",
+                  "    pm.expect(randomResponse.brewery_type).to.be.a(\"string\");",
+                  "    pm.expect(randomResponse.brewery_type.length).to.be.above(0);",
+                  "});",
+                  "",
+                  "// Datos de diagnóstico (auxiliares, no sustituyen las assertions)",
+                  "console.log(\"TC-FUN-004 | Fecha/hora:\", new Date().toISOString());",
+                  "console.log(\"TC-FUN-004 | URL:\", pm.request.url.toString());",
+                  "console.log(\"TC-FUN-004 | HTTP:\", pm.response.code, pm.response.status);",
+                  "console.log(\"TC-FUN-004 | Content-Type:\", pm.response.headers.get(\"Content-Type\"));",
+                  "console.log(\"TC-FUN-004 | Tipo raíz:\", Array.isArray(randomResponse) ? \"array\" : typeof randomResponse);",
+                  "if (randomResponse) {",
+                  "    console.log(\"TC-FUN-004 | ID:\", randomResponse.id);",
+                  "    console.log(\"TC-FUN-004 | Nombre:\", randomResponse.name);",
+                  "    console.log(\"TC-FUN-004 | brewery_type:\", randomResponse.brewery_type);",
+                  "}",
+                  "console.log(",
+                  "    \"TC-FUN-004 | Response Time:\",",
+                  "    pm.response.responseTime,",
+                  "    \"ms\"",
+                  ");"
+                ],
+                "_lastExecutionId": "c3ad492b-8dbd-4656-815c-69224a71bd20"
+              }
+            }
+          ]
+        },
+        "parent": {
+          "id": "3fe6423d-0b88-466b-b813-02ef04a04693",
+          "name": "TC-FUN-004",
+          "item": [
+            {
+              "id": "6cf456d6-d581-4315-8f63-7c2b16dd8213",
+              "name": "TC-FUN-004 - Cervecería aleatoria",
+              "request": {
+                "url": {
+                  "path": [
+                    "breweries",
+                    "random"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET"
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "39375872-88a3-499a-b7bc-82ae7ae800aa",
+                    "type": "text/javascript",
+                    "exec": [
+                      "// TC-FUN-004 - Cervecería aleatoria (comportamiento por defecto, sin query params)",
+                      "pm.test(\"TC-FUN-004 | HTTP 200 OK\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "",
+                      "pm.test(\"TC-FUN-004 | La respuesta es JSON\", function () {",
+                      "    pm.expect(pm.response.headers.get(\"Content-Type\"))",
+                      "        .to.include(\"application/json\");",
+                      "});",
+                      "",
+                      "let randomResponse;",
+                      "",
+                      "pm.test(\"TC-FUN-004 | El cuerpo contiene JSON válido\", function () {",
+                      "    pm.expect(function () {",
+                      "        randomResponse = pm.response.json();",
+                      "    }).to.not.throw();",
+                      "});",
+                      "",
+                      "pm.test(\"TC-FUN-004 | La respuesta es un objeto JSON\", function () {",
+                      "    pm.expect(randomResponse).to.be.an(\"object\");",
+                      "});",
+                      "",
+                      "pm.test(\"TC-FUN-004 | La respuesta no es un arreglo\", function () {",
+                      "    pm.expect(Array.isArray(randomResponse)).to.be.false;",
+                      "});",
+                      "",
+                      "pm.test(\"TC-FUN-004 | Contiene un ID válido\", function () {",
+                      "    pm.expect(randomResponse).to.have.property(\"id\");",
+                      "    pm.expect(randomResponse.id).to.be.a(\"string\");",
+                      "    pm.expect(randomResponse.id.length).to.be.above(0);",
+                      "});",
+                      "",
+                      "pm.test(\"TC-FUN-004 | Contiene un nombre válido\", function () {",
+                      "    pm.expect(randomResponse).to.have.property(\"name\");",
+                      "    pm.expect(randomResponse.name).to.be.a(\"string\");",
+                      "    pm.expect(randomResponse.name.length).to.be.above(0);",
+                      "});",
+                      "",
+                      "pm.test(\"TC-FUN-004 | Contiene brewery_type\", function () {",
+                      "    pm.expect(randomResponse).to.have.property(\"brewery_type\");",
+                      "    pm.expect(randomResponse.brewery_type).to.be.a(\"string\");",
+                      "    pm.expect(randomResponse.brewery_type.length).to.be.above(0);",
+                      "});",
+                      "",
+                      "// Datos de diagnóstico (auxiliares, no sustituyen las assertions)",
+                      "console.log(\"TC-FUN-004 | Fecha/hora:\", new Date().toISOString());",
+                      "console.log(\"TC-FUN-004 | URL:\", pm.request.url.toString());",
+                      "console.log(\"TC-FUN-004 | HTTP:\", pm.response.code, pm.response.status);",
+                      "console.log(\"TC-FUN-004 | Content-Type:\", pm.response.headers.get(\"Content-Type\"));",
+                      "console.log(\"TC-FUN-004 | Tipo raíz:\", Array.isArray(randomResponse) ? \"array\" : typeof randomResponse);",
+                      "if (randomResponse) {",
+                      "    console.log(\"TC-FUN-004 | ID:\", randomResponse.id);",
+                      "    console.log(\"TC-FUN-004 | Nombre:\", randomResponse.name);",
+                      "    console.log(\"TC-FUN-004 | brewery_type:\", randomResponse.brewery_type);",
+                      "}",
+                      "console.log(",
+                      "    \"TC-FUN-004 | Response Time:\",",
+                      "    pm.response.responseTime,",
+                      "    \"ms\"",
+                      ");"
+                    ],
+                    "_lastExecutionId": "c3ad492b-8dbd-4656-815c-69224a71bd20"
+                  }
+                }
+              ]
+            }
+          ],
+          "event": []
+        },
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 1,
+          "cycles": 1,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "d723dab8-5ada-4c86-994c-36e2ce1ee4ca",
+          "httpRequestId": "535828d7-7ab6-4edd-b8e8-c54f752ba5ad",
+          "scriptId": "39375872-88a3-499a-b7bc-82ae7ae800aa",
+          "execution": "c3ad492b-8dbd-4656-815c-69224a71bd20"
+        }
+      },
+      {
+        "error": {
+          "name": "AssertionError",
+          "index": 6,
+          "test": "TC-FUN-004 | Contiene un nombre válido",
+          "message": "expected [ { …(16) } ] to have property 'name'",
+          "stack": "AssertionError: expected [ { …(16) } ] to have property 'name'\n   at Object.eval sandbox-script.js:7:1)",
+          "checksum": "11d17dca9528dbddfdb7a47fe3e9015f",
+          "id": "75fab147-43ab-4d67-b074-b889beee5d33",
+          "timestamp": 1790834075485,
+          "stacktrace": [
+            {
+              "fileName": "sandbox-script.js",
+              "lineNumber": 7,
+              "functionName": "Object.eval",
+              "typeName": "Object",
+              "methodName": "eval",
+              "columnNumber": 1,
+              "native": false
+            }
+          ]
+        },
+        "at": "assertion:6 in test-script",
+        "source": {
+          "id": "6cf456d6-d581-4315-8f63-7c2b16dd8213",
+          "name": "TC-FUN-004 - Cervecería aleatoria",
+          "request": {
+            "url": {
+              "path": [
+                "breweries",
+                "random"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "39375872-88a3-499a-b7bc-82ae7ae800aa",
+                "type": "text/javascript",
+                "exec": [
+                  "// TC-FUN-004 - Cervecería aleatoria (comportamiento por defecto, sin query params)",
+                  "pm.test(\"TC-FUN-004 | HTTP 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-004 | La respuesta es JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\"))",
+                  "        .to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "let randomResponse;",
+                  "",
+                  "pm.test(\"TC-FUN-004 | El cuerpo contiene JSON válido\", function () {",
+                  "    pm.expect(function () {",
+                  "        randomResponse = pm.response.json();",
+                  "    }).to.not.throw();",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-004 | La respuesta es un objeto JSON\", function () {",
+                  "    pm.expect(randomResponse).to.be.an(\"object\");",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-004 | La respuesta no es un arreglo\", function () {",
+                  "    pm.expect(Array.isArray(randomResponse)).to.be.false;",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-004 | Contiene un ID válido\", function () {",
+                  "    pm.expect(randomResponse).to.have.property(\"id\");",
+                  "    pm.expect(randomResponse.id).to.be.a(\"string\");",
+                  "    pm.expect(randomResponse.id.length).to.be.above(0);",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-004 | Contiene un nombre válido\", function () {",
+                  "    pm.expect(randomResponse).to.have.property(\"name\");",
+                  "    pm.expect(randomResponse.name).to.be.a(\"string\");",
+                  "    pm.expect(randomResponse.name.length).to.be.above(0);",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-004 | Contiene brewery_type\", function () {",
+                  "    pm.expect(randomResponse).to.have.property(\"brewery_type\");",
+                  "    pm.expect(randomResponse.brewery_type).to.be.a(\"string\");",
+                  "    pm.expect(randomResponse.brewery_type.length).to.be.above(0);",
+                  "});",
+                  "",
+                  "// Datos de diagnóstico (auxiliares, no sustituyen las assertions)",
+                  "console.log(\"TC-FUN-004 | Fecha/hora:\", new Date().toISOString());",
+                  "console.log(\"TC-FUN-004 | URL:\", pm.request.url.toString());",
+                  "console.log(\"TC-FUN-004 | HTTP:\", pm.response.code, pm.response.status);",
+                  "console.log(\"TC-FUN-004 | Content-Type:\", pm.response.headers.get(\"Content-Type\"));",
+                  "console.log(\"TC-FUN-004 | Tipo raíz:\", Array.isArray(randomResponse) ? \"array\" : typeof randomResponse);",
+                  "if (randomResponse) {",
+                  "    console.log(\"TC-FUN-004 | ID:\", randomResponse.id);",
+                  "    console.log(\"TC-FUN-004 | Nombre:\", randomResponse.name);",
+                  "    console.log(\"TC-FUN-004 | brewery_type:\", randomResponse.brewery_type);",
+                  "}",
+                  "console.log(",
+                  "    \"TC-FUN-004 | Response Time:\",",
+                  "    pm.response.responseTime,",
+                  "    \"ms\"",
+                  ");"
+                ],
+                "_lastExecutionId": "c3ad492b-8dbd-4656-815c-69224a71bd20"
+              }
+            }
+          ]
+        },
+        "parent": {
+          "id": "3fe6423d-0b88-466b-b813-02ef04a04693",
+          "name": "TC-FUN-004",
+          "item": [
+            {
+              "id": "6cf456d6-d581-4315-8f63-7c2b16dd8213",
+              "name": "TC-FUN-004 - Cervecería aleatoria",
+              "request": {
+                "url": {
+                  "path": [
+                    "breweries",
+                    "random"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET"
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "39375872-88a3-499a-b7bc-82ae7ae800aa",
+                    "type": "text/javascript",
+                    "exec": [
+                      "// TC-FUN-004 - Cervecería aleatoria (comportamiento por defecto, sin query params)",
+                      "pm.test(\"TC-FUN-004 | HTTP 200 OK\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "",
+                      "pm.test(\"TC-FUN-004 | La respuesta es JSON\", function () {",
+                      "    pm.expect(pm.response.headers.get(\"Content-Type\"))",
+                      "        .to.include(\"application/json\");",
+                      "});",
+                      "",
+                      "let randomResponse;",
+                      "",
+                      "pm.test(\"TC-FUN-004 | El cuerpo contiene JSON válido\", function () {",
+                      "    pm.expect(function () {",
+                      "        randomResponse = pm.response.json();",
+                      "    }).to.not.throw();",
+                      "});",
+                      "",
+                      "pm.test(\"TC-FUN-004 | La respuesta es un objeto JSON\", function () {",
+                      "    pm.expect(randomResponse).to.be.an(\"object\");",
+                      "});",
+                      "",
+                      "pm.test(\"TC-FUN-004 | La respuesta no es un arreglo\", function () {",
+                      "    pm.expect(Array.isArray(randomResponse)).to.be.false;",
+                      "});",
+                      "",
+                      "pm.test(\"TC-FUN-004 | Contiene un ID válido\", function () {",
+                      "    pm.expect(randomResponse).to.have.property(\"id\");",
+                      "    pm.expect(randomResponse.id).to.be.a(\"string\");",
+                      "    pm.expect(randomResponse.id.length).to.be.above(0);",
+                      "});",
+                      "",
+                      "pm.test(\"TC-FUN-004 | Contiene un nombre válido\", function () {",
+                      "    pm.expect(randomResponse).to.have.property(\"name\");",
+                      "    pm.expect(randomResponse.name).to.be.a(\"string\");",
+                      "    pm.expect(randomResponse.name.length).to.be.above(0);",
+                      "});",
+                      "",
+                      "pm.test(\"TC-FUN-004 | Contiene brewery_type\", function () {",
+                      "    pm.expect(randomResponse).to.have.property(\"brewery_type\");",
+                      "    pm.expect(randomResponse.brewery_type).to.be.a(\"string\");",
+                      "    pm.expect(randomResponse.brewery_type.length).to.be.above(0);",
+                      "});",
+                      "",
+                      "// Datos de diagnóstico (auxiliares, no sustituyen las assertions)",
+                      "console.log(\"TC-FUN-004 | Fecha/hora:\", new Date().toISOString());",
+                      "console.log(\"TC-FUN-004 | URL:\", pm.request.url.toString());",
+                      "console.log(\"TC-FUN-004 | HTTP:\", pm.response.code, pm.response.status);",
+                      "console.log(\"TC-FUN-004 | Content-Type:\", pm.response.headers.get(\"Content-Type\"));",
+                      "console.log(\"TC-FUN-004 | Tipo raíz:\", Array.isArray(randomResponse) ? \"array\" : typeof randomResponse);",
+                      "if (randomResponse) {",
+                      "    console.log(\"TC-FUN-004 | ID:\", randomResponse.id);",
+                      "    console.log(\"TC-FUN-004 | Nombre:\", randomResponse.name);",
+                      "    console.log(\"TC-FUN-004 | brewery_type:\", randomResponse.brewery_type);",
+                      "}",
+                      "console.log(",
+                      "    \"TC-FUN-004 | Response Time:\",",
+                      "    pm.response.responseTime,",
+                      "    \"ms\"",
+                      ");"
+                    ],
+                    "_lastExecutionId": "c3ad492b-8dbd-4656-815c-69224a71bd20"
+                  }
+                }
+              ]
+            }
+          ],
+          "event": []
+        },
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 1,
+          "cycles": 1,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "d723dab8-5ada-4c86-994c-36e2ce1ee4ca",
+          "httpRequestId": "535828d7-7ab6-4edd-b8e8-c54f752ba5ad",
+          "scriptId": "39375872-88a3-499a-b7bc-82ae7ae800aa",
+          "execution": "c3ad492b-8dbd-4656-815c-69224a71bd20"
+        }
+      },
+      {
+        "error": {
+          "name": "AssertionError",
+          "index": 7,
+          "test": "TC-FUN-004 | Contiene brewery_type",
+          "message": "expected [ { …(16) } ] to have property 'brewery_type'",
+          "stack": "AssertionError: expected [ { …(16) } ] to have property 'brewery_type'\n   at Object.eval sandbox-script.js:8:1)",
+          "checksum": "b0caef910b34da9242b169162bf027f2",
+          "id": "e59f978d-b6f6-49f4-a043-5ca7249e4990",
+          "timestamp": 1790834075486,
+          "stacktrace": [
+            {
+              "fileName": "sandbox-script.js",
+              "lineNumber": 8,
+              "functionName": "Object.eval",
+              "typeName": "Object",
+              "methodName": "eval",
+              "columnNumber": 1,
+              "native": false
+            }
+          ]
+        },
+        "at": "assertion:7 in test-script",
+        "source": {
+          "id": "6cf456d6-d581-4315-8f63-7c2b16dd8213",
+          "name": "TC-FUN-004 - Cervecería aleatoria",
+          "request": {
+            "url": {
+              "path": [
+                "breweries",
+                "random"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "39375872-88a3-499a-b7bc-82ae7ae800aa",
+                "type": "text/javascript",
+                "exec": [
+                  "// TC-FUN-004 - Cervecería aleatoria (comportamiento por defecto, sin query params)",
+                  "pm.test(\"TC-FUN-004 | HTTP 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-004 | La respuesta es JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\"))",
+                  "        .to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "let randomResponse;",
+                  "",
+                  "pm.test(\"TC-FUN-004 | El cuerpo contiene JSON válido\", function () {",
+                  "    pm.expect(function () {",
+                  "        randomResponse = pm.response.json();",
+                  "    }).to.not.throw();",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-004 | La respuesta es un objeto JSON\", function () {",
+                  "    pm.expect(randomResponse).to.be.an(\"object\");",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-004 | La respuesta no es un arreglo\", function () {",
+                  "    pm.expect(Array.isArray(randomResponse)).to.be.false;",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-004 | Contiene un ID válido\", function () {",
+                  "    pm.expect(randomResponse).to.have.property(\"id\");",
+                  "    pm.expect(randomResponse.id).to.be.a(\"string\");",
+                  "    pm.expect(randomResponse.id.length).to.be.above(0);",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-004 | Contiene un nombre válido\", function () {",
+                  "    pm.expect(randomResponse).to.have.property(\"name\");",
+                  "    pm.expect(randomResponse.name).to.be.a(\"string\");",
+                  "    pm.expect(randomResponse.name.length).to.be.above(0);",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-004 | Contiene brewery_type\", function () {",
+                  "    pm.expect(randomResponse).to.have.property(\"brewery_type\");",
+                  "    pm.expect(randomResponse.brewery_type).to.be.a(\"string\");",
+                  "    pm.expect(randomResponse.brewery_type.length).to.be.above(0);",
+                  "});",
+                  "",
+                  "// Datos de diagnóstico (auxiliares, no sustituyen las assertions)",
+                  "console.log(\"TC-FUN-004 | Fecha/hora:\", new Date().toISOString());",
+                  "console.log(\"TC-FUN-004 | URL:\", pm.request.url.toString());",
+                  "console.log(\"TC-FUN-004 | HTTP:\", pm.response.code, pm.response.status);",
+                  "console.log(\"TC-FUN-004 | Content-Type:\", pm.response.headers.get(\"Content-Type\"));",
+                  "console.log(\"TC-FUN-004 | Tipo raíz:\", Array.isArray(randomResponse) ? \"array\" : typeof randomResponse);",
+                  "if (randomResponse) {",
+                  "    console.log(\"TC-FUN-004 | ID:\", randomResponse.id);",
+                  "    console.log(\"TC-FUN-004 | Nombre:\", randomResponse.name);",
+                  "    console.log(\"TC-FUN-004 | brewery_type:\", randomResponse.brewery_type);",
+                  "}",
+                  "console.log(",
+                  "    \"TC-FUN-004 | Response Time:\",",
+                  "    pm.response.responseTime,",
+                  "    \"ms\"",
+                  ");"
+                ],
+                "_lastExecutionId": "c3ad492b-8dbd-4656-815c-69224a71bd20"
+              }
+            }
+          ]
+        },
+        "parent": {
+          "id": "3fe6423d-0b88-466b-b813-02ef04a04693",
+          "name": "TC-FUN-004",
+          "item": [
+            {
+              "id": "6cf456d6-d581-4315-8f63-7c2b16dd8213",
+              "name": "TC-FUN-004 - Cervecería aleatoria",
+              "request": {
+                "url": {
+                  "path": [
+                    "breweries",
+                    "random"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET"
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "39375872-88a3-499a-b7bc-82ae7ae800aa",
+                    "type": "text/javascript",
+                    "exec": [
+                      "// TC-FUN-004 - Cervecería aleatoria (comportamiento por defecto, sin query params)",
+                      "pm.test(\"TC-FUN-004 | HTTP 200 OK\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "",
+                      "pm.test(\"TC-FUN-004 | La respuesta es JSON\", function () {",
+                      "    pm.expect(pm.response.headers.get(\"Content-Type\"))",
+                      "        .to.include(\"application/json\");",
+                      "});",
+                      "",
+                      "let randomResponse;",
+                      "",
+                      "pm.test(\"TC-FUN-004 | El cuerpo contiene JSON válido\", function () {",
+                      "    pm.expect(function () {",
+                      "        randomResponse = pm.response.json();",
+                      "    }).to.not.throw();",
+                      "});",
+                      "",
+                      "pm.test(\"TC-FUN-004 | La respuesta es un objeto JSON\", function () {",
+                      "    pm.expect(randomResponse).to.be.an(\"object\");",
+                      "});",
+                      "",
+                      "pm.test(\"TC-FUN-004 | La respuesta no es un arreglo\", function () {",
+                      "    pm.expect(Array.isArray(randomResponse)).to.be.false;",
+                      "});",
+                      "",
+                      "pm.test(\"TC-FUN-004 | Contiene un ID válido\", function () {",
+                      "    pm.expect(randomResponse).to.have.property(\"id\");",
+                      "    pm.expect(randomResponse.id).to.be.a(\"string\");",
+                      "    pm.expect(randomResponse.id.length).to.be.above(0);",
+                      "});",
+                      "",
+                      "pm.test(\"TC-FUN-004 | Contiene un nombre válido\", function () {",
+                      "    pm.expect(randomResponse).to.have.property(\"name\");",
+                      "    pm.expect(randomResponse.name).to.be.a(\"string\");",
+                      "    pm.expect(randomResponse.name.length).to.be.above(0);",
+                      "});",
+                      "",
+                      "pm.test(\"TC-FUN-004 | Contiene brewery_type\", function () {",
+                      "    pm.expect(randomResponse).to.have.property(\"brewery_type\");",
+                      "    pm.expect(randomResponse.brewery_type).to.be.a(\"string\");",
+                      "    pm.expect(randomResponse.brewery_type.length).to.be.above(0);",
+                      "});",
+                      "",
+                      "// Datos de diagnóstico (auxiliares, no sustituyen las assertions)",
+                      "console.log(\"TC-FUN-004 | Fecha/hora:\", new Date().toISOString());",
+                      "console.log(\"TC-FUN-004 | URL:\", pm.request.url.toString());",
+                      "console.log(\"TC-FUN-004 | HTTP:\", pm.response.code, pm.response.status);",
+                      "console.log(\"TC-FUN-004 | Content-Type:\", pm.response.headers.get(\"Content-Type\"));",
+                      "console.log(\"TC-FUN-004 | Tipo raíz:\", Array.isArray(randomResponse) ? \"array\" : typeof randomResponse);",
+                      "if (randomResponse) {",
+                      "    console.log(\"TC-FUN-004 | ID:\", randomResponse.id);",
+                      "    console.log(\"TC-FUN-004 | Nombre:\", randomResponse.name);",
+                      "    console.log(\"TC-FUN-004 | brewery_type:\", randomResponse.brewery_type);",
+                      "}",
+                      "console.log(",
+                      "    \"TC-FUN-004 | Response Time:\",",
+                      "    pm.response.responseTime,",
+                      "    \"ms\"",
+                      ");"
+                    ],
+                    "_lastExecutionId": "c3ad492b-8dbd-4656-815c-69224a71bd20"
+                  }
+                }
+              ]
+            }
+          ],
+          "event": []
+        },
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 1,
+          "cycles": 1,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "d723dab8-5ada-4c86-994c-36e2ce1ee4ca",
+          "httpRequestId": "535828d7-7ab6-4edd-b8e8-c54f752ba5ad",
+          "scriptId": "39375872-88a3-499a-b7bc-82ae7ae800aa",
+          "execution": "c3ad492b-8dbd-4656-815c-69224a71bd20"
+        }
+      }
+    ],
+    "error": null
+  }
+}

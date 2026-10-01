@@ -1,0 +1,20 @@
+[
+  {
+    "id": "51c00792-038b-4a5a-af2c-efade94f169f",
+    "name": "Haymarket Pub and Brewery",
+    "brewery_type": "brewpub",
+    "address_1": "737 W Randolph St",
+    "address_2": null,
+    "address_3": null,
+    "city": "Chicago",
+    "state_province": "Illinois",
+    "postal_code": "60661-2103",
+    "country": "United States",
+    "longitude": -87.6472956,
+    "latitude": 41.8841895,
+    "phone": "3126380707",
+    "website_url": "http://www.haymarketbrewing.com",
+    "state": "Illinois",
+    "street": "737 W Randolph St"
+  }
+]

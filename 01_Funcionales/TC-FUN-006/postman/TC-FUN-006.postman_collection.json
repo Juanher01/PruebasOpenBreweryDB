@@ -1,0 +1,122 @@
+{
+  "info": {
+    "_postman_id": "a4d8e2f6-5b9c-4a1e-8c3d-tcfun006col",
+    "name": "Open BreweryDB - Pruebas Funcionales",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "TC-FUN-006",
+      "item": [
+        {
+          "name": "TC-FUN-006 - Filtrado por Estado",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// TC-FUN-006 - Filtrado por Estado (by_state=california)",
+                  "pm.test(\"TC-FUN-006 | HTTP 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-006 | La respuesta es JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\"))",
+                  "        .to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "let stateResponse;",
+                  "",
+                  "pm.test(\"TC-FUN-006 | El cuerpo contiene JSON válido\", function () {",
+                  "    pm.expect(function () {",
+                  "        stateResponse = pm.response.json();",
+                  "    }).to.not.throw();",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-006 | La respuesta es un arreglo\", function () {",
+                  "    pm.expect(stateResponse).to.be.an(\"array\");",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-006 | El filtro retorna al menos un resultado\", function () {",
+                  "    pm.expect(stateResponse.length).to.be.above(0);",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-006 | Todos los resultados son objetos\", function () {",
+                  "    stateResponse.forEach(function (brewery) {",
+                  "        pm.expect(brewery).to.be.an(\"object\");",
+                  "    });",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-006 | Todos los resultados contienen state\", function () {",
+                  "    stateResponse.forEach(function (brewery) {",
+                  "        pm.expect(brewery).to.have.property(\"state\");",
+                  "        pm.expect(brewery.state).to.be.a(\"string\");",
+                  "    });",
+                  "});",
+                  "",
+                  "pm.test('TC-FUN-006 | Todos los registros tienen state \"California\"', function () {",
+                  "    stateResponse.forEach(function (brewery) {",
+                  "        pm.expect(brewery.state.toLowerCase()).to.eql(\"california\");",
+                  "    });",
+                  "});",
+                  "",
+                  "// Diagnóstico adicional (no altera las assertions)",
+                  "console.log(\"TC-FUN-006 | Fecha/hora:\", new Date().toISOString());",
+                  "console.log(\"TC-FUN-006 | URL:\", pm.request.url.toString());",
+                  "console.log(\"TC-FUN-006 | HTTP:\", pm.response.code, pm.response.status);",
+                  "console.log(\"TC-FUN-006 | Content-Type:\", pm.response.headers.get(\"Content-Type\"));",
+                  "if (Array.isArray(stateResponse)) {",
+                  "    console.log(\"TC-FUN-006 | Cantidad de resultados:\", stateResponse.length);",
+                  "",
+                  "    console.log(",
+                  "        \"TC-FUN-006 | Estados retornados:\",",
+                  "        stateResponse.map(function (brewery) {",
+                  "            return brewery.state;",
+                  "        })",
+                  "    );",
+                  "",
+                  "    const nonCalifornia = stateResponse.filter(function (brewery) {",
+                  "        return typeof brewery.state !== \"string\" ||",
+                  "               brewery.state.toLowerCase() !== \"california\";",
+                  "    });",
+                  "",
+                  "    console.log(",
+                  "        \"TC-FUN-006 | Registros no conformes:\",",
+                  "        nonCalifornia.length",
+                  "    );",
+                  "}",
+                  "console.log(",
+                  "    \"TC-FUN-006 | Response Time:\",",
+                  "    pm.response.responseTime,",
+                  "    \"ms\"",
+                  ");"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/breweries?by_state=california",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "breweries"
+              ],
+              "query": [
+                {
+                  "key": "by_state",
+                  "value": "california"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

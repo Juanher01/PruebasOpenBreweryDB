@@ -1,0 +1,60 @@
+newman
+
+Open BreweryDB - Pruebas Funcionales
+
+□ TC-FUN-007
+└ TC-FUN-007 - Filtrado por Tipo
+  GET https://api.openbrewerydb.org/v1/breweries?by_type=micro [200 OK, 21.92kB, 751ms]
+  √  TC-FUN-007 | HTTP 200 OK
+  √  TC-FUN-007 | La respuesta es JSON
+  √  TC-FUN-007 | El cuerpo contiene JSON válido
+  √  TC-FUN-007 | La respuesta es un arreglo
+  √  TC-FUN-007 | El filtro retorna al menos un resultado
+  √  TC-FUN-007 | Todos los resultados son objetos
+  √  TC-FUN-007 | Todos los resultados contienen brewery_type
+  √  TC-FUN-007 | Todos los registros tienen brewery_type "micro"
+  ┌
+  │ 'TC-FUN-007 | Fecha/hora:', '2026-10-01T06:09:31.470Z'
+  │ 'TC-FUN-007 | URL:', 'https://api.openbrewerydb.org/v1
+  │ /breweries?by_type=micro'
+  │ 'TC-FUN-007 | HTTP:', 200, 'OK'
+  │ 'TC-FUN-007 | Content-Type:', 'application/json'
+  │ 'TC-FUN-007 | Cantidad de resultados:', 50
+  │ 'TC-FUN-007 | Tipos retornados:', [
+  │   'micro', 'micro', 'micro', 'micro',
+  │   'micro', 'micro', 'micro', 'micro',
+  │   'micro', 'micro', 'micro', 'micro',
+  │   'micro', 'micro', 'micro', 'micro',
+  │   'micro', 'micro', 'micro', 'micro',
+  │   'micro', 'micro', 'micro', 'micro',
+  │   'micro', 'micro', 'micro', 'micro',
+  │   'micro', 'micro', 'micro', 'micro',
+  │   'micro', 'micro', 'micro', 'micro',
+  │   'micro', 'micro', 'micro', 'micro',
+  │   'micro', 'micro', 'micro', 'micro',
+  │   'micro', 'micro', 'micro', 'micro',
+  │   'micro', 'micro'
+  │ ]
+  │ 'TC-FUN-007 | Registros no conformes:', 0
+  │ 'TC-FUN-007 | Response Time:', 751, 'ms'
+  └
+
+┌─────────────────────────┬────────────────────┬───────────────────┐
+│                         │           executed │            failed │
+├─────────────────────────┼────────────────────┼───────────────────┤
+│              iterations │                  1 │                 0 │
+├─────────────────────────┼────────────────────┼───────────────────┤
+│                requests │                  1 │                 0 │
+├─────────────────────────┼────────────────────┼───────────────────┤
+│            test-scripts │                  1 │                 0 │
+├─────────────────────────┼────────────────────┼───────────────────┤
+│      prerequest-scripts │                  0 │                 0 │
+├─────────────────────────┼────────────────────┼───────────────────┤
+│              assertions │                  8 │                 0 │
+├─────────────────────────┴────────────────────┴───────────────────┤
+│ total run duration: 877ms                                        │
+├──────────────────────────────────────────────────────────────────┤
+│ total data received: 20.56kB (approx)                            │
+├──────────────────────────────────────────────────────────────────┤
+│ average response time: 751ms [min: 751ms, max: 751ms, s.d.: 0µs] │
+└──────────────────────────────────────────────────────────────────┘

@@ -1,0 +1,18 @@
+{
+  "id": "ef970757-fe42-416f-931d-722451f1f59c",
+  "name": "10 Barrel Brewing Co",
+  "brewery_type": "large",
+  "address_1": "1501 E St",
+  "address_2": null,
+  "address_3": null,
+  "city": "San Diego",
+  "state_province": "California",
+  "postal_code": "92101-6618",
+  "country": "United States",
+  "longitude": -117.129593,
+  "latitude": 32.714813,
+  "phone": "6195782311",
+  "website_url": "http://10barrel.com",
+  "state": "California",
+  "street": "1501 E St"
+}

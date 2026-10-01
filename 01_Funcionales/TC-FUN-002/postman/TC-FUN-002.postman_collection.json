@@ -1,0 +1,186 @@
+{
+  "info": {
+    "_postman_id": "5c9a1e7b-3d2f-4b8a-a6e0-tcfun002col",
+    "name": "Open BreweryDB - Pruebas Funcionales",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "TC-FUN-002",
+      "item": [
+        {
+          "name": "TC-FUN-002 - Paso 1 - Obtener ID dinámico",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Se limpia cualquier valor previo: el ID debe obtenerse en esta ejecución",
+                  "pm.environment.set(\"brewery_id\", \"\");",
+                  "pm.environment.set(\"brewery_list_snapshot\", \"\");"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// TC-FUN-002 - Paso 1: consulta previa y obtención dinámica del ID",
+                  "let responseData;",
+                  "",
+                  "pm.test(\"TC-FUN-002 PRE | HTTP 200 en consulta previa\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-002 PRE | La respuesta previa es JSON válido\", function () {",
+                  "    pm.expect(function () {",
+                  "        responseData = pm.response.json();",
+                  "    }).to.not.throw();",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-002 PRE | La respuesta previa es un arreglo\", function () {",
+                  "    pm.expect(responseData).to.be.an(\"array\");",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-002 PRE | El listado contiene registros\", function () {",
+                  "    pm.expect(responseData.length).to.be.above(0);",
+                  "});",
+                  "",
+                  "if (Array.isArray(responseData) && responseData.length > 0) {",
+                  "    const selectedBrewery = responseData[0];",
+                  "",
+                  "    pm.test(\"TC-FUN-002 PRE | El registro seleccionado contiene ID\", function () {",
+                  "        pm.expect(selectedBrewery).to.have.property(\"id\");",
+                  "        pm.expect(selectedBrewery.id).to.be.a(\"string\");",
+                  "        pm.expect(selectedBrewery.id.length).to.be.above(0);",
+                  "    });",
+                  "",
+                  "    pm.environment.set(\"brewery_id\", selectedBrewery.id);",
+                  "    pm.environment.set(\"brewery_list_snapshot\", JSON.stringify(selectedBrewery));",
+                  "",
+                  "    console.log(\"TC-FUN-002 PRE | ID seleccionado dinámicamente: \" + selectedBrewery.id);",
+                  "}",
+                  "",
+                  "console.log(\"TC-FUN-002 PRE | Fecha/hora: \" + new Date().toISOString());",
+                  "console.log(\"TC-FUN-002 PRE | URL: \" + pm.request.url.toString());",
+                  "console.log(\"TC-FUN-002 PRE | HTTP: \" + pm.response.code + \" \" + pm.response.status);",
+                  "console.log(\"TC-FUN-002 PRE | Tiempo de respuesta (ms): \" + pm.response.responseTime);",
+                  "console.log(\"TC-FUN-002 PRE | Registros: \" + (Array.isArray(responseData) ? responseData.length : \"N/A\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/breweries",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "breweries"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "TC-FUN-002 - Paso 2 - Consultar cervecería por ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// TC-FUN-002 - Paso 2: consulta de detalle con el ID obtenido en el Paso 1",
+                  "pm.test(\"TC-FUN-002 | HTTP 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-002 | La respuesta es JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\"))",
+                  "        .to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "let detailResponse;",
+                  "",
+                  "pm.test(\"TC-FUN-002 | El cuerpo contiene JSON válido\", function () {",
+                  "    pm.expect(function () {",
+                  "        detailResponse = pm.response.json();",
+                  "    }).to.not.throw();",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-002 | La respuesta es un objeto JSON único\", function () {",
+                  "    pm.expect(detailResponse).to.be.an(\"object\");",
+                  "    pm.expect(Array.isArray(detailResponse)).to.be.false;",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-002 | El objeto contiene campo id\", function () {",
+                  "    pm.expect(detailResponse).to.have.property(\"id\");",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-002 | El ID retornado coincide con el solicitado\", function () {",
+                  "    const requestedId = pm.environment.get(\"brewery_id\");",
+                  "",
+                  "    pm.expect(detailResponse.id).to.eql(requestedId);",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-002 | Contiene estructura básica de cervecería\", function () {",
+                  "    pm.expect(detailResponse).to.have.property(\"id\");",
+                  "    pm.expect(detailResponse).to.have.property(\"name\");",
+                  "    pm.expect(detailResponse).to.have.property(\"brewery_type\");",
+                  "});",
+                  "",
+                  "// Control complementario: consistencia con el registro del listado",
+                  "let listSnapshot;",
+                  "try {",
+                  "    listSnapshot = JSON.parse(pm.environment.get(\"brewery_list_snapshot\"));",
+                  "} catch (e) {",
+                  "    listSnapshot = undefined;",
+                  "}",
+                  "",
+                  "pm.test(\"TC-FUN-002 | Nombre consistente entre listado y detalle\", function () {",
+                  "    pm.expect(detailResponse.name).to.eql(listSnapshot.name);",
+                  "});",
+                  "",
+                  "pm.test(\"TC-FUN-002 | Tipo consistente entre listado y detalle\", function () {",
+                  "    pm.expect(detailResponse.brewery_type)",
+                  "        .to.eql(listSnapshot.brewery_type);",
+                  "});",
+                  "",
+                  "console.log(\"TC-FUN-002 | Fecha/hora: \" + new Date().toISOString());",
+                  "console.log(\"TC-FUN-002 | URL: \" + pm.request.url.toString());",
+                  "console.log(\"TC-FUN-002 | HTTP: \" + pm.response.code + \" \" + pm.response.status);",
+                  "console.log(\"TC-FUN-002 | Content-Type: \" + pm.response.headers.get(\"Content-Type\"));",
+                  "console.log(\"TC-FUN-002 | Tiempo de respuesta (ms): \" + pm.response.responseTime);",
+                  "console.log(\"TC-FUN-002 | ID solicitado: \" + pm.environment.get(\"brewery_id\"));",
+                  "console.log(\"TC-FUN-002 | ID retornado: \" + (detailResponse ? detailResponse.id : \"N/A\"));",
+                  "console.log(\"TC-FUN-002 | Nombre: \" + (detailResponse ? detailResponse.name : \"N/A\"));",
+                  "console.log(\"TC-FUN-002 | brewery_type: \" + (detailResponse ? detailResponse.brewery_type : \"N/A\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/breweries/{{brewery_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "breweries",
+                "{{brewery_id}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

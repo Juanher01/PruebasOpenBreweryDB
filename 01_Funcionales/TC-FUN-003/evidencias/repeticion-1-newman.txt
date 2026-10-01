@@ -1,0 +1,103 @@
+newman
+
+Open BreweryDB - Pruebas Funcionales
+
+□ TC-FUN-003
+└ TC-FUN-003 - Búsqueda por nombre
+  GET https://api.openbrewerydb.org/v1/breweries/search?query=san [200 OK, 23.11kB, 327ms]
+  √  TC-FUN-003 | HTTP 200 OK
+  √  TC-FUN-003 | La respuesta es JSON
+  √  TC-FUN-003 | El cuerpo contiene JSON válido
+  √  TC-FUN-003 | La respuesta es un arreglo
+  √  TC-FUN-003 | La búsqueda retorna al menos un resultado
+  √  TC-FUN-003 | Todos los resultados son objetos
+  √  TC-FUN-003 | Todos los resultados contienen name
+  1. TC-FUN-003 | Todos los nombres contienen "san"
+  ┌
+  │ 'TC-FUN-003 | Fecha/hora:', '2026-10-01T05:37:58.135Z'
+  │ 'TC-FUN-003 | URL:', 'https://api.openbrewerydb.org/v1
+  │ /breweries/search?query=san'
+  │ 'TC-FUN-003 | HTTP:', 200, 'OK'
+  │ 'TC-FUN-003 | Content-Type:', 'application/json'
+  │ 'TC-FUN-003 | Cantidad de resultados:', 50
+  │ 'TC-FUN-003 | Nombres:', [
+  │   'G8 Development, Inc.',
+  │   'South Bay Brewco',
+  │   'Deft Brewing',
+  │   'Beach Chalet Brewing Co',
+  │   'Mike Hess Brewing - Miramar',
+  │   'Clayton Brewing Co',
+  │   'Little Miss Brewing',
+  │   'Second Chance Beer Company',
+  │   'Ogopogo Brewing',
+  │   'Speakeasy Ales and Lagers',
+  │   'Ballast Point Brewing Company',
+  │   'Brew Rebellion',
+  │   'Mission Brewery',
+  │   'Oda Restaurant',
+  │   'Pizza Port Ocean Beach',
+  │   'Thorn Brewing Co',
+  │   "Helm's Brewing Company, LLC",
+  │   'Ocean Beach Brewery',
+  │   'Citizen Brewers',
+  │   'Artifex Brewing Company',
+  │   'Port Brewing Co / The Lost Abbey',
+  │   'Zero One Ale House',
+  │   'Alpine Beer Company',
+  │   'Circle 9 Brewing',
+  │   'Wild Barrel Brewing Company',
+  │   'Modern Times - The Dankness Dojo',
+  │   'Longship Brewery',
+  │   'Pariah Brewing Company',
+  │   'California Wild Ales',
+  │   'Palmia',
+  │   'Anchor Brewing Co',
+  │   'Dorcol Distilling and Brewing CO',
+  │   'Barrel Head Brewhouse',
+  │   'Black Hammer Brewing',
+  │   'Gordon Biersch Brewery Restaurant - San Diego',
+  │   'North Park Beer Co.',
+  │   'Weathered Souls Brewing Co.',
+  │   'Acoustic Ales Brewing Experiment',
+  │   'Sunset Reservoir Brewing Company',
+  │   'Busted Sandal Brewing Company',
+  │   'Bitter Brothers Brewing Co.',
+  │   'New English Brewing Co Inc',
+  │   'Automatic Brewing Co. / Blind Lady Alehouse',
+  │   'Southern Pacific Brewing',
+  │   'Longtab Brewing Company LLC',
+  │   'Hillcrest Brewing Company',
+  │   'Mikkeller Brewing San Diego',
+  │   'San Fernando Brewing Co.',
+  │   '32 North Brewing Co',
+  │   'Ballast Point Brewing Co / Home Brew Mart'
+  │ ]
+  │ 'TC-FUN-003 | Response Time:', 327, 'ms'
+  └
+
+┌─────────────────────────┬────────────────────┬───────────────────┐
+│                         │           executed │            failed │
+├─────────────────────────┼────────────────────┼───────────────────┤
+│              iterations │                  1 │                 0 │
+├─────────────────────────┼────────────────────┼───────────────────┤
+│                requests │                  1 │                 0 │
+├─────────────────────────┼────────────────────┼───────────────────┤
+│            test-scripts │                  1 │                 0 │
+├─────────────────────────┼────────────────────┼───────────────────┤
+│      prerequest-scripts │                  0 │                 0 │
+├─────────────────────────┼────────────────────┼───────────────────┤
+│              assertions │                  8 │                 1 │
+├─────────────────────────┴────────────────────┴───────────────────┤
+│ total run duration: 447ms                                        │
+├──────────────────────────────────────────────────────────────────┤
+│ total data received: 21.74kB (approx)                            │
+├──────────────────────────────────────────────────────────────────┤
+│ average response time: 327ms [min: 327ms, max: 327ms, s.d.: 0µs] │
+└──────────────────────────────────────────────────────────────────┘
+
+[31m  # [39m[31m failure        [39m[31m detail                                                 [39m
+[90m    [39m[90m                [39m[90m                                                        [39m
+ 1.  AssertionError  TC-FUN-003 | Todos los nombres contienen "san"         
+                     expected 'g8 development, inc.' to include 'san'       
+                     at assertion:7 in test-script                          
+                     inside "TC-FUN-003 / TC-FUN-003 - Búsqueda por nombre" 
