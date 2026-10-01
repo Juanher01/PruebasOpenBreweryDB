@@ -1,0 +1,19 @@
+VERIFICACIÓN AUXILIAR DE LA LÓGICA DE VALIDACIÓN — TC-CON-002
+(No es una ejecución contra la API: datos sintéticos para comprobar que el schema y el predicado Chai tratan correctamente 0, null y strings numéricos.)
+Fecha/hora UTC: 2026-10-01T06:47:09.306Z
+AJV usado aquí: ajv 6.15.0 (dependencia de Newman 6.2.2), new Ajv({ allErrors: true })
+Schema: schemas/TC-CON-002-brewery-types.schema.json
+Predicado Chai: v === null || (typeof v === "number" && Number.isFinite(v))
+
+0 (number)                     esperado=válido  AJV=válido  Chai=válido  OK
+-2.17403 (number negativo)     esperado=válido  AJV=válido  Chai=válido  OK
+41.40338 (number)              esperado=válido  AJV=válido  Chai=válido  OK
+null                           esperado=válido  AJV=válido  Chai=válido  OK
+"0" (string numérico)          esperado=inválido  AJV=inválido  Chai=inválido  OK
+"" (string vacío)              esperado=inválido  AJV=inválido  Chai=inválido  OK
+"41.40338" (string numérico)   esperado=inválido  AJV=inválido  Chai=inválido  OK
+true (boolean)                 esperado=inválido  AJV=inválido  Chai=inválido  OK
+{} (object)                    esperado=inválido  AJV=inválido  Chai=inválido  OK
+[] (array)                     esperado=inválido  AJV=inválido  Chai=inválido  OK
+
+Resultado: todas las comprobaciones coinciden con el contrato (Number/Null)

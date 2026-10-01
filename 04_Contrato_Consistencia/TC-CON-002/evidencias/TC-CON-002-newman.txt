@@ -1,0 +1,71 @@
+newman
+
+Open BreweryDB - Contrato y Consistencia
+
+□ TC-CON-002
+└ TC-CON-002 - Paso 1 - Obtener ID válido
+  GET https://api.openbrewerydb.org/v1/breweries [200 OK, 22.1kB, 327ms]
+  √  TC-CON-002 PRE | HTTP 200 en listado previo
+  √  TC-CON-002 PRE | Listado contiene JSON válido
+  √  TC-CON-002 PRE | Listado es un arreglo
+  √  TC-CON-002 PRE | Listado contiene registros
+  √  TC-CON-002 PRE | Registro seleccionado contiene id válido
+  ┌
+  │ 'TC-CON-002 | ID obtenido dinámicamente:', 'ae7b3174-8
+  │ be8-4d53-a3a5-9b8240970eea'
+  │ 'TC-CON-002 | Listado URL:', 'https://api.openbreweryd
+  │ b.org/v1/breweries'
+  │ 'TC-CON-002 | Listado HTTP:', 200, 'OK'
+  │ 'TC-CON-002 | Response Time listado:', 327, 'ms'
+  └
+
+└ TC-CON-002 - Paso 2 - Validar tipos de datos
+  GET https://api.openbrewerydb.org/v1/breweries/ae7b3174-8be8-4d53-a3a5-9b8240970eea [200 OK, 1.43kB, 86ms]
+  √  TC-CON-002 | HTTP 200 OK
+  √  TC-CON-002 | La respuesta es JSON
+  √  TC-CON-002 | El cuerpo contiene JSON válido
+  √  TC-CON-002 | La raíz es un objeto JSON
+  √  TC-CON-002 | id es String
+  √  TC-CON-002 | name es String
+  √  TC-CON-002 | latitude es Number o Null
+  √  TC-CON-002 | longitude es Number o Null
+  ┌
+  │ 'TC-CON-002 | AJV ejecutado: Sí'
+  │ 'TC-CON-002 | AJV resultado:', 'PASS'
+  │ 'TC-CON-002 | AJV errores:', '[]'
+  └
+  √  TC-CON-002 | JSON cumple el schema de tipos
+  ┌
+  │ 'TC-CON-002 | id:', 'ae7b3174-8be8-4d53-a3a5-9b8240970
+  │ eea', '| typeof:', 'string'
+  │ 'TC-CON-002 | name:', "'s", '| typeof:', 'string'
+  │ 'TC-CON-002 | latitude:', 50.241246, '| typeof:', 'num
+  │ ber'
+  │ 'TC-CON-002 | longitude:', 11.327765, '| typeof:', 'nu
+  │ mber'
+  │ 'TC-CON-002 | Detalle URL:', 'https://api.openbreweryd
+  │ b.org/v1/breweries/ae7b3174-8be8-4d53-a3a5-9b8240970ee
+  │ a'
+  │ 'TC-CON-002 | Detalle HTTP:', 200, 'OK'
+  │ 'TC-CON-002 | Response Time:', 86, 'ms'
+  └
+
+┌─────────────────────────┬────────────────────┬────────────────────┐
+│                         │           executed │             failed │
+├─────────────────────────┼────────────────────┼────────────────────┤
+│              iterations │                  1 │                  0 │
+├─────────────────────────┼────────────────────┼────────────────────┤
+│                requests │                  2 │                  0 │
+├─────────────────────────┼────────────────────┼────────────────────┤
+│            test-scripts │                  2 │                  0 │
+├─────────────────────────┼────────────────────┼────────────────────┤
+│      prerequest-scripts │                  1 │                  0 │
+├─────────────────────────┼────────────────────┼────────────────────┤
+│              assertions │                 14 │                  0 │
+├─────────────────────────┴────────────────────┴────────────────────┤
+│ total run duration: 661ms                                         │
+├───────────────────────────────────────────────────────────────────┤
+│ total data received: 21.13kB (approx)                             │
+├───────────────────────────────────────────────────────────────────┤
+│ average response time: 206ms [min: 86ms, max: 327ms, s.d.: 120ms] │
+└───────────────────────────────────────────────────────────────────┘

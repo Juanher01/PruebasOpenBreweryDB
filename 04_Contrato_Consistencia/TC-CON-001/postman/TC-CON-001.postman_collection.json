@@ -1,0 +1,234 @@
+{
+  "info": {
+    "_postman_id": "e8b2c6d0-3f7a-4e9c-a1b5-tconcon001col",
+    "name": "Open BreweryDB - Contrato y Consistencia",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "TC-CON-001",
+      "item": [
+        {
+          "name": "TC-CON-001 - Paso 1 - Obtener ID válido",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Se limpia cualquier valor previo: el ID debe obtenerse en esta ejecución",
+                  "pm.environment.set(\"brewery_id\", \"\");"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// TC-CON-001 - Paso 1: obtener un ID válido de forma dinámica",
+                  "pm.test(\"TC-CON-001 PRE | HTTP 200 en listado previo\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "let listResponse;",
+                  "",
+                  "pm.test(\"TC-CON-001 PRE | Listado contiene JSON válido\", function () {",
+                  "    pm.expect(function () {",
+                  "        listResponse = pm.response.json();",
+                  "    }).to.not.throw();",
+                  "});",
+                  "",
+                  "pm.test(\"TC-CON-001 PRE | Listado es un arreglo\", function () {",
+                  "    pm.expect(listResponse).to.be.an(\"array\");",
+                  "});",
+                  "",
+                  "pm.test(\"TC-CON-001 PRE | Listado contiene al menos un registro\", function () {",
+                  "    pm.expect(listResponse.length).to.be.above(0);",
+                  "});",
+                  "",
+                  "const selectedBrewery = Array.isArray(listResponse) ? listResponse[0] : undefined;",
+                  "",
+                  "pm.test(\"TC-CON-001 PRE | Registro seleccionado contiene id\", function () {",
+                  "    pm.expect(selectedBrewery).to.be.an(\"object\");",
+                  "    pm.expect(selectedBrewery).to.have.property(\"id\");",
+                  "    pm.expect(selectedBrewery.id).to.be.a(\"string\");",
+                  "    pm.expect(selectedBrewery.id.length).to.be.above(0);",
+                  "});",
+                  "",
+                  "if (selectedBrewery && typeof selectedBrewery.id === \"string\") {",
+                  "    pm.environment.set(\"brewery_id\", selectedBrewery.id);",
+                  "    console.log(\"TC-CON-001 | ID obtenido dinámicamente:\", selectedBrewery.id);",
+                  "}",
+                  "console.log(\"TC-CON-001 | Listado URL:\", pm.request.url.toString());",
+                  "console.log(\"TC-CON-001 | Listado HTTP:\", pm.response.code, pm.response.status);",
+                  "console.log(\"TC-CON-001 | Response Time listado:\", pm.response.responseTime, \"ms\");"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/breweries",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "breweries"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "TC-CON-001 - Paso 2 - Validar contrato de detalle",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// TC-CON-001 - Paso 2: contrato de presencia de campos obligatorios",
+                  "// Schema incrustado desde schemas/TC-CON-001-brewery-required-fields.schema.json",
+                  "const contractSchema = {",
+                  "    \"$schema\": \"http://json-schema.org/draft-07/schema#\",",
+                  "    \"title\": \"TC-CON-001 - Campos obligatorios de Brewery\",",
+                  "    \"type\": \"object\",",
+                  "    \"required\": [",
+                  "        \"id\",",
+                  "        \"name\",",
+                  "        \"brewery_type\",",
+                  "        \"city\",",
+                  "        \"state\",",
+                  "        \"country\"",
+                  "    ]",
+                  "};",
+                  "",
+                  "pm.test(\"TC-CON-001 | HTTP 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"TC-CON-001 | La respuesta es JSON\", function () {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\"))",
+                  "        .to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "let detailResponse;",
+                  "",
+                  "pm.test(\"TC-CON-001 | El cuerpo contiene JSON válido\", function () {",
+                  "    pm.expect(function () {",
+                  "        detailResponse = pm.response.json();",
+                  "    }).to.not.throw();",
+                  "});",
+                  "",
+                  "pm.test(\"TC-CON-001 | La raíz es un objeto JSON\", function () {",
+                  "    pm.expect(detailResponse).to.be.an(\"object\");",
+                  "    pm.expect(Array.isArray(detailResponse)).to.be.false;",
+                  "});",
+                  "",
+                  "// Validaciones explícitas de presencia (solo presencia, no tipos)",
+                  "pm.test(\"TC-CON-001 | Campo obligatorio id presente\", function () {",
+                  "    pm.expect(detailResponse).to.have.property(\"id\");",
+                  "});",
+                  "",
+                  "pm.test(\"TC-CON-001 | Campo obligatorio name presente\", function () {",
+                  "    pm.expect(detailResponse).to.have.property(\"name\");",
+                  "});",
+                  "",
+                  "pm.test(\"TC-CON-001 | Campo obligatorio brewery_type presente\", function () {",
+                  "    pm.expect(detailResponse).to.have.property(\"brewery_type\");",
+                  "});",
+                  "",
+                  "pm.test(\"TC-CON-001 | Campo obligatorio city presente\", function () {",
+                  "    pm.expect(detailResponse).to.have.property(\"city\");",
+                  "});",
+                  "",
+                  "pm.test(\"TC-CON-001 | Campo obligatorio state presente\", function () {",
+                  "    pm.expect(detailResponse).to.have.property(\"state\");",
+                  "});",
+                  "",
+                  "pm.test(\"TC-CON-001 | Campo obligatorio country presente\", function () {",
+                  "    pm.expect(detailResponse).to.have.property(\"country\");",
+                  "});",
+                  "",
+                  "// Validación AJV / JSON Schema",
+                  "let Ajv;",
+                  "let ajvLoadError = null;",
+                  "try {",
+                  "    Ajv = require(\"ajv\");",
+                  "} catch (e) {",
+                  "    ajvLoadError = e;",
+                  "}",
+                  "",
+                  "if (Ajv) {",
+                  "    const ajv = new Ajv({ allErrors: true });",
+                  "    const validateContract = ajv.compile(contractSchema);",
+                  "    const ajvValid = validateContract(detailResponse);",
+                  "",
+                  "    console.log(\"TC-CON-001 | AJV ejecutado: Sí\");",
+                  "    console.log(\"TC-CON-001 | AJV resultado:\", ajvValid ? \"PASS\" : \"FAIL\");",
+                  "    console.log(\"TC-CON-001 | AJV errores:\", JSON.stringify(validateContract.errors || []));",
+                  "",
+                  "    pm.test(\"TC-CON-001 | JSON cumple el schema de campos obligatorios\", function () {",
+                  "        pm.expect(ajvValid, JSON.stringify(validateContract.errors)).to.be.true;",
+                  "    });",
+                  "} else {",
+                  "    console.log(\"TC-CON-001 | AJV no ejecutado por limitación del entorno:\", String(ajvLoadError));",
+                  "    console.log(\"TC-CON-001 | Validación equivalente de required properties realizada con Chai.\");",
+                  "}",
+                  "",
+                  "// Diagnóstico de contrato",
+                  "if (detailResponse && typeof detailResponse === \"object\") {",
+                  "    const requiredFields = [",
+                  "        \"id\",",
+                  "        \"name\",",
+                  "        \"brewery_type\",",
+                  "        \"city\",",
+                  "        \"state\",",
+                  "        \"country\"",
+                  "    ];",
+                  "",
+                  "    const missingFields = requiredFields.filter(function (field) {",
+                  "        return !Object.prototype.hasOwnProperty.call(detailResponse, field);",
+                  "    });",
+                  "",
+                  "    console.log(\"TC-CON-001 | Campos obligatorios:\", requiredFields);",
+                  "    console.log(\"TC-CON-001 | Campos faltantes:\", missingFields);",
+                  "    console.log(",
+                  "        \"TC-CON-001 | Cantidad de campos obligatorios presentes:\",",
+                  "        requiredFields.length - missingFields.length",
+                  "    );",
+                  "}",
+                  "console.log(\"TC-CON-001 | Detalle URL:\", pm.request.url.toString());",
+                  "console.log(\"TC-CON-001 | Detalle HTTP:\", pm.response.code, pm.response.status);",
+                  "console.log(",
+                  "    \"TC-CON-001 | Response Time:\",",
+                  "    pm.response.responseTime,",
+                  "    \"ms\"",
+                  ");"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/breweries/{{brewery_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "breweries",
+                "{{brewery_id}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

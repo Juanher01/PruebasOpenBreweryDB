@@ -1,0 +1,77 @@
+newman
+
+Open BreweryDB - Contrato y Consistencia
+
+□ TC-CON-001
+└ TC-CON-001 - Paso 1 - Obtener ID válido
+  GET https://api.openbrewerydb.org/v1/breweries [200 OK, 22.09kB, 467ms]
+  √  TC-CON-001 PRE | HTTP 200 en listado previo
+  √  TC-CON-001 PRE | Listado contiene JSON válido
+  √  TC-CON-001 PRE | Listado es un arreglo
+  √  TC-CON-001 PRE | Listado contiene al menos un registro
+  √  TC-CON-001 PRE | Registro seleccionado contiene id
+  ┌
+  │ 'TC-CON-001 | ID obtenido dinámicamente:', 'ae7b3174-8
+  │ be8-4d53-a3a5-9b8240970eea'
+  │ 'TC-CON-001 | Listado URL:', 'https://api.openbreweryd
+  │ b.org/v1/breweries'
+  │ 'TC-CON-001 | Listado HTTP:', 200, 'OK'
+  │ 'TC-CON-001 | Response Time listado:', 467, 'ms'
+  └
+
+└ TC-CON-001 - Paso 2 - Validar contrato de detalle
+  GET https://api.openbrewerydb.org/v1/breweries/ae7b3174-8be8-4d53-a3a5-9b8240970eea [200 OK, 1.43kB, 82ms]
+  √  TC-CON-001 | HTTP 200 OK
+  √  TC-CON-001 | La respuesta es JSON
+  √  TC-CON-001 | El cuerpo contiene JSON válido
+  √  TC-CON-001 | La raíz es un objeto JSON
+  √  TC-CON-001 | Campo obligatorio id presente
+  √  TC-CON-001 | Campo obligatorio name presente
+  √  TC-CON-001 | Campo obligatorio brewery_type presente
+  √  TC-CON-001 | Campo obligatorio city presente
+  √  TC-CON-001 | Campo obligatorio state presente
+  √  TC-CON-001 | Campo obligatorio country presente
+  ┌
+  │ 'TC-CON-001 | AJV ejecutado: Sí'
+  │ 'TC-CON-001 | AJV resultado:', 'PASS'
+  │ 'TC-CON-001 | AJV errores:', '[]'
+  └
+  √  TC-CON-001 | JSON cumple el schema de campos obligatorios
+  ┌
+  │ 'TC-CON-001 | Campos obligatorios:', [
+  │   'id',
+  │   'name',
+  │   'brewery_type',
+  │   'city',
+  │   'state',
+  │   'country'
+  │ ]
+  │ 'TC-CON-001 | Campos faltantes:', []
+  │ 'TC-CON-001 | Cantidad de campos obligatorios presente
+  │ s:', 6
+  │ 'TC-CON-001 | Detalle URL:', 'https://api.openbreweryd
+  │ b.org/v1/breweries/ae7b3174-8be8-4d53-a3a5-9b8240970ee
+  │ a'
+  │ 'TC-CON-001 | Detalle HTTP:', 200, 'OK'
+  │ 'TC-CON-001 | Response Time:', 82, 'ms'
+  └
+
+┌─────────────────────────┬────────────────────┬────────────────────┐
+│                         │           executed │             failed │
+├─────────────────────────┼────────────────────┼────────────────────┤
+│              iterations │                  1 │                  0 │
+├─────────────────────────┼────────────────────┼────────────────────┤
+│                requests │                  2 │                  0 │
+├─────────────────────────┼────────────────────┼────────────────────┤
+│            test-scripts │                  2 │                  0 │
+├─────────────────────────┼────────────────────┼────────────────────┤
+│      prerequest-scripts │                  1 │                  0 │
+├─────────────────────────┼────────────────────┼────────────────────┤
+│              assertions │                 16 │                  0 │
+├─────────────────────────┴────────────────────┴────────────────────┤
+│ total run duration: 740ms                                         │
+├───────────────────────────────────────────────────────────────────┤
+│ total data received: 21.13kB (approx)                             │
+├───────────────────────────────────────────────────────────────────┤
+│ average response time: 274ms [min: 82ms, max: 467ms, s.d.: 192ms] │
+└───────────────────────────────────────────────────────────────────┘

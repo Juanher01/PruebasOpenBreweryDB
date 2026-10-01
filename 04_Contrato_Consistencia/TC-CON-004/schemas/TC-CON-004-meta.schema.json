@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TC-CON-004 - Metadatos obligatorios",
+  "type": "object",
+  "required": [
+    "total",
+    "page",
+    "per_page"
+  ],
+  "properties": {
+    "total": {
+      "type": "integer"
+    },
+    "page": {
+      "type": "integer"
+    },
+    "per_page": {
+      "type": "integer"
+    }
+  }
+}

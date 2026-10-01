@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TC-CON-002 - Tipos de datos Brewery",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "latitude",
+    "longitude"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "latitude": {
+      "type": ["number", "null"]
+    },
+    "longitude": {
+      "type": ["number", "null"]
+    }
+  }
+}

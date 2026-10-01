@@ -1,0 +1,17 @@
+VERIFICACIÓN AUXILIAR DE LA LÓGICA DE VALIDACIÓN — TC-CON-004 (contrato revisado)
+(No es una ejecución contra la API: objetos sintéticos para comprobar que el schema permite propiedades adicionales y sigue exigiendo presencia y tipo entero.)
+Fecha/hora UTC: 2026-10-01T07:02:36.590Z
+AJV usado aquí: ajv 6.15.0 (dependencia de Newman 6.2.2), new Ajv({ allErrors: true })
+Schema: schemas/TC-CON-004-meta.schema.json
+Equivalente Chai: presencia + Number.isInteger en total, page y per_page
+
+Solo los 3 campos enteros                      esperado=válido  AJV=válido  Chai=válido  OK
+Con by_state/by_country/by_type adicionales    esperado=válido  AJV=válido  Chai=válido  OK
+total = 0                                      esperado=válido  AJV=válido  Chai=válido  OK
+per_page = "50" (string)                       esperado=inválido  AJV=inválido  Chai=inválido  OK
+per_page = 50.5 (decimal)                      esperado=inválido  AJV=inválido  Chai=inválido  OK
+page = null                                    esperado=inválido  AJV=inválido  Chai=inválido  OK
+total = true (boolean)                         esperado=inválido  AJV=inválido  Chai=inválido  OK
+Falta per_page                                 esperado=inválido  AJV=inválido  Chai=inválido  OK
+
+Resultado: todas las comprobaciones coinciden con el contrato revisado

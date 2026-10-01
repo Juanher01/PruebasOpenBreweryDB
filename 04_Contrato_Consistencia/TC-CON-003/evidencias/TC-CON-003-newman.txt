@@ -1,0 +1,84 @@
+newman
+
+Open BreweryDB - Contrato y Consistencia
+
+□ TC-CON-003
+└ TC-CON-003 - Paso 1 - Obtener registro desde listado
+  GET https://api.openbrewerydb.org/v1/breweries [200 OK, 22.1kB, 350ms]
+  √  TC-CON-003 PRE | Listado responde HTTP 200
+  √  TC-CON-003 PRE | Listado es JSON
+  √  TC-CON-003 PRE | Listado contiene JSON válido
+  √  TC-CON-003 PRE | Listado es un arreglo
+  √  TC-CON-003 PRE | Listado contiene registros
+  √  TC-CON-003 PRE | Registro seleccionado contiene id válido
+  ┌
+  │ 'TC-CON-003 | ID seleccionado:', 'ae7b3174-8be8-4d53-a
+  │ 3a5-9b8240970eea'
+  │ 'TC-CON-003 | Campos en objeto del listado:', [
+  │   'id',
+  │   'name',
+  │   'brewery_type',
+  │   'address_1',
+  │   'address_2',
+  │   'address_3',
+  │   'city',
+  │   'state_province',
+  │   'postal_code',
+  │   'country',
+  │   'longitude',
+  │   'latitude',
+  │   'phone',
+  │   'website_url',
+  │   'state',
+  │   'street'
+  │ ]
+  │ 'TC-CON-003 | Listado URL:', 'https://api.openbreweryd
+  │ b.org/v1/breweries'
+  │ 'TC-CON-003 | Listado HTTP:', 200, 'OK'
+  │ 'TC-CON-003 | Listado registros:', 50
+  │ 'TC-CON-003 | Response Time listado:', 350, 'ms'
+  └
+
+└ TC-CON-003 - Paso 2 - Consultar y comparar detalle
+  GET https://api.openbrewerydb.org/v1/breweries/ae7b3174-8be8-4d53-a3a5-9b8240970eea [200 OK, 1.43kB, 84ms]
+  √  TC-CON-003 | Detalle responde HTTP 200
+  √  TC-CON-003 | Detalle es JSON
+  √  TC-CON-003 | Detalle contiene JSON válido
+  √  TC-CON-003 | Detalle es un objeto JSON
+  √  TC-CON-003 | Snapshot del listado disponible
+  √  TC-CON-003 | ID del detalle coincide con el solicitado
+  √  TC-CON-003 | Detalle coincide con objeto del mismo ID en listado
+  √  TC-CON-003 | Listado y detalle tienen las mismas propiedades
+  ┌
+  │ 'TC-CON-003 | Cantidad campos listado:', 16
+  │ 'TC-CON-003 | Cantidad campos detalle:', 16
+  │ 'TC-CON-003 | Diferencias:', '[]'
+  │ 'TC-CON-003 | Cantidad de diferencias:', 0
+  │ 'TC-CON-003 | Detalle URL:', 'https://api.openbreweryd
+  │ b.org/v1/breweries/ae7b3174-8be8-4d53-a3a5-9b8240970ee
+  │ a'
+  │ 'TC-CON-003 | Detalle HTTP:', 200, 'OK'
+  │ 'TC-CON-003 | ID retornado:', 'ae7b3174-8be8-4d53-a3a5
+  │ -9b8240970eea'
+  │ 'TC-CON-003 | Response Time detalle:', 84, 'ms'
+  └
+
+┌─────────────────────────┬────────────────────┬────────────────────┐
+│                         │           executed │             failed │
+├─────────────────────────┼────────────────────┼────────────────────┤
+│              iterations │                  1 │                  0 │
+├─────────────────────────┼────────────────────┼────────────────────┤
+│                requests │                  2 │                  0 │
+├─────────────────────────┼────────────────────┼────────────────────┤
+│            test-scripts │                  2 │                  0 │
+├─────────────────────────┼────────────────────┼────────────────────┤
+│      prerequest-scripts │                  1 │                  0 │
+├─────────────────────────┼────────────────────┼────────────────────┤
+│              assertions │                 14 │                  0 │
+├─────────────────────────┴────────────────────┴────────────────────┤
+│ total run duration: 643ms                                         │
+├───────────────────────────────────────────────────────────────────┤
+│ total data received: 21.13kB (approx)                             │
+├───────────────────────────────────────────────────────────────────┤
+│ average response time: 217ms [min: 84ms, max: 350ms, s.d.: 133ms] │
+└───────────────────────────────────────────────────────────────────┘
