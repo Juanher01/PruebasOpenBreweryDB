@@ -2,7 +2,7 @@
 <jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.3">
   <hashTree>
     <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="TC-REN-005 - Throughput" enabled="true">
-      <stringProp name="TestPlan.comments">TC-REN-005: carga sostenida, 10 hilos, loop continuo durante 60 s contra GET https://api.openbrewerydb.org/v1/breweries. Línea base de throughput y registro de HTTP 429. Sin think time ni throughput timer. Parametrizado con -Jthreads, -Jrampup, -Jduration (oficial: 10 / 0 / 60).</stringProp>
+      <stringProp name="TestPlan.comments">TC-REN-005: carga sostenida, 10 hilos, loop continuo durante 60 s contra GET https://api.openbrewerydb.org/v1/breweries. Criterios: throughput &gt;= 99.18 req/s (baseline 110.198 req/s, tolerancia 10%), 100% HTTP 200, 0% HTTP 429. Sin think time ni throughput timer. Parametrizado con -Jthreads, -Jrampup, -Jduration (oficial: 10 / 0 / 60).</stringProp>
       <boolProp name="TestPlan.functional_mode">false</boolProp>
       <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
       <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>

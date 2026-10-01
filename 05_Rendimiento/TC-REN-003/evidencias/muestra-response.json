@@ -1,25 +1,25 @@
 {
   "iteration": 1,
   "http": 200,
-  "response_time_ms": 456,
+  "response_time_ms": 521,
   "body": [
     {
-      "id": "16563e2d-05ad-43d9-a393-a7db75c1d29d",
-      "name": "Metier Brewing Company",
-      "brewery_type": "micro",
-      "address_1": "14125 NE 189th St",
+      "id": "ed8d31a5-35b4-48fb-b2df-971d9951e915",
+      "name": "Conversations Brewing",
+      "brewery_type": "closed",
+      "address_1": null,
       "address_2": null,
       "address_3": null,
-      "city": "Woodinville",
+      "city": "Battle Ground",
       "state_province": "Washington",
-      "postal_code": "98072-6831",
+      "postal_code": "98604",
       "country": "United States",
-      "longitude": -122.1515611,
-      "latitude": 47.76422098,
-      "phone": "4254158466",
-      "website_url": "http://www.metierbrewing.com",
+      "longitude": null,
+      "latitude": null,
+      "phone": null,
+      "website_url": null,
       "state": "Washington",
-      "street": "14125 NE 189th St"
+      "street": null
     }
   ]
 }

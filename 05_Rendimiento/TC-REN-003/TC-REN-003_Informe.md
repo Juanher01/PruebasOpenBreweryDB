@@ -10,42 +10,45 @@ API: Open BreweryDB
 Endpoint: GET /v1/breweries/random
 Ejecuciones oficiales: 50
 Herramientas: Postman (colección v2.1 / Postman Runtime) + Newman 6.2.2
-Fecha/hora: 2026-10-01T07:17:10.030Z → 2026-10-01T07:17:27.251Z (UTC) — 2026-10-01 02:17 hora local (UTC-5)
+Fecha/hora: 2026-10-01T15:52:02.602Z → 15:52:18.791Z (UTC) — 2026-10-01 10:52 hora local (UTC-5)
 ```
+
+> **Nota de versión del caso.** Este informe corresponde al **paquete de instrucciones actualizado** de TC-REN-003, que añade el criterio cuantitativo `P95 < 2000 ms`. La versión anterior del caso solo pedía una "desviación estándar baja", sin umbral numérico. Se ejecutó antes en esta misma sesión (2026-10-01 07:17 UTC) y resultó APROBADA por 100 % de éxito, con σ reportada como línea base. Sus artefactos ya no estaban en la carpeta al iniciar esta ejecución, pero se conservan en el historial de git (commit `0b9d9b2 Pruebas de rendimiento`). Esta ejecución es nueva y completa: **no reutiliza ningún dato de la anterior**.
 
 ---
 
 ## 2. Objetivo
 
-Evaluar la estabilidad temporal de `GET /v1/breweries/random` mediante **50 solicitudes secuenciales**, sin concurrencia. Se comprueba que las 50 respondan HTTP 200 (100 % de éxito) y se calcula, a partir de los 50 tiempos reales, la desviación estándar junto con métricas descriptivas que ayudan a interpretar la dispersión.
+Evaluar la estabilidad temporal de `GET /v1/breweries/random` mediante **50 solicitudes secuenciales**, sin concurrencia. Se verifica que las 50 respondan HTTP 200 (100 % de éxito) y que el **P95** de los 50 tiempos de respuesta, calculado por nearest-rank, sea estrictamente menor a 2000 ms. También se registran métricas descriptivas de dispersión.
 
 ---
 
-## 3. Criterios del caso
+## 3. Criterios
 
 ```text
-HTTP esperado: 200 OK
+HTTP esperado: 200
 Tasa de éxito esperada: 100%
-Desviación estándar esperada: baja
-Umbral numérico para desviación estándar: no definido en el plan
+P95 esperado: < 2000 ms (estricto: 2000 ms = FAIL)
+Método P95: nearest-rank — posición = ceil(0.95 × 50) = 48
 Concurrencia: ninguna
 ```
 
-No se aplicó ningún umbral individual de latencia: las assertions no contienen `below(X)`.
+El umbral de 2000 ms se aplica **al P95 de la muestra**, no a cada request: la colección no contiene ninguna assertion `responseTime < 2000`. La desviación estándar y el CV son **descriptivos**.
 
 ---
 
-## 4. Ambiente de medición
+## 4. Ambiente
 
 ```text
-Versión Newman: 6.2.2 (CLI) sobre Node.js v22.15.1
+Versión Newman: 6.2.2
+Node.js: v22.15.1
 Sistema operativo: Windows (Windows_NT 10.0.26200, x64)
-Fecha/hora: 2026-10-01T07:17:10.030Z → 07:17:27.251Z (UTC)
+Fecha/hora: 2026-10-01T15:52:02.602Z → 15:52:18.791Z (UTC)
 Ubicación del runner: no verificada (equipo local del analista; zona horaria UTC-5)
 Tipo de conexión: no verificado
 ```
 
-Las mediciones son **end-to-end desde este equipo**. Incluyen conectividad del cliente, DNS, TLS, latencia de red e infraestructura del proveedor.
+Las mediciones son **end-to-end desde este equipo**. Incluyen red, DNS, TLS e infraestructura del proveedor.
 
 ---
 
@@ -58,20 +61,19 @@ URL final: https://api.openbrewerydb.org/v1/breweries/random
 Método: GET
 Iteration Count: 50
 Requests por iteración: 1
-Total esperado de requests: 50
-Modo de ejecución: secuencial (comportamiento estándar de Newman: una iteración tras otra; sin --delay-request, sin paralelismo ni hilos)
+Total esperado: 50
+Modo: secuencial (comportamiento estándar de Newman; sin paralelismo ni hilos)
 Query Params: ninguno
 Autenticación: ninguna
-Headers personalizados / Body: ninguno
 ```
 
 ---
 
 ## 6. Procedimiento
 
-1. **Preparación** — Se crearon `postman/`, `scripts/` y `evidencias/`, el environment (`base_url`) y la colección *Open BreweryDB - Rendimiento* → carpeta `TC-REN-003` → una única request *TC-REN-003 - Estabilidad bajo repetición* (`GET {{base_url}}/breweries/random`). Tiene 2 assertions obligatorias, 2 auxiliares (Content-Type JSON y JSON válido; no se valida objeto/arreglo) y diagnóstico por iteración. Se creó `scripts/calcular_metricas.js`, que solo lee el reporte de Newman. Los JSON y el script se validaron.
-2. **Preflight** (inicio de comando 07:16:58Z UTC) — **Una sola request** (1 iteración): `200 OK`, 784 ms, 4/4 PASS, exit code 0. Confirmó conectividad, endpoint, Newman, assertions y registro del Response Time. **No forma parte de la muestra oficial** y se conserva aparte. Evidencia: `evidencias/preflight-1-newman.*`.
-3. **Run oficial con 50 iteraciones** (07:17:10.030Z → 07:17:27.251Z UTC; duración total 17.2 s), exit code `0`:
+1. **Preparación** — La carpeta solo contenía `.gitkeep` (ver nota de versión). Se crearon `postman/`, `scripts/` y `evidencias/`, el environment (`base_url`) y la colección *Open BreweryDB - Rendimiento* → carpeta `TC-REN-003` → una única request *TC-REN-003 - Estabilidad bajo repetición* (`GET {{base_url}}/breweries/random`). Tiene 2 assertions obligatorias (HTTP 200 y Response Time válido), 2 auxiliares (Content-Type JSON y JSON válido) y diagnóstico por iteración. Se creó `scripts/calcular_metricas.js`, que solo lee el reporte de Newman y no hace requests. Se validaron los JSON y la sintaxis del script.
+2. **Preflight** (inicio de comando 15:51:44Z UTC) — **Una sola request**: `200 OK`, 891 ms, 4/4 PASS, exit code 0. **Excluido** de las 50 mediciones, del P95 y de la tasa de éxito. Evidencia: `evidencias/preflight-1-newman.*`.
+3. **Ejecución oficial** (inicio de comando 15:51:58Z UTC; run 15:52:02.602Z → 15:52:18.791Z UTC; 16.1 s), exit code `0`:
    ```bash
    newman run postman/TC-REN-003.postman_collection.json \
      -e postman/OpenBreweryDB.postman_environment.json \
@@ -82,115 +84,100 @@ Headers personalizados / Body: ninguno
      --reporter-htmlextra-export evidencias/TC-REN-003-newman.html \
      > evidencias/TC-REN-003-newman.txt 2>&1
    ```
-4. **Extracción de 50 tiempos** — `node scripts/calcular_metricas.js` leyó `evidencias/TC-REN-003-newman.json`, filtró las ejecuciones de la request oficial (50) y extrajo iteración, HTTP y `response.responseTime` sin redondear. Escribió `evidencias/tiempos-response.json`, `evidencias/metricas.json` y `evidencias/muestra-response.json` (cuerpo real de la iteración 1).
-5. **Cálculo de métricas** — N, mínimo, máximo, media, mediana, desviación estándar **poblacional**, P95 (**nearest-rank**) y CV. Se verificaron con un recálculo independiente y contra los agregados del propio Newman (`run.timings`: media 260.7, mín 217, máx 1032, s.d. 118.8468…). Todos coinciden.
-6. **Comprobación del 100 % de éxito** — 50/50 respuestas con HTTP 200.
-7. **Interpretación de la desviación estándar** — Se reporta el valor observado sin aplicar umbral, porque el plan no define uno (sección 11).
-8. **Repetición** — **No requerida**: la tasa de éxito fue 100 %.
+4. **Extracción de tiempos** — `node scripts/calcular_metricas.js` filtró las 50 ejecuciones de la request oficial y extrajo iteración, HTTP y `response.responseTime` sin redondear. Escribió `evidencias/tiempos-response.json`, `evidencias/metricas.json` y `evidencias/muestra-response.json`.
+5. **Cálculo de métricas** — Se contrastaron con un recálculo independiente y con los agregados de Newman (`run.timings`: media 239.08, mín 220, máx 521, s.d. 41.8152…). Todos coinciden.
+6. **Evaluación de la tasa de éxito** — 50/50 HTTP 200 = 100 % → cumple.
+7. **Evaluación del P95** — Valor en la posición 48 de los 50 tiempos ordenados = 259 ms; 259 < 2000 → cumple.
+8. **Repetición** — **No requerida**: el run oficial no quedó RECHAZADO.
 
 ---
 
-## 7. Validación de las 50 ejecuciones
+## 7. Validación de ejecuciones
 
 ```text
 Iteraciones configuradas: 50
 Iteraciones reportadas por Newman: 50
-Ejecuciones observadas de la request: 50 (cursor.iteration 0…49, una por iteración)
+Ejecuciones observadas: 50 (cursor.iteration 0…49, una request por iteración)
 Responses recibidas: 50
 HTTP 200: 50
 Otros HTTP: 0
 Errores de red: 0
 Tasa de éxito: 100%
-Assertions: 200 ejecutadas (4 por iteración × 50) — 200 PASS, 0 FAIL
-Endpoint en las 50 ejecuciones: /v1/breweries/random, sin query params
+Assertions: 200 (4 × 50) — 200 PASS, 0 FAIL
+Endpoint en las 50: /v1/breweries/random, sin query params
 ```
 
 ---
 
-## 8. Métricas de tiempo
+## 8. Métricas
 
-Calculadas sobre las 50 mediciones oficiales (fuente: `evidencias/metricas.json`). Los valores se muestran redondeados a 2 decimales; `metricas.json` conserva los valores completos.
+Fuente: `evidencias/metricas.json`. Valores redondeados a 2 decimales; el archivo conserva los valores completos.
 
 | Métrica | Resultado |
 |---|---:|
 | N | 50 |
-| Mínimo | 217 ms |
-| Máximo | 1032 ms |
-| Media | 260.70 ms |
-| Mediana | 228.50 ms |
-| Desviación estándar poblacional | 118.85 ms |
-| P95 (nearest-rank, posición 48) | 353 ms |
-| Coeficiente de variación | 45.59 % |
+| Mínimo | 220 ms |
+| Máximo | 521 ms |
+| Media | 239.08 ms |
+| Mediana | 230.50 ms |
+| P95 (nearest-rank, posición 48) | 259 ms |
+| Desviación estándar poblacional | 41.82 ms |
+| Coeficiente de variación | 17.49 % |
 
 Métodos:
 
-- **Media** = 13035 / 50.
-- **Mediana** = (valor 25 + valor 26) / 2 = (228 + 229) / 2.
+- **Media** = 11954 / 50.
+- **Mediana** = (posición 25 + posición 26) / 2 = (230 + 231) / 2.
+- **P95** = valor ordenado en la posición ⌈0.95 × 50⌉ = 48. Las posiciones 46–50 son 255, 255, **259**, 265 y 521.
 - **σ poblacional** = √(Σ(tᵢ − μ)² / N).
-- **P95 nearest-rank**: posición ⌈0.95 × 50⌉ = 48 en el conjunto ordenado.
 - **CV** = σ / μ × 100.
 
----
-
-## 9. Serie completa de tiempos
-
-Las 50 mediciones, en orden de iteración (todas con HTTP 200), también en `evidencias/tiempos-response.json`:
+Serie completa de tiempos en orden de iteración (todas con HTTP 200), también en `evidencias/tiempos-response.json`:
 
 | Iteraciones | Response Time (ms) |
 |---|---|
-| 1–10 | 456, 224, 220, 238, 237, 222, 221, 220, 219, 227 |
-| 11–20 | 224, 226, 220, 231, 231, 226, 222, 294, 227, 229 |
-| 21–30 | 225, 226, 246, 225, 220, 226, 245, 218, 219, 221 |
-| 31–40 | 228, 229, 231, 240, 223, 229, 230, 231, 353, 323 |
-| 41–50 | 311, 296, 331, 318, 1032, 240, 230, 225, 233, 217 |
+| 1–10 | 521, 224, 228, 235, 224, 226, 232, 224, 233, 229 |
+| 11–20 | 229, 220, 231, 224, 265, 230, 253, 223, 220, 222 |
+| 21–30 | 231, 220, 228, 242, 250, 227, 223, 241, 227, 235 |
+| 31–40 | 226, 226, 250, 242, 240, 220, 228, 259, 255, 247 |
+| 41–50 | 236, 255, 231, 241, 245, 226, 235, 222, 232, 221 |
 
 ---
 
-## 10. Resultado de éxito
+## 9. Evaluación de criterios
 
-```text
-Éxitos HTTP 200: 50/50
-Tasa de éxito: 100%
-Esperado: 100%
-Estado del criterio: CUMPLE
-```
-
----
-
-## 11. Análisis de estabilidad
-
-La desviación estándar poblacional observada fue de **118.85 ms** para las 50 mediciones oficiales. La media fue **260.70 ms**, la mediana **228.50 ms** y el P95 **353 ms**. El coeficiente de variación observado fue **45.59 %**.
-
-El plan de pruebas describe la desviación esperada como "baja", pero no establece un umbral numérico. Por ello, estas métricas se reportan como **línea base de estabilidad** y no se aplica un límite arbitrario para clasificarlas.
-
-Observaciones descriptivas, sin juicio de umbral:
-
-- 40 de las 50 mediciones (80 %) están entre 217 y 246 ms.
-- La dispersión se concentra en pocas iteraciones: la **iteración 45 (1032 ms)** es la única por encima de media + 2σ (≈ 498 ms); la iteración 1 registró 456 ms; las iteraciones 39–44 estuvieron entre 296 y 353 ms.
-- La diferencia entre media (260.70 ms) y mediana (228.50 ms) refleja ese sesgo hacia valores altos. Ninguna iteración se excluyó del cálculo.
-- Como la medición es end-to-end, no se puede atribuir la variabilidad exclusivamente al servidor ni a la red del cliente.
+| Criterio | Esperado | Obtenido | Estado |
+|---|---:|---:|---|
+| Total requests | 50 | 50 | PASS |
+| HTTP 200 | 50/50 | 50/50 | PASS |
+| Tasa de éxito | 100 % | 100 % | PASS |
+| P95 | <2000 ms | 259 ms | PASS |
 
 ---
 
-## 12. Iteraciones no exitosas
+## 10. Análisis de estabilidad
 
-No se registraron iteraciones no exitosas.
+El P95 observado fue de **259 ms**, calculado mediante nearest-rank sobre 50 mediciones (posición 48), por lo que **CUMPLE** el SLO definido de <2000 ms, con un margen de 1741 ms.
+
+La media fue **239.08 ms**, la mediana **230.50 ms**, la desviación estándar poblacional **41.82 ms** y el coeficiente de variación **17.49 %**. Estas métricas se registran como información descriptiva complementaria.
+
+Observación descriptiva: el máximo (521 ms) corresponde a la **iteración 1**. Las 49 iteraciones restantes estuvieron entre 220 y 265 ms. Ninguna medición se excluyó del cálculo.
 
 ---
 
-## 13. Evidencias
+## 11. Evidencias
 
 ```text
 postman/TC-REN-003.postman_collection.json
 postman/OpenBreweryDB.postman_environment.json
-scripts/calcular_metricas.js               (script auxiliar; solo lee el reporte Newman, no hace requests)
+scripts/calcular_metricas.js               (solo lee el reporte Newman; no hace requests)
 evidencias/TC-REN-003-newman.json          (reporte JSON — run oficial, 50 iteraciones)
 evidencias/TC-REN-003-newman.txt           (salida de consola — run oficial)
 evidencias/TC-REN-003-newman.html          (reporte HTML htmlextra — run oficial)
 evidencias/tiempos-response.json           (50 mediciones: iteración, HTTP, response_time_ms, tamaño)
-evidencias/metricas.json                   (métricas calculadas)
+evidencias/metricas.json                   (métricas y evaluación de aceptación)
 evidencias/muestra-response.json           (cuerpo real de la iteración 1 del run oficial)
-evidencias/preflight-1-newman.json         (preflight — 1 request, 784 ms; excluido de la muestra)
+evidencias/preflight-1-newman.json         (preflight — 1 request, 891 ms; excluido)
 evidencias/preflight-1-newman.txt
 TC-REN-003_Informe.md
 ```
@@ -199,40 +186,36 @@ La carpeta también contiene un archivo `.gitkeep` vacío creado antes de esta e
 
 ---
 
-## 14. Resultado final
+## 12. Resultado final
 
 ```text
 Estado: APROBADO
 
 Justificación:
-Se completaron exactamente 50 ejecuciones secuenciales de
-GET /v1/breweries/random en un único run oficial de Newman (exit code 0). Las
-50 obtuvieron HTTP 200, con una tasa de éxito del 100 %, que es el criterio
-cuantificable del caso. Se obtuvieron 50 tiempos válidos, las 200 assertions se
-aprobaron y no hubo fallos técnicos de la automatización. La desviación estándar
-observada fue de 118.85 ms. El plan no define un umbral numérico para
-clasificarla como "baja", por lo que se reporta como métrica observada y no se
-aplica un límite inventado.
+En un único run oficial de Newman (exit code 0) se ejecutaron exactamente 50
+solicitudes secuenciales a GET /v1/breweries/random, una por iteración y sin
+concurrencia. Las 50 respondieron HTTP 200: tasa de éxito del 100 %, que cumple. El
+P95 de los 50 tiempos, por nearest-rank en la posición 48, fue de 259 ms,
+estrictamente menor a 2000 ms, que también cumple. Las 200 assertions se aprobaron
+y no hubo fallos técnicos que invalidaran la ejecución.
 ```
 
 ---
 
-## 15. Hallazgos
+## 13. Hallazgos
 
-No se identificaron fallos de disponibilidad durante las 50 ejecuciones de TC-REN-003.
-
-> Observación (no es hallazgo): la variabilidad de latencia se concentró en pocas iteraciones, con un máximo de 1032 ms en la iteración 45 (ver sección 11). Se deja como línea base por si el plan llega a definir un umbral cuantitativo de estabilidad. El body de `/random` no se evaluó aquí; su forma de respuesta corresponde a TC-FUN-004.
+No se identificaron incumplimientos de los criterios de TC-REN-003 (100 % HTTP 200 y P95 < 2000 ms).
 
 ---
 
-## 16. Registro para Excel
+## 14. Registro para Excel
 
 ### Registro para Excel
 
 ```text
 ID: TC-REN-003
-Resultado obtenido: Se ejecutaron 50 solicitudes secuenciales a GET /v1/breweries/random. Se obtuvieron 50/50 respuestas HTTP 200, para una tasa de éxito de 100%. Los tiempos observados fueron: mínimo 217 ms, máximo 1032 ms, media 260.70 ms, mediana 228.50 ms, desviación estándar poblacional 118.85 ms y P95 353 ms. El plan no define un umbral numérico para clasificar la desviación estándar como "baja", por lo que el valor se registra como línea base sin aplicar un límite arbitrario. Newman terminó con exit code 0.
+Resultado obtenido: Se ejecutaron 50 solicitudes secuenciales a GET /v1/breweries/random. Se obtuvieron 50/50 respuestas HTTP 200, para una tasa de éxito de 100%. El P95 fue de 259 ms frente al criterio <2000 ms. La media fue 239.08 ms, la mediana 230.50 ms, la desviación estándar poblacional 41.82 ms y el CV 17.49%. Resultado: CUMPLE.
 Estado: APROBADO
 Evidencia principal: evidencias/TC-REN-003-newman.json (complementos: metricas.json, tiempos-response.json, TC-REN-003-newman.txt, TC-REN-003-newman.html)
-Observaciones: 1 run oficial de 50 iteraciones (1 request por iteración, sin concurrencia), el 2026-10-01 07:17 UTC desde equipo local Windows con Newman 6.2.2. CV 45.59 %; P95 por nearest-rank (posición 48). Máximo puntual de 1032 ms en la iteración 45. Preflight (1 request, 784 ms) excluido de la muestra. No se requirió repetición.
+Observaciones: Ejecutado con el paquete actualizado (criterio P95 < 2000 ms, nearest-rank posición 48). 1 run oficial de 50 iteraciones sin concurrencia, el 2026-10-01 15:52 UTC desde equipo local Windows con Newman 6.2.2. Mín 220 / máx 521 ms (máximo en la iteración 1). Preflight (1 request, 891 ms) excluido. No se requirió repetición. La ejecución de la versión anterior del caso se conserva en git (commit 0b9d9b2).
 ```

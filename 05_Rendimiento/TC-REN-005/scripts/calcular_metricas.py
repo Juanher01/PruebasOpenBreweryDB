@@ -1,10 +1,15 @@
-"""TC-REN-005 - Cálculo de métricas de throughput a partir del JTL oficial de JMeter.
+"""TC-REN-005 - Métricas de throughput y evaluación de aceptación a partir del JTL oficial.
 
-No realiza peticiones HTTP: solo lee el archivo de resultados (.jtl CSV) generado por JMeter.
+No realiza peticiones HTTP: solo lee el JTL (CSV) generado por JMeter y, si existe,
+dashboard/TC-REN-005/statistics.json para el throughput reportado por JMeter.
+
+Criterios (paquete actualizado):
+    throughput >= 99.18 req/s  (baseline 110.198 req/s, tolerancia máxima 10%)
+    HTTP 200 = 100%
+    HTTP 429 = 0%
 
 Uso (desde TC-REN-005/):
-    python scripts/calcular_metricas.py [resultados.jtl] [salida-metricas.json] [threads] [rampup] [duration]
-Valores por defecto: el JTL oficial, evidencias/TC-REN-005-metricas.json y la configuración 10 / 0 / 60.
+    python scripts/calcular_metricas.py [resultados.jtl] [salida-metricas.json] [statistics.json|-]
 """
 
 import csv
@@ -15,14 +20,19 @@ from collections import Counter, defaultdict
 from pathlib import Path
 
 LABEL = "TC-REN-005 - GET breweries"
+THREADS = 10
+RAMPUP = 0
+DURATION = 60
+BASELINE_RPS = 110.198
+MAX_DEGRADATION_PERCENT = 10
+MIN_THROUGHPUT_RPS = 99.18  # 110.198 × 0.90 = 99.1782 → 99.18 según el Plan
 
 root = Path(__file__).resolve().parent.parent
 args = sys.argv[1:]
 jtl_path = (root / (args[0] if len(args) > 0 else "evidencias/TC-REN-005-results.jtl")).resolve()
 out_path = (root / (args[1] if len(args) > 1 else "evidencias/TC-REN-005-metricas.json")).resolve()
-threads = int(args[2]) if len(args) > 2 else 10
-rampup = int(args[3]) if len(args) > 3 else 0
-duration = int(args[4]) if len(args) > 4 else 60
+stats_arg = args[2] if len(args) > 2 else "dashboard/TC-REN-005/statistics.json"
+stats_path = None if stats_arg == "-" else (root / stats_arg).resolve()
 
 with jtl_path.open(newline="", encoding="utf-8") as handle:
     rows = [row for row in csv.DictReader(handle) if row["label"] == LABEL]
@@ -34,84 +44,93 @@ samples = [{
     "responseMessage": r["responseMessage"],
     "threadName": r["threadName"],
     "success": r["success"].strip().lower() == "true",
-    "failureMessage": r.get("failureMessage", ""),
     "URL": r.get("URL", ""),
 } for r in rows]
 
 
-def classify(sample):
-    code = sample["responseCode"]
+def classify(code):
     if code == "200":
         return "http_200"
     if code == "429":
         return "http_429"
+    if code.isdigit() and code.startswith("5"):
+        return "http_5xx"
     if code.isdigit():
-        return "other_http"
-    # Códigos no numéricos ("Non HTTP response code: ...") = errores de red/transporte
-    return "network_or_transport"
+        return "other_http_4xx_or_other"
+    return "network_or_transport"  # "Non HTTP response code: ..."
 
 
 def nearest_rank(ordered, pct):
-    rank = math.ceil(pct / 100 * len(ordered))
-    return ordered[max(rank, 1) - 1]
+    return ordered[max(math.ceil(pct / 100 * len(ordered)), 1) - 1]
 
 
 total = len(samples)
-classes = Counter(classify(s) for s in samples)
+classes = Counter(classify(s["responseCode"]) for s in samples)
 http_200 = classes["http_200"]
 http_429 = classes["http_429"]
-other_http = classes["other_http"]
+other_http = classes["http_5xx"] + classes["other_http_4xx_or_other"]
 network = classes["network_or_transport"]
 
-# Ventana de prueba: inicio de la primera muestra → max(timeStamp + elapsed)
 window_start = min(s["timeStamp"] for s in samples)
 window_end = max(s["timeStamp"] + s["elapsed"] for s in samples)
 window_seconds = (window_end - window_start) / 1000
 
 ordered = sorted(s["elapsed"] for s in samples)
-mean = sum(ordered) / total
 median = (ordered[total // 2 - 1] + ordered[total // 2]) / 2 if total % 2 == 0 else ordered[(total - 1) // 2]
 
-# Distribución por segundo (desde el inicio de la ventana) de códigos, según timeStamp de inicio
+jmeter_throughput = None
+dashboard_stats = None
+if stats_path and stats_path.exists():
+    dashboard_stats = json.loads(stats_path.read_text(encoding="utf-8")).get(LABEL)
+    if dashboard_stats:
+        jmeter_throughput = dashboard_stats.get("throughput")
+
+derived = total / window_seconds
+official_throughput = jmeter_throughput if jmeter_throughput is not None else derived
+
 per_second = defaultdict(Counter)
 for s in samples:
     per_second[(s["timeStamp"] - window_start) // 1000][s["responseCode"]] += 1
-per_second_list = [
-    {"second": sec, "total": sum(c.values()), "codes": dict(c)}
-    for sec, c in sorted(per_second.items())
-]
 
 samples_429 = sorted((s for s in samples if s["responseCode"] == "429"), key=lambda s: s["timeStamp"])
 first_429 = None
 if samples_429:
-    s0 = samples_429[0]
     first_429 = {
-        "timeStamp": s0["timeStamp"],
-        "offset_seconds_from_start": (s0["timeStamp"] - window_start) / 1000,
-        "threadName": s0["threadName"],
-        "sample_index_by_start_time": sorted(samples, key=lambda s: s["timeStamp"]).index(s0) + 1,
+        "timeStamp": samples_429[0]["timeStamp"],
+        "offset_seconds_from_start": (samples_429[0]["timeStamp"] - window_start) / 1000,
+        "threadName": samples_429[0]["threadName"],
     }
 
-network_types = Counter(s["responseCode"] for s in samples if classify(s) == "network_or_transport")
-other_http_types = Counter(s["responseCode"] for s in samples if classify(s) == "other_http")
+throughput_pass = official_throughput >= MIN_THROUGHPUT_RPS
+http_200_pass = total > 0 and http_200 == total
+http_429_pass = http_429 == 0
 
 metrics = {
     "case_id": "TC-REN-005",
     "source_jtl": jtl_path.relative_to(root).as_posix(),
     "configuration": {
-        "threads": threads,
-        "ramp_up_seconds": rampup,
-        "duration_seconds": duration,
-        "loop": "continuo (Loop Count = -1, scheduler)",
+        "threads": THREADS,
+        "ramp_up_seconds": RAMPUP,
+        "duration_seconds": DURATION,
+        "loop": "continuo (LoopController.loops = -1, scheduler)",
         "endpoint": "GET /v1/breweries",
+    },
+    "baseline": {
+        "throughput_req_per_sec": BASELINE_RPS,
+        "maximum_degradation_percent": MAX_DEGRADATION_PERCENT,
+        "minimum_acceptable_throughput_req_per_sec": MIN_THROUGHPUT_RPS,
+        "minimum_exact": BASELINE_RPS * (1 - MAX_DEGRADATION_PERCENT / 100),
     },
     "samples": {
         "total": total,
         "http_200": http_200,
         "http_429": http_429,
         "other_http": other_http,
+        "other_http_breakdown": {
+            "http_5xx": classes["http_5xx"],
+            "other_4xx_or_other": classes["other_http_4xx_or_other"],
+        },
         "network_or_transport_errors": network,
-        "jmeter_success_true": sum(1 for s in samples if s["success"]),
         "distinct_threads": len({s["threadName"] for s in samples}),
         "urls": sorted({s["URL"] for s in samples}),
     },
@@ -127,40 +146,42 @@ metrics = {
     },
     "test_window_seconds": window_seconds,
     "throughput_req_per_sec": {
-        "jmeter_reported": None,  # se completa desde dashboard/TC-REN-005/statistics.json si existe
-        "derived_total": total / window_seconds,
+        "jmeter_reported": jmeter_throughput,
+        "derived_total": derived,
         "successful_http_200": http_200 / window_seconds,
+        "official_value_used_for_acceptance": official_throughput,
+        "margin_over_minimum": official_throughput - MIN_THROUGHPUT_RPS,
+        "degradation_vs_baseline_percent": (BASELINE_RPS - official_throughput) / BASELINE_RPS * 100,
     },
     "latency_ms": {
         "min": ordered[0],
         "max": ordered[-1],
-        "mean": mean,
+        "mean": sum(ordered) / total,
         "median": median,
         "p90": nearest_rank(ordered, 90),
         "p95": nearest_rank(ordered, 95),
         "p99": nearest_rank(ordered, 99),
         "percentile_method": "nearest-rank (posición = ceil(p/100 × N))",
+        "note": "descriptivas; no son criterio de TC-REN-005",
     },
-    "response_codes": dict(Counter(s["responseCode"] for s in samples)),
     "rate_limiting": {
         "http_429_present": http_429 > 0,
         "count": http_429,
         "percent": http_429 / total * 100,
         "first_occurrence": first_429,
-        "seconds_with_429": sorted({e["second"] for e in per_second_list if "429" in e["codes"]}),
     },
-    "other_http_by_code": dict(other_http_types),
-    "network_or_transport_by_type": dict(network_types),
-    "per_second_distribution": per_second_list,
+    "acceptance": {
+        "throughput_pass": throughput_pass,
+        "http_200_pass": http_200_pass,
+        "http_429_pass": http_429_pass,
+        "overall_pass": throughput_pass and http_200_pass and http_429_pass,
+    },
+    "response_codes": dict(Counter(s["responseCode"] for s in samples)),
+    "per_second_distribution": [
+        {"second": sec, "total": sum(c.values()), "codes": dict(c)} for sec, c in sorted(per_second.items())
+    ],
+    "jmeter_dashboard_statistics": dashboard_stats,
 }
-
-# Throughput reportado por JMeter (Dashboard) para la etiqueta, si el Dashboard existe
-stats_path = root / "dashboard" / "TC-REN-005" / "statistics.json"
-if stats_path.exists() and jtl_path.name == "TC-REN-005-results.jtl":
-    stats = json.loads(stats_path.read_text(encoding="utf-8"))
-    label_stats = stats.get(LABEL, {})
-    metrics["throughput_req_per_sec"]["jmeter_reported"] = label_stats.get("throughput")
-    metrics["jmeter_dashboard_statistics"] = label_stats
 
 out_path.write_text(json.dumps(metrics, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 summary = {k: v for k, v in metrics.items() if k not in ("per_second_distribution", "jmeter_dashboard_statistics")}

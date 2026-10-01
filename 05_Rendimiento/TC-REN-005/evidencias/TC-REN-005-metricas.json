@@ -5,16 +5,25 @@
     "threads": 10,
     "ramp_up_seconds": 0,
     "duration_seconds": 60,
-    "loop": "continuo (Loop Count = -1, scheduler)",
+    "loop": "continuo (LoopController.loops = -1, scheduler)",
     "endpoint": "GET /v1/breweries"
   },
+  "baseline": {
+    "throughput_req_per_sec": 110.198,
+    "maximum_degradation_percent": 10,
+    "minimum_acceptable_throughput_req_per_sec": 99.18,
+    "minimum_exact": 99.17819999999999
+  },
   "samples": {
-    "total": 6610,
-    "http_200": 6610,
+    "total": 6200,
+    "http_200": 6200,
     "http_429": 0,
     "other_http": 0,
+    "other_http_breakdown": {
+      "http_5xx": 0,
+      "other_4xx_or_other": 0
+    },
     "network_or_transport_errors": 0,
-    "jmeter_success_true": 6610,
     "distinct_threads": 10,
     "urls": [
       "https://api.openbrewerydb.org/v1/breweries"
@@ -27,473 +36,480 @@
   },
   "test_window": {
     "method": "inicio = min(timeStamp); fin = max(timeStamp + elapsed); ventana = fin - inicio",
-    "start_epoch_ms": 1790839993213,
-    "end_epoch_ms": 1790840053196
+    "start_epoch_ms": 1790870517123,
+    "end_epoch_ms": 1790870577135
   },
-  "test_window_seconds": 59.983,
+  "test_window_seconds": 60.012,
   "throughput_req_per_sec": {
-    "jmeter_reported": 110.19788940199723,
-    "derived_total": 110.19788940199724,
-    "successful_http_200": 110.19788940199724
+    "jmeter_reported": 103.3126707991735,
+    "derived_total": 103.3126707991735,
+    "successful_http_200": 103.3126707991735,
+    "official_value_used_for_acceptance": 103.3126707991735,
+    "margin_over_minimum": 4.132670799173496,
+    "degradation_vs_baseline_percent": 6.248143524225931
   },
   "latency_ms": {
-    "min": 80,
-    "max": 630,
-    "mean": 90.5659606656581,
-    "median": 90.0,
-    "p90": 94,
-    "p95": 95,
-    "p99": 98,
-    "percentile_method": "nearest-rank (posición = ceil(p/100 × N))"
-  },
-  "response_codes": {
-    "200": 6610
+    "min": 85,
+    "max": 592,
+    "mean": 96.58096774193548,
+    "median": 95.0,
+    "p90": 101,
+    "p95": 104,
+    "p99": 115,
+    "percentile_method": "nearest-rank (posición = ceil(p/100 × N))",
+    "note": "descriptivas; no son criterio de TC-REN-005"
   },
   "rate_limiting": {
     "http_429_present": false,
     "count": 0,
     "percent": 0.0,
-    "first_occurrence": null,
-    "seconds_with_429": []
+    "first_occurrence": null
   },
-  "other_http_by_code": {},
-  "network_or_transport_by_type": {},
+  "acceptance": {
+    "throughput_pass": true,
+    "http_200_pass": true,
+    "http_429_pass": true,
+    "overall_pass": true
+  },
+  "response_codes": {
+    "200": 6200
+  },
   "per_second_distribution": [
     {
       "second": 0,
-      "total": 52,
+      "total": 60,
       "codes": {
-        "200": 52
+        "200": 60
       }
     },
     {
       "second": 1,
-      "total": 113,
+      "total": 100,
       "codes": {
-        "200": 113
+        "200": 100
       }
     },
     {
       "second": 2,
-      "total": 113,
+      "total": 104,
       "codes": {
-        "200": 113
+        "200": 104
       }
     },
     {
       "second": 3,
-      "total": 109,
-      "codes": {
-        "200": 109
-      }
-    },
-    {
-      "second": 4,
-      "total": 108,
-      "codes": {
-        "200": 108
-      }
-    },
-    {
-      "second": 5,
-      "total": 113,
-      "codes": {
-        "200": 113
-      }
-    },
-    {
-      "second": 6,
-      "total": 111,
-      "codes": {
-        "200": 111
-      }
-    },
-    {
-      "second": 7,
-      "total": 111,
-      "codes": {
-        "200": 111
-      }
-    },
-    {
-      "second": 8,
-      "total": 113,
-      "codes": {
-        "200": 113
-      }
-    },
-    {
-      "second": 9,
-      "total": 111,
-      "codes": {
-        "200": 111
-      }
-    },
-    {
-      "second": 10,
-      "total": 109,
-      "codes": {
-        "200": 109
-      }
-    },
-    {
-      "second": 11,
-      "total": 111,
-      "codes": {
-        "200": 111
-      }
-    },
-    {
-      "second": 12,
-      "total": 112,
-      "codes": {
-        "200": 112
-      }
-    },
-    {
-      "second": 13,
-      "total": 110,
-      "codes": {
-        "200": 110
-      }
-    },
-    {
-      "second": 14,
-      "total": 112,
-      "codes": {
-        "200": 112
-      }
-    },
-    {
-      "second": 15,
-      "total": 111,
-      "codes": {
-        "200": 111
-      }
-    },
-    {
-      "second": 16,
-      "total": 112,
-      "codes": {
-        "200": 112
-      }
-    },
-    {
-      "second": 17,
-      "total": 111,
-      "codes": {
-        "200": 111
-      }
-    },
-    {
-      "second": 18,
-      "total": 111,
-      "codes": {
-        "200": 111
-      }
-    },
-    {
-      "second": 19,
-      "total": 111,
-      "codes": {
-        "200": 111
-      }
-    },
-    {
-      "second": 20,
-      "total": 112,
-      "codes": {
-        "200": 112
-      }
-    },
-    {
-      "second": 21,
-      "total": 112,
-      "codes": {
-        "200": 112
-      }
-    },
-    {
-      "second": 22,
-      "total": 112,
-      "codes": {
-        "200": 112
-      }
-    },
-    {
-      "second": 23,
-      "total": 110,
-      "codes": {
-        "200": 110
-      }
-    },
-    {
-      "second": 24,
-      "total": 110,
-      "codes": {
-        "200": 110
-      }
-    },
-    {
-      "second": 25,
-      "total": 112,
-      "codes": {
-        "200": 112
-      }
-    },
-    {
-      "second": 26,
-      "total": 108,
-      "codes": {
-        "200": 108
-      }
-    },
-    {
-      "second": 27,
-      "total": 111,
-      "codes": {
-        "200": 111
-      }
-    },
-    {
-      "second": 28,
-      "total": 115,
-      "codes": {
-        "200": 115
-      }
-    },
-    {
-      "second": 29,
-      "total": 112,
-      "codes": {
-        "200": 112
-      }
-    },
-    {
-      "second": 30,
-      "total": 110,
-      "codes": {
-        "200": 110
-      }
-    },
-    {
-      "second": 31,
-      "total": 111,
-      "codes": {
-        "200": 111
-      }
-    },
-    {
-      "second": 32,
-      "total": 112,
-      "codes": {
-        "200": 112
-      }
-    },
-    {
-      "second": 33,
-      "total": 112,
-      "codes": {
-        "200": 112
-      }
-    },
-    {
-      "second": 34,
-      "total": 113,
-      "codes": {
-        "200": 113
-      }
-    },
-    {
-      "second": 35,
-      "total": 112,
-      "codes": {
-        "200": 112
-      }
-    },
-    {
-      "second": 36,
-      "total": 109,
-      "codes": {
-        "200": 109
-      }
-    },
-    {
-      "second": 37,
-      "total": 112,
-      "codes": {
-        "200": 112
-      }
-    },
-    {
-      "second": 38,
-      "total": 112,
-      "codes": {
-        "200": 112
-      }
-    },
-    {
-      "second": 39,
-      "total": 112,
-      "codes": {
-        "200": 112
-      }
-    },
-    {
-      "second": 40,
-      "total": 109,
-      "codes": {
-        "200": 109
-      }
-    },
-    {
-      "second": 41,
-      "total": 111,
-      "codes": {
-        "200": 111
-      }
-    },
-    {
-      "second": 42,
-      "total": 114,
-      "codes": {
-        "200": 114
-      }
-    },
-    {
-      "second": 43,
-      "total": 109,
-      "codes": {
-        "200": 109
-      }
-    },
-    {
-      "second": 44,
       "total": 107,
       "codes": {
         "200": 107
       }
     },
     {
-      "second": 45,
-      "total": 114,
+      "second": 4,
+      "total": 103,
       "codes": {
-        "200": 114
+        "200": 103
+      }
+    },
+    {
+      "second": 5,
+      "total": 104,
+      "codes": {
+        "200": 104
+      }
+    },
+    {
+      "second": 6,
+      "total": 100,
+      "codes": {
+        "200": 100
+      }
+    },
+    {
+      "second": 7,
+      "total": 103,
+      "codes": {
+        "200": 103
+      }
+    },
+    {
+      "second": 8,
+      "total": 104,
+      "codes": {
+        "200": 104
+      }
+    },
+    {
+      "second": 9,
+      "total": 103,
+      "codes": {
+        "200": 103
+      }
+    },
+    {
+      "second": 10,
+      "total": 105,
+      "codes": {
+        "200": 105
+      }
+    },
+    {
+      "second": 11,
+      "total": 104,
+      "codes": {
+        "200": 104
+      }
+    },
+    {
+      "second": 12,
+      "total": 102,
+      "codes": {
+        "200": 102
+      }
+    },
+    {
+      "second": 13,
+      "total": 104,
+      "codes": {
+        "200": 104
+      }
+    },
+    {
+      "second": 14,
+      "total": 104,
+      "codes": {
+        "200": 104
+      }
+    },
+    {
+      "second": 15,
+      "total": 105,
+      "codes": {
+        "200": 105
+      }
+    },
+    {
+      "second": 16,
+      "total": 103,
+      "codes": {
+        "200": 103
+      }
+    },
+    {
+      "second": 17,
+      "total": 104,
+      "codes": {
+        "200": 104
+      }
+    },
+    {
+      "second": 18,
+      "total": 102,
+      "codes": {
+        "200": 102
+      }
+    },
+    {
+      "second": 19,
+      "total": 104,
+      "codes": {
+        "200": 104
+      }
+    },
+    {
+      "second": 20,
+      "total": 104,
+      "codes": {
+        "200": 104
+      }
+    },
+    {
+      "second": 21,
+      "total": 105,
+      "codes": {
+        "200": 105
+      }
+    },
+    {
+      "second": 22,
+      "total": 102,
+      "codes": {
+        "200": 102
+      }
+    },
+    {
+      "second": 23,
+      "total": 108,
+      "codes": {
+        "200": 108
+      }
+    },
+    {
+      "second": 24,
+      "total": 104,
+      "codes": {
+        "200": 104
+      }
+    },
+    {
+      "second": 25,
+      "total": 107,
+      "codes": {
+        "200": 107
+      }
+    },
+    {
+      "second": 26,
+      "total": 104,
+      "codes": {
+        "200": 104
+      }
+    },
+    {
+      "second": 27,
+      "total": 108,
+      "codes": {
+        "200": 108
+      }
+    },
+    {
+      "second": 28,
+      "total": 104,
+      "codes": {
+        "200": 104
+      }
+    },
+    {
+      "second": 29,
+      "total": 105,
+      "codes": {
+        "200": 105
+      }
+    },
+    {
+      "second": 30,
+      "total": 107,
+      "codes": {
+        "200": 107
+      }
+    },
+    {
+      "second": 31,
+      "total": 103,
+      "codes": {
+        "200": 103
+      }
+    },
+    {
+      "second": 32,
+      "total": 107,
+      "codes": {
+        "200": 107
+      }
+    },
+    {
+      "second": 33,
+      "total": 105,
+      "codes": {
+        "200": 105
+      }
+    },
+    {
+      "second": 34,
+      "total": 102,
+      "codes": {
+        "200": 102
+      }
+    },
+    {
+      "second": 35,
+      "total": 104,
+      "codes": {
+        "200": 104
+      }
+    },
+    {
+      "second": 36,
+      "total": 107,
+      "codes": {
+        "200": 107
+      }
+    },
+    {
+      "second": 37,
+      "total": 103,
+      "codes": {
+        "200": 103
+      }
+    },
+    {
+      "second": 38,
+      "total": 106,
+      "codes": {
+        "200": 106
+      }
+    },
+    {
+      "second": 39,
+      "total": 103,
+      "codes": {
+        "200": 103
+      }
+    },
+    {
+      "second": 40,
+      "total": 105,
+      "codes": {
+        "200": 105
+      }
+    },
+    {
+      "second": 41,
+      "total": 104,
+      "codes": {
+        "200": 104
+      }
+    },
+    {
+      "second": 42,
+      "total": 107,
+      "codes": {
+        "200": 107
+      }
+    },
+    {
+      "second": 43,
+      "total": 105,
+      "codes": {
+        "200": 105
+      }
+    },
+    {
+      "second": 44,
+      "total": 105,
+      "codes": {
+        "200": 105
+      }
+    },
+    {
+      "second": 45,
+      "total": 103,
+      "codes": {
+        "200": 103
       }
     },
     {
       "second": 46,
-      "total": 111,
+      "total": 103,
       "codes": {
-        "200": 111
+        "200": 103
       }
     },
     {
       "second": 47,
-      "total": 113,
+      "total": 104,
       "codes": {
-        "200": 113
+        "200": 104
       }
     },
     {
       "second": 48,
-      "total": 113,
+      "total": 102,
       "codes": {
-        "200": 113
+        "200": 102
       }
     },
     {
       "second": 49,
-      "total": 111,
+      "total": 107,
       "codes": {
-        "200": 111
+        "200": 107
       }
     },
     {
       "second": 50,
-      "total": 109,
+      "total": 101,
       "codes": {
-        "200": 109
+        "200": 101
       }
     },
     {
       "second": 51,
-      "total": 113,
+      "total": 105,
       "codes": {
-        "200": 113
+        "200": 105
       }
     },
     {
       "second": 52,
-      "total": 113,
+      "total": 105,
       "codes": {
-        "200": 113
+        "200": 105
       }
     },
     {
       "second": 53,
-      "total": 110,
+      "total": 104,
       "codes": {
-        "200": 110
+        "200": 104
       }
     },
     {
       "second": 54,
-      "total": 113,
+      "total": 106,
       "codes": {
-        "200": 113
+        "200": 106
       }
     },
     {
       "second": 55,
-      "total": 112,
+      "total": 100,
       "codes": {
-        "200": 112
+        "200": 100
       }
     },
     {
       "second": 56,
-      "total": 112,
+      "total": 105,
       "codes": {
-        "200": 112
+        "200": 105
       }
     },
     {
       "second": 57,
-      "total": 111,
+      "total": 105,
       "codes": {
-        "200": 111
+        "200": 105
       }
     },
     {
       "second": 58,
-      "total": 113,
+      "total": 104,
       "codes": {
-        "200": 113
+        "200": 104
       }
     },
     {
       "second": 59,
-      "total": 99,
+      "total": 97,
       "codes": {
-        "200": 99
+        "200": 97
       }
     }
   ],
   "jmeter_dashboard_statistics": {
     "transaction": "TC-REN-005 - GET breweries",
-    "sampleCount": 6610,
+    "sampleCount": 6200,
     "errorCount": 0,
     "errorPct": 0.0,
-    "meanResTime": 90.56596066565814,
-    "medianResTime": 90.0,
-    "minResTime": 80.0,
-    "maxResTime": 630.0,
-    "pct1ResTime": 94.0,
-    "pct2ResTime": 95.0,
-    "pct3ResTime": 98.0,
-    "throughput": 110.19788940199723,
-    "receivedKBytesPerSec": 2387.1225590740296,
-    "sentKBytesPerSec": 14.097581554357069
+    "meanResTime": 96.58096774193564,
+    "medianResTime": 95.0,
+    "minResTime": 85.0,
+    "maxResTime": 592.0,
+    "pct1ResTime": 101.0,
+    "pct2ResTime": 104.0,
+    "pct3ResTime": 115.0,
+    "throughput": 103.3126707991735,
+    "receivedKBytesPerSec": 2237.840680561804,
+    "sentKBytesPerSec": 13.216757690128642
   }
 }

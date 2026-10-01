@@ -2,301 +2,301 @@
   {
     "iteration": 1,
     "http": 200,
-    "response_time_ms": 456,
-    "response_size_bytes": 438
+    "response_time_ms": 521,
+    "response_size_bytes": 354
   },
   {
     "iteration": 2,
     "http": 200,
     "response_time_ms": 224,
-    "response_size_bytes": 430
+    "response_size_bytes": 425
   },
   {
     "iteration": 3,
     "http": 200,
-    "response_time_ms": 220,
-    "response_size_bytes": 420
+    "response_time_ms": 228,
+    "response_size_bytes": 409
   },
   {
     "iteration": 4,
     "http": 200,
-    "response_time_ms": 238,
-    "response_size_bytes": 457
+    "response_time_ms": 235,
+    "response_size_bytes": 405
   },
   {
     "iteration": 5,
     "http": 200,
-    "response_time_ms": 237,
-    "response_size_bytes": 408
+    "response_time_ms": 224,
+    "response_size_bytes": 440
   },
   {
     "iteration": 6,
     "http": 200,
-    "response_time_ms": 222,
-    "response_size_bytes": 474
+    "response_time_ms": 226,
+    "response_size_bytes": 440
   },
   {
     "iteration": 7,
     "http": 200,
-    "response_time_ms": 221,
-    "response_size_bytes": 413
+    "response_time_ms": 232,
+    "response_size_bytes": 449
   },
   {
     "iteration": 8,
     "http": 200,
-    "response_time_ms": 220,
-    "response_size_bytes": 423
+    "response_time_ms": 224,
+    "response_size_bytes": 439
   },
   {
     "iteration": 9,
     "http": 200,
-    "response_time_ms": 219,
-    "response_size_bytes": 405
+    "response_time_ms": 233,
+    "response_size_bytes": 421
   },
   {
     "iteration": 10,
     "http": 200,
-    "response_time_ms": 227,
-    "response_size_bytes": 422
+    "response_time_ms": 229,
+    "response_size_bytes": 438
   },
   {
     "iteration": 11,
     "http": 200,
-    "response_time_ms": 224,
-    "response_size_bytes": 541
+    "response_time_ms": 229,
+    "response_size_bytes": 403
   },
   {
     "iteration": 12,
     "http": 200,
-    "response_time_ms": 226,
-    "response_size_bytes": 416
+    "response_time_ms": 220,
+    "response_size_bytes": 441
   },
   {
     "iteration": 13,
     "http": 200,
-    "response_time_ms": 220,
-    "response_size_bytes": 433
+    "response_time_ms": 231,
+    "response_size_bytes": 447
   },
   {
     "iteration": 14,
     "http": 200,
-    "response_time_ms": 231,
-    "response_size_bytes": 478
+    "response_time_ms": 224,
+    "response_size_bytes": 428
   },
   {
     "iteration": 15,
     "http": 200,
-    "response_time_ms": 231,
-    "response_size_bytes": 433
+    "response_time_ms": 265,
+    "response_size_bytes": 424
   },
   {
     "iteration": 16,
     "http": 200,
-    "response_time_ms": 226,
-    "response_size_bytes": 403
+    "response_time_ms": 230,
+    "response_size_bytes": 415
   },
   {
     "iteration": 17,
     "http": 200,
-    "response_time_ms": 222,
-    "response_size_bytes": 398
+    "response_time_ms": 253,
+    "response_size_bytes": 457
   },
   {
     "iteration": 18,
     "http": 200,
-    "response_time_ms": 294,
-    "response_size_bytes": 383
+    "response_time_ms": 223,
+    "response_size_bytes": 438
   },
   {
     "iteration": 19,
     "http": 200,
-    "response_time_ms": 227,
-    "response_size_bytes": 443
+    "response_time_ms": 220,
+    "response_size_bytes": 444
   },
   {
     "iteration": 20,
     "http": 200,
-    "response_time_ms": 229,
-    "response_size_bytes": 449
+    "response_time_ms": 222,
+    "response_size_bytes": 363
   },
   {
     "iteration": 21,
     "http": 200,
-    "response_time_ms": 225,
-    "response_size_bytes": 432
+    "response_time_ms": 231,
+    "response_size_bytes": 382
   },
   {
     "iteration": 22,
     "http": 200,
-    "response_time_ms": 226,
-    "response_size_bytes": 469
+    "response_time_ms": 220,
+    "response_size_bytes": 424
   },
   {
     "iteration": 23,
     "http": 200,
-    "response_time_ms": 246,
-    "response_size_bytes": 435
+    "response_time_ms": 228,
+    "response_size_bytes": 431
   },
   {
     "iteration": 24,
     "http": 200,
-    "response_time_ms": 225,
-    "response_size_bytes": 439
+    "response_time_ms": 242,
+    "response_size_bytes": 423
   },
   {
     "iteration": 25,
     "http": 200,
-    "response_time_ms": 220,
-    "response_size_bytes": 349
+    "response_time_ms": 250,
+    "response_size_bytes": 439
   },
   {
     "iteration": 26,
     "http": 200,
-    "response_time_ms": 226,
-    "response_size_bytes": 409
+    "response_time_ms": 227,
+    "response_size_bytes": 400
   },
   {
     "iteration": 27,
     "http": 200,
-    "response_time_ms": 245,
-    "response_size_bytes": 431
+    "response_time_ms": 223,
+    "response_size_bytes": 440
   },
   {
     "iteration": 28,
     "http": 200,
-    "response_time_ms": 218,
-    "response_size_bytes": 445
+    "response_time_ms": 241,
+    "response_size_bytes": 440
   },
   {
     "iteration": 29,
     "http": 200,
-    "response_time_ms": 219,
-    "response_size_bytes": 452
+    "response_time_ms": 227,
+    "response_size_bytes": 396
   },
   {
     "iteration": 30,
     "http": 200,
-    "response_time_ms": 221,
-    "response_size_bytes": 413
+    "response_time_ms": 235,
+    "response_size_bytes": 416
   },
   {
     "iteration": 31,
     "http": 200,
-    "response_time_ms": 228,
-    "response_size_bytes": 376
+    "response_time_ms": 226,
+    "response_size_bytes": 466
   },
   {
     "iteration": 32,
     "http": 200,
-    "response_time_ms": 229,
-    "response_size_bytes": 379
+    "response_time_ms": 226,
+    "response_size_bytes": 427
   },
   {
     "iteration": 33,
     "http": 200,
-    "response_time_ms": 231,
-    "response_size_bytes": 458
+    "response_time_ms": 250,
+    "response_size_bytes": 454
   },
   {
     "iteration": 34,
+    "http": 200,
+    "response_time_ms": 242,
+    "response_size_bytes": 378
+  },
+  {
+    "iteration": 35,
     "http": 200,
     "response_time_ms": 240,
     "response_size_bytes": 433
   },
   {
-    "iteration": 35,
-    "http": 200,
-    "response_time_ms": 223,
-    "response_size_bytes": 427
-  },
-  {
     "iteration": 36,
     "http": 200,
-    "response_time_ms": 229,
-    "response_size_bytes": 429
+    "response_time_ms": 220,
+    "response_size_bytes": 408
   },
   {
     "iteration": 37,
     "http": 200,
-    "response_time_ms": 230,
-    "response_size_bytes": 412
+    "response_time_ms": 228,
+    "response_size_bytes": 401
   },
   {
     "iteration": 38,
     "http": 200,
-    "response_time_ms": 231,
-    "response_size_bytes": 427
+    "response_time_ms": 259,
+    "response_size_bytes": 446
   },
   {
     "iteration": 39,
     "http": 200,
-    "response_time_ms": 353,
-    "response_size_bytes": 418
+    "response_time_ms": 255,
+    "response_size_bytes": 419
   },
   {
     "iteration": 40,
     "http": 200,
-    "response_time_ms": 323,
-    "response_size_bytes": 456
+    "response_time_ms": 247,
+    "response_size_bytes": 452
   },
   {
     "iteration": 41,
     "http": 200,
-    "response_time_ms": 311,
-    "response_size_bytes": 429
+    "response_time_ms": 236,
+    "response_size_bytes": 412
   },
   {
     "iteration": 42,
     "http": 200,
-    "response_time_ms": 296,
-    "response_size_bytes": 434
+    "response_time_ms": 255,
+    "response_size_bytes": 450
   },
   {
     "iteration": 43,
     "http": 200,
-    "response_time_ms": 331,
-    "response_size_bytes": 432
+    "response_time_ms": 231,
+    "response_size_bytes": 430
   },
   {
     "iteration": 44,
     "http": 200,
-    "response_time_ms": 318,
-    "response_size_bytes": 416
+    "response_time_ms": 241,
+    "response_size_bytes": 437
   },
   {
     "iteration": 45,
     "http": 200,
-    "response_time_ms": 1032,
-    "response_size_bytes": 444
+    "response_time_ms": 245,
+    "response_size_bytes": 382
   },
   {
     "iteration": 46,
     "http": 200,
-    "response_time_ms": 240,
-    "response_size_bytes": 421
+    "response_time_ms": 226,
+    "response_size_bytes": 432
   },
   {
     "iteration": 47,
     "http": 200,
-    "response_time_ms": 230,
-    "response_size_bytes": 430
+    "response_time_ms": 235,
+    "response_size_bytes": 428
   },
   {
     "iteration": 48,
     "http": 200,
-    "response_time_ms": 225,
-    "response_size_bytes": 440
+    "response_time_ms": 222,
+    "response_size_bytes": 424
   },
   {
     "iteration": 49,
     "http": 200,
-    "response_time_ms": 233,
-    "response_size_bytes": 410
+    "response_time_ms": 232,
+    "response_size_bytes": 415
   },
   {
     "iteration": 50,
     "http": 200,
-    "response_time_ms": 217,
-    "response_size_bytes": 417
+    "response_time_ms": 221,
+    "response_size_bytes": 425
   }
 ]
