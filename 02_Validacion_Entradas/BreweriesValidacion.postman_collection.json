@@ -1,0 +1,292 @@
+{
+  "info": {
+    "_postman_id": "72dd74d3-795e-4214-ba31-e3f35607a8b7",
+    "name": "Breweries",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "34542081",
+    "_collection_link": "https://go.postman.co/collection/34542081-72dd74d3-795e-4214-ba31-e3f35607a8b7?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "TC-VAL-001: by_state texas",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// 1. Validar que el código HTTP sea 200 OK\r",
+              "pm.test(\"El código de respuesta es 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "// 2. Validar que la respuesta sea un arreglo JSON\r",
+              "pm.test(\"La respuesta es un arreglo JSON\", function () {\r",
+              "    var jsonData = pm.response.json();\r",
+              "    pm.expect(jsonData).to.be.an('array');\r",
+              "});\r",
+              "\r",
+              "// 3. Validar que los datos devueltos sean de Texas\r",
+              "pm.test(\"Las cervecerías devueltas pertenecen a Texas\", function () {\r",
+              "    var jsonData = pm.response.json();\r",
+              "    \r",
+              "    // Si el arreglo tiene datos, revisamos el primer elemento\r",
+              "    if (jsonData.length > 0) {\r",
+              "        // Asumiendo que el campo se llama 'state'\r",
+              "        pm.expect(jsonData[0].state.toLowerCase()).to.include(\"texas\");\r",
+              "    }\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "packages": {},
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.openbrewerydb.org/v1/breweries?by_state=texas",
+          "protocol": "https",
+          "host": [
+            "api",
+            "openbrewerydb",
+            "org"
+          ],
+          "path": [
+            "v1",
+            "breweries"
+          ],
+          "query": [
+            {
+              "key": "by_state",
+              "value": "texas"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "TC-VAL-002: Parámetro inválido",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"El código HTTP es 200 o 400\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([200, 400]);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Manejo correcto de tipo inexistente\", function () {\r",
+              "    var jsonData = pm.response.json();\r",
+              "    \r",
+              "    if (pm.response.code === 200) {\r",
+              "        // Si responde 200, DEBE ser un arreglo vacío\r",
+              "        pm.expect(jsonData).to.be.an('array').that.is.empty;\r",
+              "    } else if (pm.response.code === 400) {\r",
+              "        // Si responde 400, debe devolver un objeto JSON con el detalle del error\r",
+              "        pm.expect(jsonData).to.be.an('object');\r",
+              "    }\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.openbrewerydb.org/v1/breweries?by_type=xyz",
+          "protocol": "https",
+          "host": [
+            "api",
+            "openbrewerydb",
+            "org"
+          ],
+          "path": [
+            "",
+            "v1",
+            "breweries"
+          ],
+          "query": [
+            {
+              "key": "by_type",
+              "value": "xyz"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "TC-VAL-003: Parámetro incompleto",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"El código HTTP es 200 o 400\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([200, 400]);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Manejo de parámetro incompleto\", function () {\r",
+              "    var jsonData = pm.response.json();\r",
+              "    \r",
+              "    if (pm.response.code === 200) {\r",
+              "        // Si responde 200, se espera un arreglo vacío o por defecto\r",
+              "        pm.expect(jsonData).to.be.an('array');\r",
+              "    } else if (pm.response.code === 400) {\r",
+              "        // Si responde 400, verificamos que retorne un objeto con el mensaje de error\r",
+              "        pm.expect(jsonData).to.be.an('object');\r",
+              "    }\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.openbrewerydb.org/v1/breweries/search?query=",
+          "protocol": "https",
+          "host": [
+            "api",
+            "openbrewerydb",
+            "org"
+          ],
+          "path": [
+            "v1",
+            "breweries",
+            "search"
+          ],
+          "query": [
+            {
+              "key": "query",
+              "value": ""
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "TC-VAL-004: Parámetro inexistente",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"El código HTTP es 200 OK\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"La respuesta es un arreglo JSON estrictamente vacío\", function () {\r",
+              "    var jsonData = pm.response.json();\r",
+              "    pm.expect(jsonData).to.be.an('array').that.is.empty;\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.openbrewerydb.org/v1/breweries?by_city=atlantida",
+          "protocol": "https",
+          "host": [
+            "api",
+            "openbrewerydb",
+            "org"
+          ],
+          "path": [
+            "v1",
+            "breweries"
+          ],
+          "query": [
+            {
+              "key": "by_city",
+              "value": "atlantida"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Caracteres especiales en búsqueda",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Manejo controlado: El servidor no revienta con un error 500\", function () {\r",
+              "    pm.response.to.not.have.status(500);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"El código HTTP esperado es 200 o 400\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([200, 400]);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Validación de estructura segura\", function () {\r",
+              "    var jsonData = pm.response.json();\r",
+              "    \r",
+              "    if (pm.response.code === 200) {\r",
+              "        pm.expect(jsonData).to.be.an('array'); // Puede estar vacío si no encontró match\r",
+              "    } else {\r",
+              "        pm.expect(jsonData).to.be.an('object'); // Manejo estructurado del error\r",
+              "    }\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.openbrewerydb.org/v1/breweries/search?query=%20%25%26",
+          "protocol": "https",
+          "host": [
+            "api",
+            "openbrewerydb",
+            "org"
+          ],
+          "path": [
+            "v1",
+            "breweries",
+            "search"
+          ],
+          "query": [
+            {
+              "key": "query",
+              "value": "%20%25%26"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

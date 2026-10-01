@@ -1,0 +1,220 @@
+{
+  "info": {
+    "_postman_id": "117e7ccd-671b-4dd1-97be-14ace00b22f0",
+    "name": "BreweriesManejoErrores",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "34542081",
+    "_collection_link": "https://go.postman.co/collection/34542081-117e7ccd-671b-4dd1-97be-14ace00b22f0?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "TC-ERR-001: Recurso inexistente",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"El código HTTP es 404 Not Found\", function () {\r",
+              "    pm.response.to.have.status(404);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"La respuesta indica que no fue encontrado\", function () {\r",
+              "    try {\r",
+              "        // Intentamos ver si la API devolvió un JSON con un mensaje de error\r",
+              "        var jsonData = pm.response.json();\r",
+              "        pm.expect(jsonData).to.be.an('object');\r",
+              "    } catch (e) {\r",
+              "        // Si no devuelve JSON y lanza error al parsear, validamos que el cuerpo esté vacío\r",
+              "        pm.expect(pm.response.text()).to.be.empty;\r",
+              "    }\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.openbrewerydb.org/v1/breweries/00000000-0000-0000-0000-000000000000",
+          "protocol": "https",
+          "host": [
+            "api",
+            "openbrewerydb",
+            "org"
+          ],
+          "path": [
+            "v1",
+            "breweries",
+            "00000000-0000-0000-0000-000000000000"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "TC-ERR-002: Formato de ID inválido",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"El código HTTP esperado es 400 o 404\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([400, 404]);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"La respuesta es un objeto de error\", function () {\r",
+              "    var jsonData = pm.response.json();\r",
+              "    pm.expect(jsonData).to.be.an('object');\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.openbrewerydb.org/v1/breweries/12345",
+          "protocol": "https",
+          "host": [
+            "api",
+            "openbrewerydb",
+            "org"
+          ],
+          "path": [
+            "v1",
+            "breweries",
+            "12345"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "TC-ERR-003: Endpoint inexistente",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"El código HTTP es 404 Not Found\", function () {\r",
+              "    pm.response.to.have.status(404);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Validación de error de ruta\", function () {\r",
+              "    // Aquí a veces las APIs devuelven HTML o un JSON de error genérico. \r",
+              "    // Lo principal es validar que el request no reviente en un error 500 del servidor.\r",
+              "    pm.response.to.not.have.status(500);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.openbrewerydb.org/v1/beers",
+          "protocol": "https",
+          "host": [
+            "api",
+            "openbrewerydb",
+            "org"
+          ],
+          "path": [
+            "v1",
+            "beers"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "TC-ERR-004: Método HTTP no permitido",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"El código HTTP esperado es 405 (Not Allowed) o 404\", function () {\r",
+              "    // Si la API es estricta dirá 405, si no está configurada dirá 404. Ambos son válidos para nosotros.\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([405, 404]);s"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "https://api.openbrewerydb.org/v1/breweries",
+          "protocol": "https",
+          "host": [
+            "api",
+            "openbrewerydb",
+            "org"
+          ],
+          "path": [
+            "v1",
+            "breweries"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "TC-ERR-005: Versión de API incorrecta",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"El código HTTP es 404 Not Found\", function () {\r",
+              "    pm.response.to.have.status(404);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"El servidor responde rápidamente a rutas inexistentes\", function () {\r",
+              "    // Una buena práctica extra: que la API rechace rutas malas rápido (< 1000ms)\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.openbrewerydb.org/v2/breweries",
+          "protocol": "https",
+          "host": [
+            "api",
+            "openbrewerydb",
+            "org"
+          ],
+          "path": [
+            "v2",
+            "breweries"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
