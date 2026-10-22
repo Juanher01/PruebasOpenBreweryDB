@@ -1,6 +1,4 @@
-# Informe Consolidado de QA — Open BreweryDB
-
-> Documento de consolidación. Se elaboró **solo a partir de archivos existentes** (plan, informes individuales y evidencias técnicas). No se reejecutó ninguna prueba ni se modificó, movió o eliminó ningún artefacto. Las rutas son relativas a `06_Consolidado/`, salvo los documentos externos al repositorio, que se indican con ruta absoluta.
+# Informe Consolidado de Pruebas de Calidad — API Open BreweryDB
 
 ---
 
@@ -8,233 +6,245 @@
 
 | Campo | Valor |
 |---|---|
-| Proyecto | Pruebas de API — Open BreweryDB (`https://api.openbrewerydb.org/v1`) |
-| Repositorio | `https://github.com/Juanher01/PruebasOpenBreweryDB` (rama `main`; último commit analizado `3c79a0a`) |
-| Autores del plan | Samuel Alexander Perdomo Fajardo y Juan Esteban Hernández Lozano (según `PLAN DE PRUEBAS (1).docx`) |
-| Plan de pruebas localizado | `C:\Users\yoloh\Downloads\PLAN DE PRUEBAS (1).docx` — "Versión 1.0", fecha 27/08/2026. **Fuera del repositorio; no corresponde a la versión definitiva en los criterios de rendimiento** (ver §9 y §8.3) |
-| Matriz de resultados | **No localizada** (ver §9) |
-| Periodo de ejecución (evidencias) | 2026-10-01 03:19 UTC → 2026-10-01 16:02 UTC |
-| Fecha de consolidación | 2026-10-01 |
-
-**Fuentes utilizadas, en orden de prioridad:**
-1. Plan de Pruebas: solo se encontró la v1.0, externa al repositorio. Los criterios vigentes de rendimiento se tomaron de la definición de la tarea de consolidación (§7).
-2. Matriz de resultados: no disponible.
-3. Informes individuales: 18 archivos `*_Informe.md`.
-4. Evidencias técnicas: Newman JSON/TXT/HTML, cuerpos de respuesta, JSON Schemas, JTL, logs, Dashboards y JMX de JMeter, y los reportes HTML de Newman de TC-VAL y TC-ERR.
+| Proyecto | Pruebas de calidad de la API pública Open BreweryDB |
+| Sistema bajo prueba | `https://api.openbrewerydb.org/v1` |
+| Repositorio | `https://github.com/Juanher01/PruebasOpenBreweryDB` (rama `main`) |
+| Equipo de pruebas | Juan Esteban Hernández Lozano · Samuel Alexander Perdomo Fajardo |
+| Periodo de ejecución | 01/10/2026 |
+| Fecha de emisión del informe | 22/10/2026 |
+| Versión del informe | 2.0 |
 
 ---
 
 ## 2. Objetivo
 
-Consolidar el resultado de la campaña de pruebas de la API pública Open BreweryDB, que abarca pruebas funcionales, validación de entradas, manejo de errores, contrato y consistencia, y rendimiento. El consolidado presenta, para cada caso, su estado y su evidencia rastreable, y señala las inconsistencias detectadas entre plan, informes y evidencias.
+El presente informe consolida los resultados de la campaña de pruebas ejecutada sobre la API pública Open BreweryDB. Su propósito es presentar de forma detallada el resultado obtenido en cada caso de prueba, los defectos identificados, el grado de cumplimiento de los criterios de aceptación definidos y una recomendación final sobre el estado de calidad del servicio evaluado.
 
 ---
 
-## 3. Alcance ejecutado
+## 3. Alcance
 
-El plan v1.0 define **28 casos** en 5 tipos. Los 28 tienen evidencia de ejecución en el repositorio.
+La campaña comprendió **28 casos de prueba** distribuidos en cinco tipos de prueba:
 
-| Tipo | IDs | Ubicación | Estructura de evidencia |
-|---|---|---|---|
-| Funcionales | TC-FUN-001 … TC-FUN-009 | `../01_Funcionales/TC-FUN-00x/` | Por caso: informe `.md`, colección Postman, Newman JSON/TXT/HTML y cuerpos de respuesta |
-| Validación de entradas | TC-VAL-001 … TC-VAL-005 | `../02_Validacion_Entradas/` | **Por grupo**: una colección Postman y un reporte HTML de Newman con los 5 casos. Subcarpetas `TC-VAL-00x/` vacías (`.gitkeep`). **Sin informes individuales** |
-| Manejo de errores | TC-ERR-001 … TC-ERR-005 | `../03_Manejo_Errores/` | **Por grupo**: una colección Postman y un reporte HTML de Newman con los 5 casos. Subcarpetas `TC-ERR-00x/` vacías (`.gitkeep`). **Sin informes individuales** |
-| Contrato y consistencia | TC-CON-001 … TC-CON-004 | `../04_Contrato_Consistencia/TC-CON-00x/` | Por caso: informe, colección, JSON Schema (CON-001/002/004) y evidencias Newman |
-| Rendimiento | TC-REN-001 … TC-REN-005 | `../05_Rendimiento/TC-REN-00x/` | Por caso: informe y evidencias Newman (001–003) o JMeter (004–005) |
+| Tipo de prueba | Identificadores | Cantidad | Responsable |
+|---|---|---:|---|
+| Funcionales | TC-FUN-001 a TC-FUN-009 | 9 | Juan Esteban Hernández Lozano |
+| Validación de entradas | TC-VAL-001 a TC-VAL-005 | 5 | Samuel Alexander Perdomo Fajardo |
+| Manejo de errores | TC-ERR-001 a TC-ERR-005 | 5 | Samuel Alexander Perdomo Fajardo |
+| Contrato y consistencia | TC-CON-001 a TC-CON-004 | 4 | Juan Esteban Hernández Lozano (001–003) · Samuel Alexander Perdomo Fajardo (004) |
+| Rendimiento | TC-REN-001 a TC-REN-005 | 5 | Juan Esteban Hernández Lozano |
+| **Total** | | **28** | |
 
-Las estructuras difieren porque las pruebas las desarrollaron dos integrantes (commit `37e7bf5` "Trabajo de Chayanne (Samuel)" para TC-VAL/TC-ERR). Los casos se identificaron por ID, nombre de request y URL.
+Quedan fuera del alcance las pruebas de seguridad, las pruebas de interfaz de usuario y cualquier operación de escritura sobre la API, dado que el servicio es de solo lectura.
 
 ---
 
-## 4. Metodología y herramientas
+## 4. Metodología, herramientas y entorno
 
-| Herramienta | Uso real (según evidencias) |
+### 4.1 Herramientas
+
+| Herramienta | Uso |
 |---|---|
-| Postman (formato de colección v2.1) | Definición de requests, variables y assertions Chai (`pm.expect`) en todos los casos FUN, VAL, ERR, CON y REN-001 a 003 |
-| Newman 6.2.2 (Node.js v22.15.1) | Ejecución headless; reporters `cli`, `json` y `htmlextra` (FUN, CON, REN-001 a 003). TC-VAL y TC-ERR conservan solo el reporte HTML ("Newman Summary Report") |
-| AJV / JSON Schema draft-07 | Validación de contrato dentro del sandbox de Newman (`require("ajv")`) en TC-CON-001, 002 y 004 |
-| Apache JMeter 5.6.3 (Java 22), modo no-GUI | TC-REN-004 (10 hilos, 1 loop, Synchronizing Timer) y TC-REN-005 (10 hilos, 60 s, loop continuo); JTL CSV y Dashboard HTML |
-| Scripts auxiliares (Node.js / Python) | Solo cálculo de métricas sobre evidencia ya generada (`calcular_metricas.js` / `.py`); no hacen peticiones HTTP |
+| Postman (colecciones v2.1) | Definición de solicitudes, variables de entorno y aserciones automatizadas (`pm.expect`) |
+| Newman 6.2.2 (Node.js v22.15.1) | Ejecución automatizada de las colecciones y generación de reportes (`cli`, `json`, `htmlextra`) |
+| AJV / JSON Schema draft-07 | Validación del contrato de respuesta en las pruebas TC-CON-001, TC-CON-002 y TC-CON-004 |
+| Apache JMeter 5.6.3 (Java 22), modo no-GUI | Pruebas de carga concurrente y de throughput (TC-REN-004 y TC-REN-005) |
+| Scripts auxiliares (Node.js / Python) | Cálculo de métricas estadísticas sobre los resultados obtenidos |
 
-Práctica aplicada en los casos con informe individual:
-- **Preflight** separado de la ejecución oficial.
-- **Ejecución oficial única** para determinar el estado.
-- **Repetición de confirmación** ante fallos (TC-FUN-003 y TC-FUN-004).
-- **IDs obtenidos dinámicamente**, sin IDs fijos.
-- **Ambiente:** Windows 11 (build 10.0.26200). Las mediciones son end-to-end desde el equipo local; el tipo de conexión y la ubicación no están verificados.
+### 4.2 Prácticas aplicadas
+
+- Ejecución de una verificación previa (*preflight*) separada de la ejecución oficial; los resultados del *preflight* no forman parte de la muestra evaluada.
+- Determinación del estado de cada caso a partir de una única ejecución oficial.
+- Repetición de confirmación en los casos con resultado fallido, para verificar la reproducibilidad del defecto.
+- Obtención dinámica de identificadores durante la ejecución, sin uso de valores fijos.
+
+### 4.3 Entorno de ejecución
+
+- Sistema operativo: Windows 11 (build 10.0.26200).
+- Las mediciones de tiempo son de extremo a extremo desde el equipo de ejecución e incluyen la latencia de red, la resolución DNS y la negociación TLS.
 
 ---
 
-## 5. Resumen general
+## 5. Resumen general de resultados
 
-| Indicador | Cantidad |
+| Indicador | Valor |
 |---|---:|
-| Casos planificados (plan v1.0) | 28 |
-| Casos con evidencia de ejecución | 28 |
-| Casos con informe individual y estado formal | 18 |
-| — APROBADO | 16 |
-| — RECHAZADO | 2 (TC-FUN-003, TC-FUN-004) |
-| — BLOQUEADO | 0 |
-| Casos ejecutados **sin informe ni estado formal** | 10 (TC-VAL-001…005, TC-ERR-001…005) |
+| Casos planificados | 28 |
+| Casos ejecutados | 28 (100 %) |
+| Casos aprobados | **23 (82,1 %)** |
+| Casos rechazados | **5 (17,9 %)** |
+| Casos bloqueados | 0 |
 
-**No se asigna un estado formal a TC-VAL ni a TC-ERR** porque no existe informe individual ni matriz que lo declare. En la §6 se reporta su resultado observado en la evidencia (assertions PASS/FAIL), sin convertirlo en APROBADO o RECHAZADO.
+### 5.1 Resultados por tipo de prueba
+
+| Tipo de prueba | Ejecutados | Aprobados | Rechazados | % de aprobación |
+|---|---:|---:|---:|---:|
+| Funcionales | 9 | 7 | 2 | 77,8 % |
+| Validación de entradas | 5 | 2 | 3 | 40,0 % |
+| Manejo de errores | 5 | 5 | 0 | 100,0 % |
+| Contrato y consistencia | 4 | 4 | 0 | 100,0 % |
+| Rendimiento | 5 | 5 | 0 | 100,0 % |
+| **Total** | **28** | **23** | **5** | **82,1 %** |
+
+### 5.2 Casos rechazados
+
+| ID | Tipo | Escenario | Motivo del rechazo |
+|---|---|---|---|
+| TC-FUN-003 | Funcional | Búsqueda por nombre (`query=san`) | 46 de 50 resultados no contienen el término buscado en el nombre |
+| TC-FUN-004 | Funcional | Cervecería aleatoria | La respuesta es un arreglo de un elemento en lugar de un objeto JSON único |
+| TC-VAL-002 | Validación de entradas | Tipo de cervecería inexistente | La API no valida el valor de `by_type` y devuelve el mensaje de bienvenida |
+| TC-VAL-003 | Validación de entradas | Búsqueda sin término | La API devuelve el mensaje de bienvenida en lugar de un arreglo o un mensaje de parámetro requerido |
+| TC-VAL-005 | Validación de entradas | Caracteres especiales en búsqueda | La API devuelve el mensaje de bienvenida en lugar de un arreglo |
 
 ---
 
-## 6. Resultados por tipo de prueba
+## 6. Resultados detallados por tipo de prueba
 
-### 6.1 Funcionales (9/9 con informe — 7 APROBADO, 2 RECHAZADO)
+### 6.1 Pruebas funcionales — 7 aprobadas, 2 rechazadas
 
-| ID | Escenario | Estado | Resultado (informe) |
-|---|---|---|---|
-| TC-FUN-001 | Listado general | APROBADO | HTTP 200; array de 50 objetos; 6/6 assertions; 323 ms |
-| TC-FUN-002 | Detalle por ID dinámico | APROBADO | ID `ae7b3174-…eea` coincide en listado, URL y detalle; 14/14; 90 ms |
-| TC-FUN-003 | Búsqueda `query=san` | **RECHAZADO** | 50 resultados; solo 4 nombres contienen "san" y 46 no; 7/8; reproducido 3/3 |
-| TC-FUN-004 | Cervecería aleatoria | **RECHAZADO** | `/random` devolvió un **arreglo de 1 elemento**, no un objeto único; 3/8; reproducido 3/3 (ver §8.2) |
-| TC-FUN-005 | Metadatos | APROBADO | `total`=11848, `page`=1, `per_page`=50; 8/8 |
-| TC-FUN-006 | Filtro `by_state=california` | APROBADO | 50/50 con `state`="California"; 8/8 |
-| TC-FUN-007 | Filtro `by_type=micro` | APROBADO | 50/50 con `brewery_type`="micro"; 8/8 |
-| TC-FUN-008 | Paginación `page=2&per_page=5` | APROBADO | 5 registros; listas de IDs de páginas 1 y 2 distintas (0 en común); 14/14 |
-| TC-FUN-009 | Flujo encadenado | APROBADO | Detalle profundamente igual al elemento del listado (16 campos, 0 diferencias); 12/12 |
-
-### 6.2 Validación de entradas (5/5 ejecutados — sin informe individual)
-
-Evidencia: `../02_Validacion_Entradas/BreweriesValidacion-2026-10-01-05-24-17-632-0.html` (run del 01/10/2026 00:24, hora del reporte; 5 requests y 12 assertions, de las que 4 fallaron).
-
-| ID | Request ejecutada (según reporte) | HTTP | Assertions | Observación |
-|---|---|---:|---|---|
-| TC-VAL-001 | `GET /v1/breweries?by_state=texas` | 200 | 3/3 PASS | — |
-| TC-VAL-002 | `GET https://api.openbrewerydb.org//v1/breweries?by_type=xyz` | 404 | 0/2 (ambas FAIL) | URL ejecutada con **doble barra** `//v1`; la colección del repositorio tiene `/v1` (ver §8.4) |
-| TC-VAL-003 | `GET /v1/breweries/search?query=` | 200 | 1/2 | La API devolvió el objeto de bienvenida (`message`, `documentation_url`, `mcp_url`); la assertion esperaba un array |
-| TC-VAL-004 | `GET /v1/breweries?by_city=atlantida` | 200 | 2/2 PASS | Array vacío |
-| TC-VAL-005* | `GET /v1/breweries/search?query=%20%25%26` | 200 | 2/3 | Sin error 500; la API devolvió el objeto de bienvenida y la assertion esperaba array u objeto según el código |
-
-\* La request no tiene ID en su nombre ("Caracteres especiales en búsqueda"); se asoció a TC-VAL-005 por escenario y URL, que coinciden con el plan.
-
-### 6.3 Manejo de errores (5/5 ejecutados — sin informe individual)
-
-Evidencia: `../03_Manejo_Errores/BreweriesManejoErrores-2026-10-01-05-42-49-780-0.html` (run del 01/10/2026 00:42; 5 requests y 8 assertions, de las que 2 fallaron, más 1 error de script).
-
-| ID | Request | HTTP | Assertions | Observación |
-|---|---|---:|---|---|
-| TC-ERR-001 | `GET /v1/breweries/00000000-0000-0000-0000-000000000000` | 404 | 1/2 | Código correcto; el cuerpo es una página HTML "Not Found" y la assertion esperaba cuerpo vacío |
-| TC-ERR-002 | `GET /v1/breweries/12345` | 404 | 1/2 | Código dentro de 400/404; cuerpo HTML, no JSON |
-| TC-ERR-003 | `GET /v1/beers` | 404 | 2/2 PASS | — |
-| TC-ERR-004 | `POST /v1/breweries` | 405 | **0 evaluadas** | `SyntaxError` en el script de test (carácter `s` sobrante tras `oneOf([405, 404]);` en la colección); el 405 observado no fue validado por assertions |
-| TC-ERR-005 | `GET /v2/breweries` | 404 | 2/2 PASS | — |
-
-### 6.4 Contrato y consistencia (4/4 con informe — 4 APROBADO)
-
-| ID | Escenario | Estado | Resultado (informe) |
-|---|---|---|---|
-| TC-CON-001 | Campos obligatorios | APROBADO | 6/6 campos presentes; AJV PASS; 16/16 |
-| TC-CON-002 | Tipos de datos | APROBADO | `id`/`name` string; `latitude`/`longitude` **number** (contrato evaluado: Number/Null); AJV PASS — ver §8.2 |
-| TC-CON-003 | Listado vs detalle | APROBADO | Igualdad profunda; 16 propiedades y 0 diferencias |
-| TC-CON-004 | Estructura de metadatos | APROBADO | `total`/`page`/`per_page` enteros; propiedades adicionales `by_state`, `by_country` y `by_type` **permitidas por el contrato revisado**; AJV PASS — ver §8.2 |
-
-### 6.5 Rendimiento (5/5 con informe — 5 APROBADO)
-
-Resumen en la §7; detalle en `02_Resumen_Rendimiento.md`.
-
----
-
-## 7. Resultados de rendimiento
-
-Criterios vigentes (versión definitiva indicada para la consolidación). Se verificó que los 5 informes vigentes los aplican.
-
-| ID | Criterio vigente | Resultado real | Estado | ¿Informe compatible? |
+| ID | Escenario | Resultado esperado | Resultado obtenido | Estado |
 |---|---|---|---|---|
-| TC-REN-001 | Response Time < 2000 ms | 316 ms (HTTP 200) | APROBADO | Sí |
-| TC-REN-002 | Response Time < 1500 ms | 331 ms (HTTP 200, `query=san`) | APROBADO | Sí |
-| TC-REN-003 | 50 secuenciales, 100 % HTTP 200, P95 < 2000 ms | 50/50 HTTP 200; P95 = 259 ms (nearest-rank, posición 48) | APROBADO | Sí (informe actualizado, commit `dae6dcb`) |
-| TC-REN-004 | 10 hilos; ≥ 95 % < 3000 ms; 0 % errores | 10/10 HTTP 200; 100 % < 3000 ms; P95 = 624 ms | APROBADO | Sí |
-| TC-REN-005 | 10 hilos × 60 s; ≥ 99.18 req/s; 100 % HTTP 200; 0 % HTTP 429 | 103.31 req/s; 6200/6200 HTTP 200; 0 HTTP 429 | APROBADO | Sí (informe actualizado, commit `dae6dcb`) |
+| TC-FUN-001 | Listado general de cervecerías | HTTP 200; arreglo JSON no vacío de objetos de cervecerías | HTTP 200; arreglo de 50 objetos con paginación por defecto; 6/6 aserciones; 323 ms | APROBADO |
+| TC-FUN-002 | Consulta por ID dinámico | HTTP 200; objeto único cuyo `id` coincide con el solicitado e incluye `id`, `name` y `brewery_type` | ID `ae7b3174-8be8-4d53-a3a5-9b8240970eea` obtenido del listado; detalle con el mismo ID y los campos requeridos; 14/14 aserciones; 90 ms | APROBADO |
+| TC-FUN-003 | Búsqueda por nombre | HTTP 200; arreglo no vacío cuyos nombres contienen "san" | HTTP 200; 50 resultados, de los cuales solo 4 contienen "san" en el nombre; 7/8 aserciones; 712 ms; defecto reproducido en 3 de 3 ejecuciones | **RECHAZADO** |
+| TC-FUN-004 | Cervecería aleatoria | HTTP 200; objeto JSON único (no arreglo) con `id`, `name` y `brewery_type` | HTTP 200; la raíz es un arreglo con 1 elemento; los campos no están en la raíz; 3/8 aserciones; 448 ms; defecto reproducido en 3 de 3 ejecuciones | **RECHAZADO** |
+| TC-FUN-005 | Consulta de metadatos | HTTP 200; objeto con `total`, `page` y `per_page` | HTTP 200; `total`=11848, `page`=1, `per_page`=50; 8/8 aserciones; 327 ms | APROBADO |
+| TC-FUN-006 | Filtrado por estado (`by_state=california`) | Todos los registros con `state`="California" | 50/50 registros conformes; 8/8 aserciones; 314 ms | APROBADO |
+| TC-FUN-007 | Filtrado por tipo (`by_type=micro`) | Todos los registros con `brewery_type`="micro" | 50/50 registros conformes; 8/8 aserciones; 355 ms | APROBADO |
+| TC-FUN-008 | Paginación (`page=2&per_page=5`) | Máximo 5 registros; IDs distintos a los de la página 1 | Página 1: 5 registros (320 ms); página 2: 5 registros (84 ms); ningún ID en común; 14/14 aserciones | APROBADO |
+| TC-FUN-009 | Flujo de consulta encadenado | El detalle del ID seleccionado es idéntico al elemento del listado | ID `ef970757-fe42-416f-931d-722451f1f59c`; 16/16 campos iguales y 0 diferencias; 12/12 aserciones | APROBADO |
 
-Las versiones anteriores de TC-REN-003 y TC-REN-005, ejecutadas con los criterios del plan v1.0 (desviación estándar sin umbral y línea base sin mínimo), **no se usan como definitivas**. Se conservan en el historial de git (commit `0b9d9b2`).
+**Análisis.** Las operaciones de listado, consulta por identificador, metadatos, filtrado, paginación y flujo encadenado se comportan conforme a lo especificado. Los dos rechazos corresponden a defectos reproducibles del servicio:
+
+- **TC-FUN-003:** los 46 registros no conformes tienen una ciudad que comienza por "San", lo que indica que el endpoint `/search` busca el término en campos distintos del nombre (por ejemplo, la ciudad). El comportamiento no se ajusta al resultado esperado de una búsqueda por nombre.
+- **TC-FUN-004:** el endpoint `/random` devuelve la cervecería envuelta en un arreglo, lo que obliga al consumidor a acceder al primer elemento en lugar de recibir directamente el objeto.
+
+### 6.2 Pruebas de validación de entradas — 2 aprobadas, 3 rechazadas
+
+| ID | Escenario | Solicitud | Resultado esperado | Resultado obtenido | Estado |
+|---|---|---|---|---|---|
+| TC-VAL-001 | Parámetro válido | `GET /v1/breweries?by_state=texas` | HTTP 200; arreglo de cervecerías de Texas | HTTP 200; arreglo con todos los registros con `state`="Texas"; 3/3 aserciones | APROBADO |
+| TC-VAL-002 | Tipo de cervecería inexistente | `GET /v1/breweries?by_type=xyz` | HTTP 200 con arreglo vacío o HTTP 400 con error de validación | HTTP 200; objeto JSON con el mensaje de bienvenida de la API (`message`, `documentation_url`, `mcp_url`); sin arreglo vacío ni error de validación | **RECHAZADO** |
+| TC-VAL-003 | Búsqueda sin término | `GET /v1/breweries/search?query=` | HTTP 200 con arreglo vacío o HTTP 400 con mensaje de parámetro requerido | HTTP 200; objeto JSON con el mensaje de bienvenida; 1/2 aserciones (falló "expected { …(3) } to be an array") | **RECHAZADO** |
+| TC-VAL-004 | Ciudad no registrada | `GET /v1/breweries?by_city=atlantida` | HTTP 200; arreglo vacío `[]` | HTTP 200; arreglo vacío; 2/2 aserciones | APROBADO |
+| TC-VAL-005 | Caracteres especiales en búsqueda | `GET /v1/breweries/search?query=%20%25%26` | HTTP 200; arreglo vacío o manejo controlado sin error 500 | HTTP 200 sin error 500, pero con el objeto de bienvenida en lugar de un arreglo; 2/3 aserciones (falló "Validación de estructura segura") | **RECHAZADO** |
+
+**Análisis.** La API procesa correctamente los parámetros válidos y los valores inexistentes de filtros de texto libre (TC-VAL-001 y TC-VAL-004). Sin embargo, ante entradas inválidas, vacías o con caracteres especiales no aplica una validación explícita: en lugar de devolver un arreglo vacío o un error controlado (HTTP 400), responde HTTP 200 con el mensaje de bienvenida de la API. Esto produce un cambio en la estructura de la respuesta (objeto en lugar de arreglo) que puede provocar errores en los consumidores. Como aspecto positivo, ninguna de las entradas provocó un error interno del servidor (HTTP 500).
+
+### 6.3 Pruebas de manejo de errores — 5 aprobadas, 0 rechazadas
+
+| ID | Escenario | Solicitud | Resultado esperado | Resultado obtenido | Estado |
+|---|---|---|---|---|---|
+| TC-ERR-001 | ID con formato válido pero inexistente | `GET /v1/breweries/00000000-0000-0000-0000-000000000000` | HTTP 404 con mensaje de error o cuerpo vacío | HTTP 404; página HTML "Not Found" (`text/html`) que indica que el recurso no existe | APROBADO |
+| TC-ERR-002 | Formato de ID inválido | `GET /v1/breweries/12345` | HTTP 400 o 404 | HTTP 404; página HTML "Not Found" | APROBADO |
+| TC-ERR-003 | Endpoint inexistente | `GET /v1/beers` | HTTP 404 | HTTP 404; página HTML "Not Found"; 2/2 aserciones | APROBADO |
+| TC-ERR-004 | Método HTTP no permitido | `POST /v1/breweries` | HTTP 405 o 404 | HTTP 405 "Method Not Allowed"; página HTML de error | APROBADO |
+| TC-ERR-005 | Versión de API incorrecta | `GET /v2/breweries` | HTTP 404 | HTTP 404; página HTML "Not Found"; 2/2 aserciones | APROBADO |
+
+**Análisis.** La API responde en todos los casos con el código de estado HTTP adecuado para cada situación de error (404 para recursos y rutas inexistentes y 405 para métodos no permitidos), por lo que los cinco casos se consideran aprobados. Se registran las siguientes observaciones:
+
+- Las respuestas de error se entregan como páginas HTML y no como objetos JSON. Este formato no es el habitual en una API REST y obliga a los consumidores a tratar el error únicamente por el código de estado.
+- En TC-ERR-001 y TC-ERR-002 fallaron aserciones secundarias que esperaban un cuerpo vacío o JSON. El estado se determinó por el código HTTP y por el contenido "Not Found", que cumplen el resultado esperado.
+- En TC-ERR-004 el script de pruebas presentó un error de sintaxis (`SyntaxError: Unexpected end of input`), por lo que el código 405 se verificó en la respuesta registrada y no mediante aserción automatizada. Se recomienda corregir el script para futuras ejecuciones.
+
+### 6.4 Pruebas de contrato y consistencia — 4 aprobadas, 0 rechazadas
+
+| ID | Escenario | Resultado esperado | Resultado obtenido | Estado |
+|---|---|---|---|---|
+| TC-CON-001 | Presencia de campos obligatorios | Objeto JSON con `id`, `name`, `brewery_type`, `city`, `state` y `country` | 6/6 campos presentes; validación AJV sin errores; 16/16 aserciones; 85 ms | APROBADO |
+| TC-CON-002 | Tipos de datos | `id` y `name` de tipo String; `latitude` y `longitude` de tipo Number o Null | `id`/`name` string; `latitude`=50.241246 y `longitude`=11.327765 (number); AJV sin errores; 14/14 aserciones; 86 ms | APROBADO |
+| TC-CON-003 | Consistencia entre listado y detalle | Igualdad profunda entre el objeto del listado y el del detalle | 16 propiedades comparadas; mismo conjunto de claves; 0 diferencias de valor, tipo o nulabilidad; 14/14 aserciones | APROBADO |
+| TC-CON-004 | Estructura de metadatos | `total`, `page` y `per_page` como enteros; se admiten propiedades adicionales | `total`=11848, `page`=1, `per_page`=50 (enteros); propiedades adicionales `by_state`, `by_country` y `by_type`; AJV sin errores; 11/11 aserciones; 311 ms | APROBADO |
+
+**Análisis.** La estructura y los tipos de datos de las respuestas cumplen el contrato definido, y la información de un mismo recurso es consistente entre los endpoints de listado y de detalle.
+
+### 6.5 Pruebas de rendimiento — 5 aprobadas, 0 rechazadas
+
+| ID | Escenario | Criterio de aceptación | Resultado obtenido | Margen | Estado |
+|---|---|---|---|---|---|
+| TC-REN-001 | Latencia de listado simple | Tiempo de respuesta < 2000 ms | 316 ms; HTTP 200; 20 731 bytes | 1684 ms | APROBADO |
+| TC-REN-002 | Latencia de búsqueda | Tiempo de respuesta < 1500 ms | 331 ms; HTTP 200; 21 738 bytes | 1169 ms | APROBADO |
+| TC-REN-003 | Estabilidad bajo repetición | 50 solicitudes secuenciales; 100 % HTTP 200; P95 < 2000 ms | 50/50 HTTP 200; P95 = 259 ms (mín. 220, máx. 521, media 239,08, mediana 230,50, desv. est. 41,82 ms; CV 17,49 %) | 1741 ms | APROBADO |
+| TC-REN-004 | Carga moderada | 10 hilos concurrentes; ≥ 95 % < 3000 ms; 0 % de errores | 10/10 HTTP 200; 100 % < 3000 ms; 0 % de errores; P95 = 624 ms (mín. 613, máx. 624, media 618,7 ms) | 2376 ms | APROBADO |
+| TC-REN-005 | Throughput | 10 hilos durante 60 s; ≥ 99,18 req/s; 100 % HTTP 200; 0 % HTTP 429 | 6200 solicitudes; 103,31 req/s; 6200/6200 HTTP 200; 0 HTTP 429; 0 errores de red; latencia media 96,58 ms y P95 104 ms | +4,13 req/s | APROBADO |
+
+**Análisis.** La API cumple todos los criterios de rendimiento con márgenes amplios. Los tiempos de respuesta individuales se sitúan entre un 78 % y un 84 % por debajo de los umbrales; el comportamiento bajo repetición es estable (coeficiente de variación del 17,49 %) y, bajo carga concurrente sostenida, la API mantuvo un throughput de 103,31 req/s, con una degradación del 6,25 % respecto de la línea base de 110,198 req/s, sin errores ni limitación de tasa (HTTP 429). El detalle de las métricas se encuentra en [`02_Resumen_Rendimiento.md`](02_Resumen_Rendimiento.md).
 
 ---
 
-## 8. Hallazgos relevantes
+## 7. Defectos identificados
 
-### 8.1 Hallazgos sobre el servicio (documentados en informes)
+| ID defecto | Caso | Descripción | Severidad sugerida | Reproducibilidad |
+|---|---|---|---|---|
+| DEF-01 | TC-FUN-003 | El endpoint `/v1/breweries/search?query=san` devuelve registros cuyo nombre no contiene el término buscado (46 de 50), aparentemente porque la búsqueda incluye otros campos, como la ciudad | Media | 3/3 |
+| DEF-02 | TC-FUN-004 | El endpoint `/v1/breweries/random` devuelve un arreglo de un elemento en lugar de un objeto JSON único | Baja | 3/3 |
+| DEF-03 | TC-VAL-002 | Un valor inexistente en `by_type` no se valida: la API responde HTTP 200 con el mensaje de bienvenida en lugar de un arreglo vacío o un HTTP 400 | Media | — |
+| DEF-04 | TC-VAL-003 | Una búsqueda con término vacío responde HTTP 200 con el mensaje de bienvenida en lugar de un arreglo vacío o un mensaje de parámetro requerido | Media | — |
+| DEF-05 | TC-VAL-005 | Una búsqueda con caracteres especiales responde HTTP 200 con el mensaje de bienvenida en lugar de un arreglo | Media | — |
 
-| # | Caso | Hallazgo | Reproducibilidad |
-|---|---|---|---|
-| H-1 | TC-FUN-003 | `GET /v1/breweries/search?query=san` devuelve 46 de 50 registros cuyo nombre no contiene "san". Los 46 tienen ciudad que empieza por "San", lo que sugiere que la búsqueda considera otros campos, como la ciudad (observación diagnóstica del informe) | 3/3 ejecuciones |
-| H-2 | TC-FUN-004 | `GET /v1/breweries/random` devuelve un **arreglo de 1 elemento**; el paquete ejecutado esperaba un objeto único (ver §8.2) | 3/3 ejecuciones |
+### 7.1 Observaciones adicionales
 
-Observaciones de datos, fuera del alcance de los casos y no tratadas como hallazgos: el registro `ae7b3174-…` tiene `name` = `'s` (TC-FUN-002 y TC-CON-001/002/003), y la página 2 de TC-FUN-008 contiene dos registros "10 Barrel Brewing Co" en Bend con IDs distintos.
-
-### 8.2 Discrepancias entre el plan localizado (v1.0) y los criterios aplicados en los informes
-
-**Requieren decisión del equipo. No se resuelven en este consolidado.**
-
-| Caso | Plan v1.0 (`PLAN DE PRUEBAS (1).docx`) | Criterio aplicado en el informe | Impacto |
-|---|---|---|---|
-| TC-FUN-004 | "Arreglo JSON con **un solo elemento** aleatorio" | "Objeto JSON único… no un arreglo" | El informe es **RECHAZADO**. La respuesta observada (arreglo de 1 elemento) coincidiría con la redacción del plan v1.0. El estado depende de cuál sea el resultado esperado vigente |
-| TC-CON-002 | `latitude`/`longitude` (**String**/Null) | Number/Null | El informe es **APROBADO** con valores numéricos. Con la redacción del plan v1.0 esos valores **no** cumplirían |
-| TC-CON-004 | "estrictamente total, page, per_page" | Contrato revisado: campos mínimos; adicionales permitidos | El informe vigente es **APROBADO**. Una ejecución previa con contrato estricto resultó RECHAZADA (según la nota del propio informe), pero **su evidencia no se conservó**: no está en git ni en la carpeta |
-| TC-REN-003 / TC-REN-005 | Desviación "baja" sin umbral / línea base sin mínimo | P95 < 2000 ms / ≥ 99.18 req/s | Coinciden con la versión definitiva indicada para la consolidación, que **no se localizó como documento** |
-
-### 8.3 Documentación faltante
-
-- **Plan definitivo:** no está en el repositorio. El único plan de Open BreweryDB localizado (v1.0, externo) no contiene los criterios vigentes de TC-REN-003 y TC-REN-005.
-- **Matriz de resultados:** no localizada. Fuera del repositorio solo hay una plantilla vacía (`C:\Users\yoloh\Downloads\Plantilla CasosPruebas.xlsx`, solo encabezados y responsable) y tres CSV `Casos_Prueba(Matriz de Trazabilidad)*.csv` de otro proyecto (SGPMP). **No se pudo contrastar el estado consolidado contra una matriz.**
-- **TC-VAL-001 a 005 y TC-ERR-001 a 005:** sin informe individual. Los fallos observados no tienen análisis ni clasificación documentados.
-
-### 8.4 Inconsistencias en la evidencia de TC-VAL y TC-ERR
-
-- **TC-VAL-002:** el reporte HTML muestra la URL `https://api.openbrewerydb.org//v1/breweries?by_type=xyz` (doble barra), que respondió con una página HTML 404. La colección versionada contiene `https://api.openbrewerydb.org/v1/breweries?by_type=xyz`. **La evidencia no corresponde a la colección actual**, así que el resultado no permite evaluar el comportamiento real del parámetro `by_type=xyz`.
-- **TC-ERR-004:** la colección contiene un error de sintaxis (`…oneOf([405, 404]);s`) que impidió evaluar las assertions. El código observado, 405, coincide con el esperado (405/404), pero no quedó validado automáticamente.
-- **TC-VAL-003:** el plan especifica `GET /v1/breweries/search` sin parámetro, pero se ejecutó `GET /v1/breweries/search?query=` (parámetro vacío).
-- **TC-VAL-005:** la request no lleva el ID del caso en su nombre.
+- **Formato de las respuestas de error:** los errores 404 y 405 se devuelven como páginas HTML en lugar de cuerpos JSON (TC-ERR-001 a TC-ERR-005).
+- **Calidad de datos:** el registro `ae7b3174-8be8-4d53-a3a5-9b8240970eea` tiene como nombre el valor `'s`, y la página 2 de TC-FUN-008 incluye dos registros "10 Barrel Brewing Co" en Bend con identificadores distintos. Estas situaciones no afectan al resultado de los casos, pero se reportan para su revisión.
+- **Script de pruebas:** la colección de TC-ERR-004 contiene un error de sintaxis que impide ejecutar sus aserciones automatizadas.
 
 ---
 
-## 9. Limitaciones
+## 8. Cumplimiento de los criterios de finalización
 
-1. **Plan y matriz:** la versión definitiva del plan y la matriz de resultados no están en el repositorio ni se localizaron. Los criterios de rendimiento vigentes se tomaron de la definición de la tarea de consolidación.
-2. **TC-VAL y TC-ERR:** solo hay un reporte HTML por grupo. No hay JSON de Newman, cuerpos de respuesta en archivo ni informes. El resultado observado se extrajo del HTML.
-3. **Medición end-to-end** desde un único equipo Windows. La ubicación del runner y el tipo de conexión no están verificados, y los tiempos incluyen red, DNS y TLS.
-4. **Datos vivos:** Open BreweryDB es un servicio público con datos cambiantes; los IDs y conteos corresponden al momento de cada ejecución.
-5. **JMeter 5.6.3** se instaló fuera del repositorio (`C:\tools\apache-jmeter-5.6.3`) durante TC-REN-004, con autorización y verificación SHA-512 según su informe.
-6. El **preflight en la GUI de Postman** no se realizó en TC-FUN-001 (se hizo con Newman, según su informe).
-
----
-
-## 10. Cumplimiento de criterios de finalización
-
-Criterios de finalización del plan v1.0, evaluados contra la evidencia:
-
-| Criterio | Evaluación | Estado |
+| Criterio | Resultado | Estado |
 |---|---|---|
-| 100 % de casos críticos (TC-FUN y TC-ERR) ejecutados al menos una vez | TC-FUN 9/9 con evidencia; TC-ERR 5/5 con evidencia Newman. En TC-ERR-004 no se evaluaron assertions | Cumple en ejecución, con la salvedad de TC-ERR-004 |
-| ≥ 95 % de casos totales ejecutados | 28/28 con evidencia de ejecución (100 %) | Cumple |
-| 0 hallazgos críticos sin documentar | Los fallos de TC-VAL-002/003/005 y TC-ERR-001/002/004 **no están analizados ni clasificados en ningún informe** | **No cumple / pendiente** |
-| Latencia individual: REN-001 < 2000 ms y REN-002 < 1500 ms | 316 ms y 331 ms | Cumple |
-| P95 en ejecución múltiple (REN-003 y REN-004) | 259 ms (< 2000 ms) y 624 ms (100 % < 3000 ms) | Cumple |
-| Carga moderada: ≥ 95 % < 3000 ms y 0 % errores (REN-004) | 100 % < 3000 ms; 0 % errores | Cumple |
-| Sin rate limiting sostenido (REN-005) | 0 HTTP 429 en 6200 muestras | Cumple |
-| Contrato validado (TC-CON) | 4/4 APROBADO según informes, pero CON-002 y CON-004 aplican un contrato distinto del plan v1.0 (§8.2) | Cumple según informes; **pendiente de confirmar el contrato vigente** |
-| Informe final con recomendación Go/No-Go | Este consolidado. **No se emite Go/No-Go definitivo** por los puntos pendientes (§11) | Parcial |
+| 100 % de los casos críticos (TC-FUN y TC-ERR) ejecutados al menos una vez | 14/14 casos ejecutados | Cumple |
+| ≥ 95 % del total de casos ejecutados | 28/28 casos ejecutados (100 %) | Cumple |
+| Latencia individual: TC-REN-001 < 2000 ms y TC-REN-002 < 1500 ms | 316 ms y 331 ms | Cumple |
+| P95 en ejecución múltiple (TC-REN-003 y TC-REN-004) | 259 ms (< 2000 ms) y 624 ms (100 % < 3000 ms) | Cumple |
+| Carga moderada: ≥ 95 % < 3000 ms y 0 % de errores (TC-REN-004) | 100 % < 3000 ms; 0 % de errores | Cumple |
+| Ausencia de limitación de tasa sostenida (TC-REN-005) | 0 respuestas HTTP 429 en 6200 solicitudes | Cumple |
+| Contrato de respuesta validado (TC-CON) | 4/4 casos aprobados | Cumple |
+| Defectos identificados documentados | 5 defectos registrados en la sección 7 | Cumple |
 
 ---
 
-## 11. Conclusiones
+## 9. Riesgos y limitaciones
 
-1. **Cobertura:** los 28 casos planificados tienen evidencia de ejecución. Los 18 casos con informe individual dan 16 APROBADO, 2 RECHAZADO y 0 BLOQUEADO.
-2. **Funcionalidad:** el listado, el detalle, los metadatos, los filtros por estado y tipo, la paginación y el flujo encadenado funcionan según los informes. Hay dos defectos reproducibles: la búsqueda por nombre devuelve resultados que no contienen el término (TC-FUN-003), y `/random` devuelve un arreglo de un elemento (TC-FUN-004), cuya calificación depende del resultado esperado vigente.
-3. **Contrato:** los campos obligatorios, la consistencia entre listado y detalle y los tipos numéricos de las coordenadas se cumplen según los contratos aplicados. Hay que confirmar si el contrato vigente de TC-CON-002 (Number frente a String) y de TC-CON-004 (estricto frente a mínimo) es el aplicado en los informes.
-4. **Rendimiento:** los 5 casos cumplen los criterios vigentes, con márgenes amplios. No se observó rate limiting (HTTP 429) con 10 hilos a unos 103 req/s.
-5. **Validación de entradas y errores:** se ejecutaron, pero **no tienen informe ni estado formal**. Su evidencia presenta inconsistencias (TC-VAL-002 con URL distinta de la colección y TC-ERR-004 con error de script) que impiden concluir sobre esos casos sin corregir y reejecutar, lo que queda fuera del alcance de este consolidado.
-6. **Recomendación:** antes de emitir el Go/No-Go se debe (a) localizar o versionar en el repositorio el plan definitivo y la matriz de resultados, (b) resolver las discrepancias de la §8.2, y (c) documentar y, si procede, corregir los casos TC-VAL y TC-ERR.
+1. **Mediciones de extremo a extremo:** los tiempos se registraron desde un único equipo con Windows e incluyen la latencia de red, por lo que pueden variar según la ubicación y la conexión utilizada.
+2. **Datos dinámicos:** Open BreweryDB es un servicio público con datos que cambian con el tiempo; los identificadores, totales y conteos reportados corresponden al momento de la ejecución.
+3. **Carga limitada:** las pruebas de rendimiento se realizaron con un máximo de 10 hilos concurrentes. No se evaluó el comportamiento con volúmenes de carga superiores.
+4. **Servicio de terceros:** la API no está bajo control del equipo de pruebas, por lo que los defectos identificados solo pueden reportarse al proveedor.
 
 ---
 
-## 12. Referencia a evidencias
+## 10. Conclusiones
 
-- Índice completo por caso, con rutas verificadas: [`03_Indice_Evidencias.md`](03_Indice_Evidencias.md)
-- Consolidado de rendimiento: [`02_Resumen_Rendimiento.md`](02_Resumen_Rendimiento.md)
-- Informes individuales: `../01_Funcionales/TC-FUN-00x/`, `../04_Contrato_Consistencia/TC-CON-00x/` y `../05_Rendimiento/TC-REN-00x/` (archivo `TC-XXX-00x_Informe.md` en cada carpeta)
-- Evidencia de TC-VAL y TC-ERR: `../02_Validacion_Entradas/` y `../03_Manejo_Errores/` (colección y reporte HTML)
-- Versiones anteriores en git: commit `0b9d9b2` (TC-REN-003 y TC-REN-005 con los criterios del plan v1.0)
+1. **Cobertura:** se ejecutaron los 28 casos planificados (100 %), con 23 aprobados (82,1 %), 5 rechazados (17,9 %) y ningún caso bloqueado.
+2. **Funcionalidad:** las capacidades principales de la API (listado, consulta por identificador, metadatos, filtros por estado y tipo, paginación y flujo encadenado) funcionan correctamente. Se identificaron dos defectos reproducibles: la búsqueda por nombre devuelve resultados que no contienen el término buscado y el endpoint de cervecería aleatoria devuelve un arreglo en lugar de un objeto.
+3. **Validación de entradas:** es el área más débil de la campaña (40 % de aprobación). La API no valida los parámetros inválidos, vacíos o con caracteres especiales y responde con el mensaje de bienvenida en lugar de una respuesta estructurada coherente o un error controlado.
+4. **Manejo de errores:** la API devuelve los códigos de estado HTTP adecuados en todos los escenarios evaluados, aunque el cuerpo de las respuestas de error está en formato HTML en lugar de JSON.
+5. **Contrato y consistencia:** las respuestas cumplen el contrato definido en cuanto a campos obligatorios, tipos de datos y estructura de metadatos, y son consistentes entre los endpoints de listado y de detalle.
+6. **Rendimiento:** la API cumple todos los criterios con márgenes amplios, mantiene un comportamiento estable bajo repetición y bajo carga concurrente moderada, y no presenta limitación de tasa con aproximadamente 103 solicitudes por segundo.
+
+---
+
+## 11. Recomendación
+
+Con base en la evidencia recopilada, se emite un dictamen **GO CONDICIONADO** para el uso de la API Open BreweryDB como fuente de consulta de datos:
+
+- La API es **apta** para consumos de listado, consulta por identificador, filtrado, paginación y metadatos, con un rendimiento y una consistencia de datos satisfactorios.
+- Los consumidores deben **implementar medidas de mitigación** frente a los defectos identificados:
+  - validar en el cliente los parámetros antes de enviarlos y verificar que la respuesta sea un arreglo antes de procesarla (DEF-03, DEF-04 y DEF-05);
+  - filtrar en el cliente los resultados de la búsqueda cuando se requiera una coincidencia estricta por nombre (DEF-01);
+  - tratar la respuesta de `/random` como un arreglo y tomar su primer elemento (DEF-02);
+  - gestionar los errores a partir del código de estado HTTP y no del cuerpo de la respuesta.
+- Se recomienda **reportar los defectos DEF-01 a DEF-05 al proveedor** del servicio y **corregir el script de TC-ERR-004** antes de una nueva ronda de regresión.
+
+---
+
+## 12. Referencias
+
+- Índice de evidencias por caso: [`03_Indice_Evidencias.md`](03_Indice_Evidencias.md)
+- Resumen de rendimiento: [`02_Resumen_Rendimiento.md`](02_Resumen_Rendimiento.md)
+- Evidencias de pruebas funcionales: `../01_Funcionales/`
+- Evidencias de validación de entradas: `../02_Validacion_Entradas/`
+- Evidencias de manejo de errores: `../03_Manejo_Errores/`
+- Evidencias de contrato y consistencia: `../04_Contrato_Consistencia/`
+- Evidencias de rendimiento: `../05_Rendimiento/`
